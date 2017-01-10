@@ -1,7 +1,25 @@
 $(function () {
-    var ciudadOrigen = "", ciudadDestino = "";                                  //Leí por ahí que cagan a pedo a la gente que usa variables globales. Yo todavía no le he encontrado la vuelta para este caso.
+    ciudadOrigen = "", ciudadDestino = "";                                           //Leí por ahí que cagan a pedo a la gente que usa variables globales. Yo todavía no le he encontrado la vuelta para este caso.
+    
+    var dropdownOrigen1 = $('#dropdownCiudadesOrigen');
+    var dropdownDestino1 = $('#dropdownCiudadesDestino');
+    var dropdownOrigen2 = $('#dropdownCiudadesOrigen2');
+    var dropdownDestino2 = $('#dropdownCiudadesDestino2');
+    
+    dropdownCaptura = function (dropdown) {
+        dropdown.on('click', 'li', function () {                //Capturas de los Dropdown
+            var btn = $(this);
+            ciudadOrigen = $(this).text();
 
-    $('#dropdownCiudadesOrigen').on('click', 'li', function () {                //Capturas de los Dropdown
+            if (btn.hasClass("btn-danger")) {
+                btn.switchClass("btn-danger", "btn-primary", 0);
+                $("#divDanger").fadeOut();
+            }
+            btn.html(ciudadOrigen);
+        });
+    };
+    
+    /*$('#dropdownCiudadesOrigen').on('click', 'li', function () {                //Capturas de los Dropdown
         var btn = $("#btnDropdownOrigen");
         ciudadOrigen = $(this).text();
 
@@ -21,7 +39,7 @@ $(function () {
             $("#divDanger").fadeOut();
         }
         btn.html(ciudadDestino);
-    });
+    });*/
 
     $("#datepickerOrigen").on("click", function () {                            //Remover clases de inputs
         $(this).removeClass("redBorder");                                       //El Dropdown se pone en rojo cuando hay un error
@@ -39,20 +57,15 @@ $(function () {
         var radioIdaVuelta = $("#divRadio input:radio:checked").val();
         inputFechaIda = $("#datepickerOrigen").datepicker("getDate");
         inputFechaVuelta = $("#datepickerDestino").datepicker("getDate");
-
-        //inputFechaIda.getDate();
+        
         var date30dias = new Date(new Date().setDate(new Date().getDate() + 30));
         date30dias.setHours(0, 0, 0, 0);
 
         if (validarCiudadOrigen() && validarCiudadDestino() && validarFechaIda(inputFechaIda, date30dias) && validarFechaVuelta(inputFechaVuelta, radioIdaVuelta)) {
             console.log("Submit!...!");
             
-            var url = "acciones.php?";
-            $.ajax({                                                            //Si todo esta OK, se envían los datos
-                url: url,
-                method: "POST",
-            });
-            //$("#formWeb").submit(); 
+            window.location.replace('seleccionServicio.html');
+            
         } else {
             console.log("Naaaaa ta re loco vo' amigo!");                        //Si no pues...no
         }
@@ -78,7 +91,7 @@ $(function () {
     validarCiudadOrigen = function () {
         if (ciudadOrigen === "") {
             $("#btnDropdownOrigen").switchClass("btn-primary", "btn-danger", 200);
-            var titulo = "Che!", mensaje = "Dejaste la ciudad de origen vacía boludo";
+            var titulo = "Che!", mensaje = "Dejaste la ciudad de origen vacía";
             mensajeAlerta(titulo, mensaje);
             return false;
         } else {
@@ -135,7 +148,8 @@ $(function () {
             method: 'GET',
             success: function (data) {
                 data = $.parseJSON(data);
-                rellenarDropdownCiudades(data);
+                rellenarDropdownCiudades(data, dropdownOrigen1, dropdownDestino1);
+                rellenarDropdownCiudades(data, dropdownOrigen2, dropdownDestino2);
             },
             error: function (data) {
                 console.log("Error in da data nigga");
@@ -144,7 +158,7 @@ $(function () {
         });
     };
 
-    rellenarDropdownCiudades = function (data) {
+    rellenarDropdownCiudades = function (data, dropdownOrigen, dropdownDestino) {
         var html = "";
 
         $.each(data, function (index, data) {
@@ -153,8 +167,8 @@ $(function () {
                     '</li>';
         });
 
-        $("#dropdownCiudadesOrigen").append(html);
-        $("#dropdownCiudadesDestino").append(html);
+        dropdownOrigen.append(html);
+        dropdownDestino.append(html);
     };
     
     mensajeAlerta = function(titulo, mensaje){
@@ -164,6 +178,8 @@ $(function () {
     };
 
     mostrarCiudades();
+    dropdownCaptura(dropdownOrigen1);
+    dropdownCaptura(dropdownDestino1);
 });
 
 
