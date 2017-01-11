@@ -2,20 +2,24 @@ $(function () {
     ciudadOrigen = "", ciudadDestino = "";                                           //Leí por ahí que cagan a pedo a la gente que usa variables globales. Yo todavía no le he encontrado la vuelta para este caso.
     
     var dropdownOrigen1 = $('#dropdownCiudadesOrigen');
+    var btnDropdownOrigen1 = $("#btnDropdownOrigen");
     var dropdownDestino1 = $('#dropdownCiudadesDestino');
+    var btnDropdownDestino1 = $("#btnDropdownDestino");
     var dropdownOrigen2 = $('#dropdownCiudadesOrigen2');
     var dropdownDestino2 = $('#dropdownCiudadesDestino2');
     
-    dropdownCaptura = function (dropdown) {
-        dropdown.on('click', 'li', function () {                //Capturas de los Dropdown
-            var btn = $(this);
-            ciudadOrigen = $(this).text();
-
-            if (btn.hasClass("btn-danger")) {
-                btn.switchClass("btn-danger", "btn-primary", 0);
+    dropdownCaptura = function (dropdown, boton, ciudad) {
+        var ciudad="";
+        
+        dropdown.on('click', 'li', function () {
+            ciudad = $(this).text();
+            
+            if (boton.hasClass("btn-danger")) {
+                boton.switchClass("btn-danger", "btn-primary", 0);
                 $("#divDanger").fadeOut();
             }
-            btn.html(ciudadOrigen);
+            boton.html(ciudad);
+            return ciudad;
         });
     };
     
@@ -149,7 +153,7 @@ $(function () {
             success: function (data) {
                 data = $.parseJSON(data);
                 rellenarDropdownCiudades(data, dropdownOrigen1, dropdownDestino1);
-                rellenarDropdownCiudades(data, dropdownOrigen2, dropdownDestino2);
+                //rellenarDropdownCiudades(data, dropdownOrigen2, dropdownDestino2);
             },
             error: function (data) {
                 console.log("Error in da data nigga");
@@ -178,8 +182,8 @@ $(function () {
     };
 
     mostrarCiudades();
-    dropdownCaptura(dropdownOrigen1);
-    dropdownCaptura(dropdownDestino1);
+    ciudadOrigen = dropdownCaptura(dropdownOrigen1, btnDropdownOrigen1, ciudadOrigen);
+    ciudadDestino = dropdownCaptura(dropdownDestino1, btnDropdownDestino1, ciudadDestino);
 });
 
 
