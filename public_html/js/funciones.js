@@ -1,6 +1,4 @@
 $(function () {
-    var ciudadOrigen = "", ciudadDestino = "";                                           //Leí por ahí que cagan a pedo a la gente que usa variables globales. Yo todavía no le he encontrado la vuelta para este caso.
-
     var dropdownOrigen1 = $('#dropdownCiudadesOrigen');
     var btnDropdownOrigen1 = $("#btnDropdownOrigen");
     var dropdownDestino1 = $('#dropdownCiudadesDestino');
@@ -17,13 +15,10 @@ $(function () {
             }
             boton.html(ciudad);
             if (dropdown === dropdownOrigen1) {
-               array.splice(0,1,ciudad);
-               //sessionStorage.setItem('ciudadOrigen', ciudad); 
-            }else {
-               //sessionStorage.setItem('ciudadDestino', ciudad); 
+               array.splice(0,1,ciudad); 
+            }else { 
                array.splice(1,1,ciudad);
             }
-            console.log(array);
             sessionStorage.setItem('ciudades', JSON.stringify(array));
         });
     };
@@ -162,11 +157,8 @@ $(function () {
     };
 
     mostrarCiudades();
-    ciudadOrigen = dropdownCaptura(dropdownOrigen1, btnDropdownOrigen1);
-    ciudadDestino = dropdownCaptura(dropdownDestino1, btnDropdownDestino1);
-    //dropdownCaptura(dropdownOrigen2, btnDropdownOrigen2, ciudadOrigen);
-    //dropdownCaptura(dropdownDestino2, btnDropdownDestino2, ciudadDestino);
-    //dropdownSetter();
+    dropdownCaptura(dropdownOrigen1, btnDropdownOrigen1);
+    dropdownCaptura(dropdownDestino1, btnDropdownDestino1);
 });
 
 
