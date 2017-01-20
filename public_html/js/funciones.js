@@ -1,49 +1,32 @@
 $(function () {
-    ciudadOrigen = "", ciudadDestino = "";                                           //Leí por ahí que cagan a pedo a la gente que usa variables globales. Yo todavía no le he encontrado la vuelta para este caso.
-    
+    var ciudadOrigen = "", ciudadDestino = "";                                           //Leí por ahí que cagan a pedo a la gente que usa variables globales. Yo todavía no le he encontrado la vuelta para este caso.
+
     var dropdownOrigen1 = $('#dropdownCiudadesOrigen');
     var btnDropdownOrigen1 = $("#btnDropdownOrigen");
     var dropdownDestino1 = $('#dropdownCiudadesDestino');
     var btnDropdownDestino1 = $("#btnDropdownDestino");
-    var dropdownOrigen2 = $('#dropdownCiudadesOrigen2');
-    var dropdownDestino2 = $('#dropdownCiudadesDestino2');
-    
-    dropdownCaptura = function (dropdown, boton, ciudad) {
-        var ciudad="";
-        
+    var array = [];
+
+    dropdownCaptura = function (dropdown, boton) {
+        var ciudad;
         dropdown.on('click', 'li', function () {
             ciudad = $(this).text();
-            
             if (boton.hasClass("btn-danger")) {
                 boton.switchClass("btn-danger", "btn-primary", 0);
                 $("#divDanger").fadeOut();
             }
             boton.html(ciudad);
-            return ciudad;
+            if (dropdown === dropdownOrigen1) {
+               array.splice(0,1,ciudad);
+               //sessionStorage.setItem('ciudadOrigen', ciudad); 
+            }else {
+               //sessionStorage.setItem('ciudadDestino', ciudad); 
+               array.splice(1,1,ciudad);
+            }
+            console.log(array);
+            sessionStorage.setItem('ciudades', JSON.stringify(array));
         });
     };
-    
-    /*$('#dropdownCiudadesOrigen').on('click', 'li', function () {                //Capturas de los Dropdown
-        var btn = $("#btnDropdownOrigen");
-        ciudadOrigen = $(this).text();
-
-        if (btn.hasClass("btn-danger")) {
-            btn.switchClass("btn-danger", "btn-primary", 0);
-            $("#divDanger").fadeOut();
-        }
-        btn.html(ciudadOrigen);
-    });
-
-    $('#dropdownCiudadesDestino').on('click', 'li', function () {
-        var btn = $("#btnDropdownDestino");
-        ciudadDestino = $(this).text();
-
-        if (btn.hasClass("btn-danger")) {
-            btn.switchClass("btn-danger", "btn-primary", 0);
-            $("#divDanger").fadeOut();
-        }
-        btn.html(ciudadDestino);
-    });*/
 
     $("#datepickerOrigen").on("click", function () {                            //Remover clases de inputs
         $(this).removeClass("redBorder");                                       //El Dropdown se pone en rojo cuando hay un error
@@ -61,23 +44,21 @@ $(function () {
         var radioIdaVuelta = $("#divRadio input:radio:checked").val();
         inputFechaIda = $("#datepickerOrigen").datepicker("getDate");
         inputFechaVuelta = $("#datepickerDestino").datepicker("getDate");
-        
+
         var date30dias = new Date(new Date().setDate(new Date().getDate() + 30));
         date30dias.setHours(0, 0, 0, 0);
 
         if (validarCiudadOrigen() && validarCiudadDestino() && validarFechaIda(inputFechaIda, date30dias) && validarFechaVuelta(inputFechaVuelta, radioIdaVuelta)) {
-            console.log("Submit!...!");
-            
+            console.log('Ciudad Origen: '+ciudadOrigen);
             window.location.replace('seleccionServicio.html');
-            
         } else {
             console.log("Naaaaa ta re loco vo' amigo!");                        //Si no pues...no
         }
     });
 
-    $('.datepicker').datepicker({                                               //Datepickers
-        dateFormat: "dd-mm-yy",                                                 //Una funcioncita que encontré en interne'
-        minDate: 0,                                                             //para tirar Datepickers re piola
+    $('.datepicker').datepicker({//Datepickers
+        dateFormat: "dd-mm-yy", //Una funcioncita que encontré en interne'
+        minDate: 0, //para tirar Datepickers re piola
         firstDay: 1,
         yearRange: '+0:+1',
         changeMonth: true,
@@ -139,7 +120,7 @@ $(function () {
             } else {
                 return true;
             }
-        }else{
+        } else {
             return true;
         }
     };
@@ -153,7 +134,6 @@ $(function () {
             success: function (data) {
                 data = $.parseJSON(data);
                 rellenarDropdownCiudades(data, dropdownOrigen1, dropdownDestino1);
-                //rellenarDropdownCiudades(data, dropdownOrigen2, dropdownDestino2);
             },
             error: function (data) {
                 console.log("Error in da data nigga");
@@ -174,16 +154,19 @@ $(function () {
         dropdownOrigen.append(html);
         dropdownDestino.append(html);
     };
-    
-    mensajeAlerta = function(titulo, mensaje){
+
+    mensajeAlerta = function (titulo, mensaje) {
         $("#divDanger").fadeIn();
         $("#strongDanger").html(titulo);
         $("#spanDanger").html(mensaje);
     };
 
     mostrarCiudades();
-    ciudadOrigen = dropdownCaptura(dropdownOrigen1, btnDropdownOrigen1, ciudadOrigen);
-    ciudadDestino = dropdownCaptura(dropdownDestino1, btnDropdownDestino1, ciudadDestino);
+    ciudadOrigen = dropdownCaptura(dropdownOrigen1, btnDropdownOrigen1);
+    ciudadDestino = dropdownCaptura(dropdownDestino1, btnDropdownDestino1);
+    //dropdownCaptura(dropdownOrigen2, btnDropdownOrigen2, ciudadOrigen);
+    //dropdownCaptura(dropdownDestino2, btnDropdownDestino2, ciudadDestino);
+    //dropdownSetter();
 });
 
 
