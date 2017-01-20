@@ -120,7 +120,7 @@ $(function () {
         }
     };
 
-    mostrarCiudades = function () {
+    mostrarCiudades = function (dropdownOrigen, dropdownDestino) {
         var url = 'acciones.php?accion=ciudades';
 
         $.ajax({
@@ -128,7 +128,16 @@ $(function () {
             method: 'GET',
             success: function (data) {
                 data = $.parseJSON(data);
-                rellenarDropdownCiudades(data, dropdownOrigen1, dropdownDestino1);
+                var html = "";
+
+                $.each(data, function (index, data) {
+                    html += '<li>' +
+                            '<a href="#">' + data.nombre + '</a>' +
+                            '</li>';
+                });
+
+                dropdownOrigen.append(html);
+                dropdownDestino.append(html);
             },
             error: function (data) {
                 console.log("Error in da data nigga");
@@ -156,9 +165,9 @@ $(function () {
         $("#spanDanger").html(mensaje);
     };
 
-    mostrarCiudades();
-    dropdownCaptura(dropdownOrigen1, btnDropdownOrigen1);
-    dropdownCaptura(dropdownDestino1, btnDropdownDestino1);
+    mostrarCiudades(dropdownOrigen1, dropdownDestino1);
+    ciudadOrigen = dropdownCaptura(dropdownOrigen1, btnDropdownOrigen1);
+    ciudadDestino = dropdownCaptura(dropdownDestino1, btnDropdownDestino1);
 });
 
 
