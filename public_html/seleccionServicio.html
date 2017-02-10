@@ -38,9 +38,9 @@
                 <h3>Paso 2 - Selección de servicios</h3>
             </div>
         </div>
-        <div class="col-lg-2"></div>
+        <div class="col-lg-1"></div>
 
-        <div class="col-lg-8">
+        <div class="col-lg-9">
             <div id="divOrigen">
                 <div class="dropdown" id="divDropdownOrigen2">
                     <label>Ciudad de Origen</label>
@@ -79,17 +79,29 @@
                     <span class="glyphicon glyphicon-file"></span>Imprimir pasaje
                 </button>
             </div>
+            <div>
+                <h1>Tramo</h1>
+                <h2><span id="lblTramo"></span></h2>
+            </div>
             <div class="container">
-                <div id="divTramo">
-                    <span>TRAMO</span>
-                </div>
-                <div id="divEmpresa">
-                    <span>EMPRESA</span>
-                </div>
+                <table id="tabla" class="table">
+                    <thead>
+                        <tr>
+                            <th>Empresas</th>
+                            <th>Información del servicio</th>
+                            <th>Calidades</th>
+                            <th>Salida</th>
+                            <th>Llegada</th>
+                            <th>Precio Ida</th>
+                            <th>Precio Ida/Vuelta</th>
+                            <th>Libres</th>
+                        </tr>
+                    </thead>
+                </table>
             </div>
         </div>
 
-        <div class="col-lg-2"></div>
+        <div class="col-lg-1"></div>
         <!-- SCRIPTS -->
         <script src="js/jquery-1.11.2.min.js"></script>
         <script src="js/bootstrap.min.js"></script>

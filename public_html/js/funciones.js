@@ -3,7 +3,8 @@ $(function () {
     var btnDropdownOrigen1 = $("#btnDropdownOrigen");
     var dropdownDestino1 = $('#dropdownCiudadesDestino');
     var btnDropdownDestino1 = $("#btnDropdownDestino");
-    var array = [];
+    var ciudadOrigen, ciudadDestino;
+    var arraySession = [];
 
     dropdownCaptura = function (dropdown, boton) {
         var ciudad;
@@ -15,11 +16,12 @@ $(function () {
             }
             boton.html(ciudad);
             if (dropdown === dropdownOrigen1) {
-               array.splice(0,1,ciudad); 
+               arraySession.splice(0,1,ciudad); 
+                ciudadOrigen = ciudad;
             }else { 
-               array.splice(1,1,ciudad);
+               arraySession.splice(1,1,ciudad);
+               ciudadDestino = ciudad;
             }
-            sessionStorage.setItem('ciudades', JSON.stringify(array));
         });
     };
 
@@ -36,24 +38,29 @@ $(function () {
     $("#btnBuscar").click(function () {                                         //Boton Submit
         var inputFechaIda = new Date();
         var inputFechaVuelta = new Date();
+        var fechaIda = $('#datepickerOrigen').val();
+        var fechaVuelta = $('#datepickerDestino').val();
         var radioIdaVuelta = $("#divRadio input:radio:checked").val();
         inputFechaIda = $("#datepickerOrigen").datepicker("getDate");
         inputFechaVuelta = $("#datepickerDestino").datepicker("getDate");
+        arraySession.splice(2, 1, fechaIda);
+        arraySession.splice(3, 1, fechaVuelta);
 
         var date30dias = new Date(new Date().setDate(new Date().getDate() + 30));
         date30dias.setHours(0, 0, 0, 0);
 
         if (validarCiudadOrigen() && validarCiudadDestino() && validarFechaIda(inputFechaIda, date30dias) && validarFechaVuelta(inputFechaVuelta, radioIdaVuelta)) {
-            console.log('Ciudad Origen: '+ciudadOrigen);
+            sessionStorage.setItem('data', JSON.stringify(arraySession));
             window.location.replace('seleccionServicio.html');
         } else {
             console.log("Naaaaa ta re loco vo' amigo!");                        //Si no pues...no
         }
     });
 
-    $('.datepicker').datepicker({//Datepickers
-        dateFormat: "dd-mm-yy", //Una funcioncita que encontré en interne'
-        minDate: 0, //para tirar Datepickers re piola
+    $('.datepicker').datepicker({
+        dateFormat: "dd-mm-yy", 
+        dateonly: true,
+        minDate: 0, 
         firstDay: 1,
         yearRange: '+0:+1',
         changeMonth: true,
@@ -69,7 +76,8 @@ $(function () {
     });
 
     validarCiudadOrigen = function () {
-        if (ciudadOrigen === "") {
+        alert("Ciudad de Origen: "+ciudadOrigen);
+        if (ciudadOrigen == null) {
             $("#btnDropdownOrigen").switchClass("btn-primary", "btn-danger", 200);
             var titulo = "Che!", mensaje = "Dejaste la ciudad de origen vacía";
             mensajeAlerta(titulo, mensaje);
@@ -80,7 +88,7 @@ $(function () {
     };
 
     validarCiudadDestino = function () {
-        if (ciudadDestino === "") {
+        if (ciudadDestino == null) {
             $("#btnDropdownDestino").switchClass("btn-primary", "btn-danger", 200);
             var titulo = "Che!", mensaje = "Dejaste la ciudad de destino vacía pelotudo";
             mensajeAlerta(titulo, mensaje);
