@@ -2,13 +2,14 @@
 class Conexion{
     private $_conexion = null;
     private $_usuario = 'root';
-    private $_pass = '';
+    private $_pass = 'root';
     
     public function __construct(){
         try{
             $this->_conexion = new PDO("mysql:host=localhost;dbname=carrito;charset=utf8", $this->_usuario, $this->_pass);
+            $this->_conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         }catch(PDOException $e){
-            echo "Error en la conexion: ".$e->getMessage();
+            echo 'Falló la conexión: ' . $e->getMessage();
         }
     }
     

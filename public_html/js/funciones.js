@@ -53,7 +53,7 @@ $(function () {
             sessionStorage.setItem('data', JSON.stringify(arraySession));
             window.location.replace('seleccionServicio.html');
         } else {
-            console.log("Naaaaa ta re loco vo' amigo!");                        //Si no pues...no
+            console.log("Error validar");                        //Si no pues...no
         }
     });
 
@@ -76,7 +76,6 @@ $(function () {
     });
 
     validarCiudadOrigen = function () {
-        alert("Ciudad de Origen: "+ciudadOrigen);
         if (ciudadOrigen == null) {
             $("#btnDropdownOrigen").switchClass("btn-primary", "btn-danger", 200);
             var titulo = "Che!", mensaje = "Dejaste la ciudad de origen vacía";
@@ -90,7 +89,7 @@ $(function () {
     validarCiudadDestino = function () {
         if (ciudadDestino == null) {
             $("#btnDropdownDestino").switchClass("btn-primary", "btn-danger", 200);
-            var titulo = "Che!", mensaje = "Dejaste la ciudad de destino vacía pelotudo";
+            var titulo = "Che!", mensaje = "La ciudad destino esta vacía :/";
             mensajeAlerta(titulo, mensaje);
             return false;
         } else {
@@ -101,11 +100,11 @@ $(function () {
     validarFechaIda = function (fechaIda, fecha30dias) {
         if (fechaIda === null) {
             $("#datepickerOrigen").addClass("redBorder");
-            var titulo = "Che!", mensaje = "Elegí fecha de salida gil";
+            var titulo = "Che!", mensaje = "Elegir fecha de salida";
             mensajeAlerta(titulo, mensaje);
             return false;
         } else if (+fechaIda > +fecha30dias) {
-            var titulo = "Nope", mensaje = "No pueden pasar mas de 30 dias de la fecha de salida, compadre";
+            var titulo = "Nope", mensaje = "No pueden pasar mas de 30 dias de la fecha de salida";
             mensajeAlerta(titulo, mensaje);
             return false;
         } else {
@@ -117,7 +116,7 @@ $(function () {
         if (opcionRadio == 2) {
             if (fechaVuelta === null) {
                 $("#datepickerDestino").addClass("redBorder");
-                var titulo = "Che!", mensaje = "Poné fecha de vuelta la concha de tu madre.";
+                var titulo = "Che!", mensaje = "Poné fecha de vuelta";
                 mensajeAlerta(titulo, mensaje);
                 return false;
             } else {
@@ -148,7 +147,7 @@ $(function () {
                 dropdownDestino.append(html);
             },
             error: function (data) {
-                console.log("Error in da data nigga");
+                console.log("Error data");
                 console.log(data);
             }
         });

@@ -19,10 +19,44 @@ class Querys {
         return $array;
     }
     
-    public function tramos(){
-        $ciudadOrigen = $_POST['ciudadOrigen'];
-        $ciudadDestino = $_POST['ciudadDestino'];
+    public function getEmpresa(){
         
-        $query = "";
+        $query = "SELECT nombreEmpresa FROM empresas";
+        $statement = $this->_conexion->prepare($query);
+        $statement->execute();
+        $array = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $array;
     }
+    
+    public function getBus(){
+        $query = "SELECT arrayButacas FROM buses WHERE patenteBus='AF465FG'";
+        $statement = $this->_conexion->prepare($query);
+        $statement->execute();
+        $row = $statement->fetchColumn();
+        $arrayBus = unserialize($row);
+        return $arrayBus;
+    }
+    
+    public function getTramo() {
+        $ciudadOrigen;
+        $ciudadDestino;
+        
+        try {
+            $query = "SELECT horarios.horarioSalida, buses.calidadServicio, buses.arrayButacas, tramos.precio 
+                     FROM tramos 
+                     INNER JOIN horarios ON tramos.fk_horarios = horarios.idHorario
+                     INNER JOIN buses ON tramos.fk_buses = buses.patenteBus
+                     INNER JOIN ciudades AS corigen ON tramos.fk_ciudadOrigen = corigen.idCiudad
+                     INNER JOIN ciudades AS cdestino ON tramos.fk_ciudadDestino = cdestino.idCiudad
+                     WHERE corigen.nombre = 'Mendoza' AND cdestino.nombre = 'Cordoba'";
+
+            $statement = $this->_conexion->prepare($query);
+            $statement->execute();
+            $array = $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $array;
+        } catch (PDOException $e) {
+            print $e->getMessage();
+        }
+    }
+
 }

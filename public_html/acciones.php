@@ -9,6 +9,18 @@ switch ($accion){
        $resultado = $querys->ciudades();
     break;
 
+    case 'tablaServicio':
+        $resultado = $querys->tablaServicio();
+        break;
+    
+    case 'getBus':
+        $resultado = $querys->getBus();
+        break;
+    
+    case 'tramo':
+        $resultado = $querys->getTramo();
+        break;
+
     default:
         $resultado = "No se encontró la accion";
 }
