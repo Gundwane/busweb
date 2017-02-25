@@ -6,6 +6,8 @@ $(function(){
     var fechaVuelta = data[3];
     var dropdownOrigen = $("#dropdownCiudadesOrigen2");
     var dropdownDestino = $("#dropdownCiudadesDestino2");
+    var botonDropdownOrigen = $("#btnDropdownOrigen2");
+    var botonDropdownDestino = $("#btnDropdownDestino2");
     $('#btnDropdownOrigen2').html(ciudadOrigen);
     $('#btnDropdownDestino2').html(ciudadDestino);
     $('#datepickerOrigen2').val(fechaIda);
@@ -15,19 +17,15 @@ $(function(){
     
     $("#lblTramo").append("Desde: "+ciudadOrigen+" a "+ciudadDestino);
     
-    $("#btnBuscar").on("click", function(){
-        var ciudadOrigenEnviar = dropdownCaptura($("#btnDropdownOrigen1"));
-        //var ciudadDestino = dropdownDestino.val();
-        
-        alert(ciudadOrigenEnviar);
+    $("#btnBuscarServicio").on("click", function(){
+        //var ciudadOrigenEnviar = $("#dropdownCiudadesOrigen2 li a").text();
+        console.log($("#dropdownCiudadesOrigen2 li a").parents().val());
+        //alert(ciudadOrigenEnviar);
     });
     
-    dropdownCaptura = function (dropdown) {
-        var ciudad;
-        ciudad = dropdown.text();
-        console.log("Ciudad: "+ciudad);
-        return ciudad;
-    };
+    /*$("#dropdownCiudadesOrigen2").on("change", function(){
+        console.log("CHANGE!");
+    });*/
     
     cantidadButacas = function () {
         var url='acciones.php?accion=getBus';
@@ -108,9 +106,8 @@ $(function(){
         });
     };
     
-    //pruebaArray();
-    //tablaServicios();
-    //cantidadButacas();
     tramo();
+    dropdownCaptura(dropdownOrigen, botonDropdownOrigen);
+    dropdownCaptura(dropdownDestino, botonDropdownDestino);
 });
 

@@ -10,6 +10,7 @@ $(function () {
         var ciudad;
         dropdown.on('click', 'li', function () {
             ciudad = $(this).text();
+            
             if (boton.hasClass("btn-danger")) {
                 boton.switchClass("btn-danger", "btn-primary", 0);
                 $("#divDanger").fadeOut();
@@ -17,7 +18,7 @@ $(function () {
             boton.html(ciudad);
             if (dropdown === dropdownOrigen1) {
                arraySession.splice(0,1,ciudad); 
-                ciudadOrigen = ciudad;
+               ciudadOrigen = ciudad;
             }else { 
                arraySession.splice(1,1,ciudad);
                ciudadDestino = ciudad;
@@ -139,7 +140,7 @@ $(function () {
 
                 $.each(data, function (index, data) {
                     html += '<li>' +
-                            '<a href="#">' + data.nombre + '</a>' +
+                            '<a>' + data.nombre + '</a>' +
                             '</li>';
                 });
 
@@ -158,7 +159,7 @@ $(function () {
 
         $.each(data, function (index, data) {
             html += '<li>' +
-                    '<a href="#">' + data.nombre + '</a>' +
+                    '<a>' + data.nombre + '</a>' +
                     '</li>';
         });
 
