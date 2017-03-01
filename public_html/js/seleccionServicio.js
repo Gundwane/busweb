@@ -17,15 +17,26 @@ $(function(){
     
     $("#lblTramo").append("Desde: "+ciudadOrigen+" a "+ciudadDestino);
     
-    $("#btnBuscarServicio").on("click", function(){
-        //var ciudadOrigenEnviar = $("#dropdownCiudadesOrigen2 li a").text();
-        console.log($("#dropdownCiudadesOrigen2 li a").parents().val());
-        //alert(ciudadOrigenEnviar);
-    });
     
-    /*$("#dropdownCiudadesOrigen2").on("change", function(){
-        console.log("CHANGE!");
-    });*/
+    
+    $("#btnBuscarServicio").on("click", function(){
+        var origen = botonDropdownOrigen.text();
+        var destino = botonDropdownDestino.text();
+        var url = "acciones.php?accion=getTramo";
+        
+        $.ajax({
+            url: url,
+            method: 'POST',
+            dataType: 'json',
+            data: {ciudadOrigen: origen, ciudadDestino: destino},
+            success: function(data){
+                llenarTabla(data);
+            },
+            error: function(){
+                console.log('Error');
+            }
+        });
+    });
     
     cantidadButacas = function () {
         var url='acciones.php?accion=getBus';
@@ -49,7 +60,7 @@ $(function(){
     };
     
     llenarTabla = function(data){
-        
+        console.log("Data: "+data);
         var html = "", tabla = $("#bodyTablaServicio");
                 $.each(data, function (index, data) {
                     html += "<tr>" + 
@@ -90,23 +101,6 @@ $(function(){
             }
         }
     };
-    
-    tramo = function(){
-        var url="acciones.php?accion=tramo";
-        $.ajax({
-            url: url,
-            method: 'get',
-            dataType: 'json',
-            success: function(data){
-                llenarTabla(data);
-            },
-            error: function(){
-                console.log("Error getin tramo");
-            }
-        });
-    };
-    
-    tramo();
     dropdownCaptura(dropdownOrigen, botonDropdownOrigen);
     dropdownCaptura(dropdownDestino, botonDropdownDestino);
 });

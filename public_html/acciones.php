@@ -17,7 +17,7 @@ switch ($accion){
         $resultado = $querys->getBus();
         break;
     
-    case 'tramo':
+    case 'getTramo':
         $resultado = $querys->getTramo();
         break;
 

@@ -1,8 +1,8 @@
 $(function () {
-    var dropdownOrigen1 = $('#dropdownCiudadesOrigen');
-    var btnDropdownOrigen1 = $("#btnDropdownOrigen");
-    var dropdownDestino1 = $('#dropdownCiudadesDestino');
-    var btnDropdownDestino1 = $("#btnDropdownDestino");
+    var dropdownOrigen = $('#dropdownCiudadesOrigen');
+    var btnDropdownOrigen = $("#btnDropdownOrigen");
+    var dropdownDestino = $('#dropdownCiudadesDestino');
+    var btnDropdownDestino = $("#btnDropdownDestino");
     var ciudadOrigen, ciudadDestino;
     var arraySession = [];
 
@@ -16,13 +16,14 @@ $(function () {
                 $("#divDanger").fadeOut();
             }
             boton.html(ciudad);
-            if (dropdown === dropdownOrigen1) {
+            if (dropdown === dropdownOrigen) {
                arraySession.splice(0,1,ciudad); 
                ciudadOrigen = ciudad;
             }else { 
                arraySession.splice(1,1,ciudad);
                ciudadDestino = ciudad;
             }
+            return ciudad;
         });
     };
 
@@ -173,9 +174,9 @@ $(function () {
         $("#spanDanger").html(mensaje);
     };
 
-    mostrarCiudades(dropdownOrigen1, dropdownDestino1);
-    ciudadOrigen = dropdownCaptura(dropdownOrigen1, btnDropdownOrigen1);
-    ciudadDestino = dropdownCaptura(dropdownDestino1, btnDropdownDestino1);
+    mostrarCiudades(dropdownOrigen, dropdownDestino);
+    dropdownCaptura(dropdownOrigen, btnDropdownOrigen);
+    dropdownCaptura(dropdownDestino, btnDropdownDestino);
 });
 
 

@@ -38,8 +38,8 @@ class Querys {
     }
     
     public function getTramo() {
-        $ciudadOrigen;
-        $ciudadDestino;
+        $ciudadOrigen = $_POST['ciudadOrigen'];
+        $ciudadDestino = $_POST['ciudadDestino'];
         
         try {
             $query = "SELECT horarios.horarioSalida, buses.calidadServicio, buses.arrayButacas, tramos.precio 
@@ -48,9 +48,11 @@ class Querys {
                      INNER JOIN buses ON tramos.fk_buses = buses.patenteBus
                      INNER JOIN ciudades AS corigen ON tramos.fk_ciudadOrigen = corigen.idCiudad
                      INNER JOIN ciudades AS cdestino ON tramos.fk_ciudadDestino = cdestino.idCiudad
-                     WHERE corigen.nombre = 'Mendoza' AND cdestino.nombre = 'Cordoba'";
+                     WHERE corigen.nombre = ? AND cdestino.nombre = ?";
 
             $statement = $this->_conexion->prepare($query);
+            $statement->bindParam(1, $ciudadOrigen);
+            $statement->bindParam(2, $ciudadDestino);
             $statement->execute();
             $array = $statement->fetchAll(PDO::FETCH_ASSOC);
             return $array;
