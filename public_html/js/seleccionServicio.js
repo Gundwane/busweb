@@ -4,6 +4,7 @@ $(function(){
     var ciudadDestino = data[1];
     var fechaIda = data[2];
     var fechaVuelta = data[3];
+    var radio = data[4];
     var dropdownOrigen = $("#dropdownCiudadesOrigen2");
     var dropdownDestino = $("#dropdownCiudadesDestino2");
     var botonDropdownOrigen = $("#btnDropdownOrigen2");
@@ -15,15 +16,21 @@ $(function(){
     
     mostrarCiudades(dropdownOrigen, dropdownDestino);
     
-    $("#lblTramo").append("Desde: "+ciudadOrigen+" a "+ciudadDestino);
-    
-    
-    
     $("#btnBuscarServicio").on("click", function(){
         var origen = botonDropdownOrigen.text();
         var destino = botonDropdownDestino.text();
-        var url = "acciones.php?accion=getTramo";
         
+        tituloTramo(origen, destino);
+        enviarCiudades(origen, destino);
+    });
+    
+    tituloTramo = function(origen, destino){
+        $("#lblTramo").empty();
+        $("#lblTramo").append("Desde: "+origen+" a "+destino);
+    };
+    
+    enviarCiudades = function(origen, destino){
+        var url = 'acciones.php?accion=getTramo';
         $.ajax({
             url: url,
             method: 'POST',
@@ -33,49 +40,50 @@ $(function(){
                 llenarTabla(data);
             },
             error: function(){
-                console.log('Error');
-            }
-        });
-    });
-    
-    cantidadButacas = function () {
-        var url='acciones.php?accion=getBus';
-        
-        $.ajax({
-            url: url,
-            method: 'get',
-            dataType: 'json',
-            success: function(data){
-                var count = 0;
-                for (var i = 0; i < data.length-1; i++) {
-                    if (data[i] === 0) {
-                        count++;  
-                    }
-                }
-            },
-            error: function(){
-                console.log("Error gettin buses, yo");
+                console.log('Error enviando ciudades');
             }
         });
     };
     
-    llenarTabla = function(data){
-        console.log("Data: "+data);
+    cantidadButacas = function (data) {
+        var count = 0;
+        for (var i = 0; i < data.length - 1; i++) {
+            if (data[i] == 0) {
+                count++;
+            }
+        }
+        return count;
+    };
+    
+    llenarTabla = function (data) {
         var html = "", tabla = $("#bodyTablaServicio");
-                $.each(data, function (index, data) {
-                    html += "<tr>" + 
-                            "<td>Empresa X</td>" +
-                            "<td><span id=infoIcon class='glyphicon glyphicon-info-sign'></span></td>" +
-                            "<td>"+ data.calidadServicio +"</td>" +
-                            "<td>"+ data.horarioSalida +"</td>" +
-                            "<td></td>" +
-                            "<td>"+ data.precio +"</td>" +
-                            "<td></td>" +
-                            "<td><span></td>" +
-                            "</tr>";
-                });
-                
-                tabla.append(html);
+        var precioidavuelta;
+        var butacas;
+        
+        tabla.empty();
+        $.each(data, function (index, data) {
+            butacas = cantidadButacas(data.arrayButacas);
+            console.log("Butacas: "+butacas);
+            
+            if (radio == 2) {
+                precioidavuelta = data.precio * 2;
+            } else {
+                precioidavuelta = "";
+            }
+            
+            html += "<tr>" +
+                    "<td>Empresa X</td>" +
+                    "<td><span id=infoIcon class='glyphicon glyphicon-info-sign'></span></td>" +
+                    "<td>" + data.calidadServicio + "</td>" +
+                    "<td>" + data.horarioSalida + "</td>" +
+                    "<td></td>" +
+                    "<td>" + data.precio + "</td>" +
+                    "<td>"+ precioidavuelta +"</td>" +
+                    "<td>"+ butacas +"</td>" +
+                    "</tr>";
+        });
+
+        tabla.append(html);
     };
     
     pruebaArray = function(){
@@ -103,5 +111,7 @@ $(function(){
     };
     dropdownCaptura(dropdownOrigen, botonDropdownOrigen);
     dropdownCaptura(dropdownDestino, botonDropdownDestino);
+    tituloTramo(ciudadOrigen, ciudadDestino);
+    enviarCiudades(ciudadOrigen, ciudadDestino);
 });
 

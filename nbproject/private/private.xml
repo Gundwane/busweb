@@ -5,18 +5,12 @@
             <url>public_html/js/seleccionServicio.js</url>
             <bookmark id="1">
                 <name/>
-                <line>7</line>
+                <line>8</line>
                 <key/>
             </bookmark>
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/xampp/htdocs/Carrito/public_html/web.html</file>
-            <file>file:/C:/xampp/htdocs/Carrito/public_html/js/seleccionServicio.js</file>
-            <file>file:/C:/xampp/htdocs/Carrito/public_html/js/funciones.js</file>
-            <file>file:/C:/xampp/htdocs/Carrito/public_html/acciones.php</file>
-            <file>file:/C:/xampp/htdocs/Carrito/public_html/seleccionServicio.html</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

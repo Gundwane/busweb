@@ -47,6 +47,7 @@ $(function () {
         inputFechaVuelta = $("#datepickerDestino").datepicker("getDate");
         arraySession.splice(2, 1, fechaIda);
         arraySession.splice(3, 1, fechaVuelta);
+        arraySession.splice(4, 1, radioIdaVuelta);
 
         var date30dias = new Date(new Date().setDate(new Date().getDate() + 30));
         date30dias.setHours(0, 0, 0, 0);
