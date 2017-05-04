@@ -4,25 +4,27 @@ require './Conexion.php';
 class Micros{
     private $_matrizButacas = array();
     private $_conexion = null;
-    
+
     public function __construct(){
         $conexion = new Conexion();
         $this->_conexion = $conexion->getConexion();
     }
-    
+
     public function constructBus() {
+        $asientos = $_POST['cantidadAsientos'];
         try {
-            for ($i = 0; $i <= 48; $i++) {
+            for ($i = 0; $i <= $asientos; $i++) {
                 $this->_matrizButacas[$i] = 0;
             }
             $serializedArrayButacas = serialize($this->_matrizButacas);
 
-            $query = "UPDATE buses SET cantButacas=48, arrayButacas=? WHERE patenteBus='AF465FG'";
+            $query = "UPDATE buses SET asientos = ?, arrayAsientos = ? WHERE patente='asd456'";
             $statement = $this->_conexion->prepare($query);
-            $statement->bindParam(1, $serializedArrayButacas);
+            $statement->bindParam(1, $asientos);
+            $statement->bindParam(2, $serializedArrayButacas);
             $statement->execute();
-            
-            print_r($this->_matrizButacas);
+
+            echo "<script language='javascript'>Console.Log('Iiiisa')</script>";
         } catch (PDOException $e) {
             echo 'Exception caught: ' . $e->getMessage();
         }
@@ -38,7 +40,7 @@ class Micros{
                 echo "<br>";
             }
     }
-    
+
     public function showTableBus(){
         $count = 0;
         $query = "SELECT arrayButacas FROM buses WHERE patenteBus='AF465FG'";
@@ -46,16 +48,16 @@ class Micros{
         $statement->execute();
         $row = $statement->fetchColumn();
         $arrayBus = unserialize($row);
-        
+
         for ($i = 0; $i < count($arrayBus)-1; $i++) {
             if ($arrayBus[$i] === 0) {
                 $count++;
             }
         }
-        
+
         return $count;
     }
-    
+
     public function markButaca(){
          for ($i = 0; $i <= 12; $i++) {
                 for ($j = 0; $j <= 4; $j++) {
