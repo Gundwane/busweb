@@ -4,8 +4,8 @@
 }
 
 #divDropdownOrigen, #divDropdownDestino{
-    margin: 5px; 
-    width: 400px; 
+    margin: 5px;
+    width: 400px;
     height: 50px;
 }
 
@@ -17,19 +17,19 @@
 #divRadio{
     margin: 5px;
     clear: both;
-    position: relative; 
-    top: 30px; 
+    position: relative;
+    top: 30px;
 }
 
 #divImprimir{
-    margin: 5px; 
-    width: 400px; 
-    height: 50px; 
+    margin: 5px;
+    width: 400px;
+    height: 50px;
 }
 
 #btnBuscar{
-    position: absolute; 
-    left: 53%; 
+    position: absolute;
+    left: 53%;
 }
 
 body{
@@ -37,6 +37,7 @@ body{
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: cover;
+    background-color: #dce8f4;
 }
 
 .redBorder{

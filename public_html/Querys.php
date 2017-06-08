@@ -42,7 +42,7 @@ class Querys {
         $ciudadDestino = $_POST['ciudadDestino'];
 
         try {
-            $query = "SELECT empresa.nombreEmpresa, tramos.horarioSalida, tramos.horarioLlegada, buses.arrayAsientos
+            $query = "SELECT empresa.nombreEmpresa, tramos.horarioSalida, tramos.horarioLlegada, tramos.precio, buses.arrayAsientos
                      FROM tramos
                      INNER JOIN empresa ON tramos.fk_empresa = empresa.idEmpresa
                      INNER JOIN buses ON tramos.fk_bus = buses.idBus
@@ -64,10 +64,19 @@ class Querys {
                 }
               }
             }
+
             return $array;
         } catch (PDOException $e) {
             print $e->getMessage();
         }
+    }
+
+    public function getPrecio(){
+      $query = "SELECT * FROM calidades";
+      $statement = $this->_conexion->prepare($query);
+      $statement->execute();
+      $array = $statement->fetchAll(PDO::FETCH_ASSOC);
+      return $array;
     }
 
 }

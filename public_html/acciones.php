@@ -12,13 +12,17 @@ switch ($accion){
     case 'tablaServicio':
         $resultado = $querys->tablaServicio();
         break;
-    
+
     case 'getBus':
         $resultado = $querys->getBus();
         break;
-    
+
     case 'getTramo':
         $resultado = $querys->getTramo();
+        break;
+
+    case 'getPrecio':
+        $resultado = $querys->getPrecio();
         break;
 
     default:
@@ -26,4 +30,3 @@ switch ($accion){
 }
 
 echo json_encode($resultado);
-

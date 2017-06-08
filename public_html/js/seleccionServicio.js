@@ -4,7 +4,7 @@ $(function(){
     var ciudadDestino = data[1];
     var fechaIda = data[2];
     var fechaVuelta = data[3];
-    var radio = data[4];
+    var radioIdaVuelta = data[4];
     var dropdownOrigen = $("#dropdownCiudadesOrigen2");
     var dropdownDestino = $("#dropdownCiudadesDestino2");
     var botonDropdownOrigen = $("#btnDropdownOrigen2");
@@ -14,6 +14,7 @@ $(function(){
     $('#datepickerOrigen2').val(fechaIda);
     $('#datepickerDestino2').val(fechaVuelta);
 
+
     mostrarCiudades(dropdownOrigen, dropdownDestino);
 
     $("#btnBuscarServicio").on("click", function(event){
@@ -22,7 +23,6 @@ $(function(){
         var destino = botonDropdownDestino.text();
 
         tituloTramo(origen, destino);
-        console.log("Ciudad Origen: "+origen+" Ciudad Destino: "+destino);
         enviarCiudades(origen, destino);
     });
 
@@ -48,68 +48,100 @@ $(function(){
     };
 
     cantidadButacas = function (data) {
-      count = 0;
+      var arrayCountButacas = new Object();
+      var countSCSS = 0;
+      var countSC = 0;
+      var countC = 0;
+
         for (var i = 0; i < data.length; i++) {
-            if (data[i] == 0) {
-                count++;
+            if (data[i] == 'SCSS') {
+                countSCSS++;
+            }else if (data[i] == 'SC') {
+                countSC++;
+            }else if (data[i] == 'C') {
+                countC++;
             }
         }
-        return count;
+        countSCSS > 0 ? arrayCountButacas["SemiSS"] = countSCSS : arrayCountButacas["SemiSS"] = null;
+        countSC > 0 ? arrayCountButacas["SemiC"] = countSCSS : arrayCountButacas["SemiC"] = null;
+        countC > 0 ? arrayCountButacas["Cama"] = countSCSS : arrayCountButacas["Cama"] = null;
+
+        return arrayCountButacas;
     };
+
+    getPrecios = function()
+    {
+      const deferred = $.Deferred();
+      var url='acciones.php?accion=getPrecio';
+      $.ajax({
+        url: url,
+        method: 'GET',
+        async: false,
+        success: function(data){
+          deferred.resolve($.parseJSON(data));
+        },
+        error: function(){
+          console.log("Error gettin the calidades");
+        }
+      })
+      return deferred.promise();
+    }
 
     llenarTabla = function (data) {
         var html = "", tabla = $("#bodyTablaServicio");
-        var precioidavuelta;
         var butacas;
+        var precios, precioSS, precioSC, precioC;
+        getPrecios().then(function(val){
+          precios = val;
+        });
 
         tabla.empty();
-        $.each(data, function (index, data) {
-            butacas = cantidadButacas(data.arrayAsientos);
+        $.each(data, function (index, value) {
+            butacas = cantidadButacas(value.arrayAsientos);
+            if ((precios[0].calidad === Object.keys(butacas)[0]) && (butacas["SemiSS"] != null)) {
+              precioSS = value.precio;
+            }else {
+              precioSS = "";
+            }
 
-            /*if (radio == 2) {
-                precioidavuelta = data.precio * 2;
-            } else {
-                precioidavuelta = "";
-            }*/
+            if ((precios[1].calidad === Object.keys(butacas)[1]) && (butacas["SemiC"] != null)){
+              precioSC = parseInt(value.precio) + parseInt(value.precio * (precios[1].multiplicador/100));
+            }else {
+              precioSC = "";
+            }
+
+            if ((precios[2].calidad === Object.keys(butacas)[2]) && (butacas["Cama"] != null)) {
+              precioC = parseInt(value.precio) + parseInt(value.precio * (precios[2].multiplicador/100));
+            }else {
+              precioC = "";
+            }
 
             html += "<tr>" +
-                    "<td>" + data.nombreEmpresa + "</td>" +
+                    "<td>" + value.nombreEmpresa + "</td>" +
                     "<td><span id=infoIcon class='glyphicon glyphicon-info-sign'></span></td>" +
-                    "<td>" + data.calidadServicio + "</td>" +
-                    "<td>" + data.horarioSalida + "</td>" +
-                    "<td>" + data.horarioLlegada + "</td>" +
-                    "<td>" + data.precio + "</td>" +
-                    "<td>"+ precioidavuelta +"</td>" +
-                    "<td>"+ butacas +"</td>" +
+                    "<td>" +
+                      (butacas["SemiSS"] > 0 ? "Semicama sin servicio: " + butacas["SemiSS"] : "") + "<br>" +
+                      (butacas["SemiC"] > 0 ? "Semicama con servicio: " + butacas["SemiC"] : "") + "<br>" +
+                      (butacas["Cama"] > 0 ? "Cama: " + butacas["Cama"] : "") +
+                    "</td>" +
+                    "<td>" + value.horarioSalida + "</td>" +
+                    "<td>" + value.horarioLlegada + "</td>" +
+                    "<td>" +
+                      (precioSS !== "" ? "$"+precioSS : "") + "<br>" +
+                      (precioSC !== "" ? "$"+precioSC : "") + "<br>" +
+                      (precioC !== "" ? "$"+precioC : "") +
+                    "</td>" +
+                    "<td>" +
+                      ((radioIdaVuelta > 1) && (precioSS !== "") ? precioSS * 2 : "") + "<br>" +
+                      ((radioIdaVuelta > 1) && (precioSC !== "") ? precioSC * 2 : "") + "<br>" +
+                      ((radioIdaVuelta > 1) && (precioC !== "") ? precioC * 2 : "") +
+                    "</td>" +
                     "</tr>";
         });
 
         tabla.append(html);
     };
 
-    pruebaArray = function(){
-        var matriz = [];
-
-        for (i = 0; i < 4; i++) {
-            matriz[i] = new Array(4);
-        }
-
-        matriz[0] = 0;
-        matriz[1] = 1;
-        matriz[2] = 1;
-        matriz[3] = 0;
-
-        console.log("Matriz: "+matriz);
-
-        for (i = 0; i < matriz.length; i++) {
-            console.log(matriz[i]);
-            if (matriz[i] == 0) {
-                console.log("HAY UN CERO WACHO HAY UN CEROOOOOOOOOOOOOOOOOOOOOO!");
-            }else if(matriz[i] == 1){
-                console.log("HAY UN UNO WACHO HAY UN UNOOOOOOOOOOOOOOOOOOOOOO!");
-            }
-        }
-    };
     dropdownCaptura(dropdownOrigen, botonDropdownOrigen);
     dropdownCaptura(dropdownDestino, botonDropdownDestino);
     tituloTramo(ciudadOrigen, ciudadDestino);

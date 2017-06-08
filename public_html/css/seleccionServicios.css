@@ -1,7 +1,7 @@
 #divOrigen, #divDestino, #divRadio, #divBotones, #divTramo, #divEmpresa{
     width: 50%;
     float: left;
-    display: inline-block;
+    display: block;
 }
 #divRadio{
     padding: 5px;
@@ -13,4 +13,60 @@
 #divTramo, #divEmpresa > span{
     font-weight: bold;
     font-size: 20px;
+}
+
+#divDropdownOrigen2, #divDropdownDestino2{
+    margin: 5px;
+}
+
+.backgroundColor{
+   background-color: #ededed;
+}
+
+.jumbotron{
+  background-color: #252d30;
+  color: #ededed;
+  position: static;
+}
+
+.btn-per,
+.btn-per:active {
+  color: #E4A11B;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  background-color: #252d30;
+}
+
+.btn-per:focus,
+.btn-per.focus {
+  color: #fff;
+  background-color: #6E6E6E;
+  border-color: #122b40;
+}
+
+.btn-per.active.focus,
+.open > .dropdown-toggle.btn-per.focus {
+  color: #fff;
+  background-color: #BDBDBD;
+  border-color: #122b40;
+}
+
+.btn-per:hover {
+  color: #252d30;
+  background-color: #BDBDBD;
+}
+
+.blur{
+  width:88%;
+  height:200%;
+  top: 0;
+  left: 120px;
+  z-index: -1;
+  background-image:url('../images/fondo_gris.jpg');
+  position: fixed;
+}
+
+body{
+  background-image:url('../images/bus.jpg');
+  background-repeat: repeat-x;
+  margin: 0;
 }

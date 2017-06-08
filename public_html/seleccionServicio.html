@@ -19,32 +19,39 @@
           <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
     </head>
-    <body id="seleccionServicio">
-        <div class="page-header">
-            <div class="container">
-                <div class="pull-left"><span>Fecha</span></div>
-                <div class="dropdown pull-right">
-                    <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Idioma
-                        <span class="caret"></span></button>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Español</a></li>
-                        <li><a href="#">Inglés</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+    <body id="seleccionServicio" class="backgroundColor">
         <div class="jumbotron">
+            <div class="pull-left"><span>Fecha</span></div>
+            <div class="dropdown pull-right">
+                <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Idioma
+                    <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Español</a></li>
+                    <li><a href="#">Inglés</a></li>
+                </ul>
+            </div>
             <div class="container">
                 <h3>Paso 2 - Selección de servicios</h3>
             </div>
         </div>
+
         <div class="col-lg-1"></div>
 
-        <div class="col-lg-9">
+        <div class="col-lg-9 container">
+          <svg width="94%" height="100%" style="top: 0; left: 117px; z-index: -1; position: fixed;">
+            <defs>
+              <filter id="blur">
+                <feGaussianBlur in="SourceGraphic" stdDeviation="3" />
+              </filter>
+            </defs>
+            <rect width="94%" height="100%" stroke="grey" stroke-width="1"
+              fill="#A69D9D" filter="url(#blur)" opacity="0.9" style="top: 0; left: 120px;"/>
+          </svg>
+          <div class="container well well-lg">
             <div id="divOrigen">
                 <div class="dropdown" id="divDropdownOrigen2">
                     <label>Ciudad de Origen</label>
-                    <button class="btn btn-primary dropdown-toggle" type="button" id="btnDropdownOrigen2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    <button class="btn dropdown-toggle btn-per" type="button" id="btnDropdownOrigen2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                         Seleccione
                         <span class="caret"></span>
                     </button>
@@ -55,9 +62,9 @@
                 <input type="text" name="datepickerOrigen" id="datepickerOrigen2" class="datepicker">
             </div>
             <div id="divDestino">
-                <div class="dropdown" id="divDropdownDestino">
+                <div class="dropdown" id="divDropdownDestino2">
                     <label>Ciudad de Destino</label>
-                    <button class="btn btn-primary dropdown-toggle" type="button" id="btnDropdownDestino2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    <button class="btn dropdown-toggle btn-per" type="button" id="btnDropdownDestino2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                         Seleccione
                         <span class="caret"></span>
                     </button>
@@ -71,34 +78,35 @@
                 <label class="radio-inline"><input type="radio" name="optradio" value="1" checked="checked">Ida</label>
                 <label class="radio-inline"><input type="radio" name="optradio" value="2">Ida y vuelta</label>
             </div>
+
             <div id="divBotones">
-                <button type="button" id="btnBuscarServicio" class="btn btn-primary pull-left">
+                <button type="button" id="btnBuscarServicio" class="btn pull-left btn-per">
                     <span class="glyphicon glyphicon-search"></span>Buscar
                 </button>
-                <button type="button" id="btnImprimir" class="btn btn-primary pull-right">
+                <button type="button" id="btnImprimir" class="btn pull-right btn-per">
                     <span class="glyphicon glyphicon-file"></span>Imprimir pasaje
                 </button>
+            </div>
             </div>
             <div>
                 <h1>Tramo</h1>
                 <h2><span id="lblTramo"></span></h2>
             </div>
-            <div class="container">
-                <table id="tabla" class="table">
+            <div class="container well well-sm">
+                <table id="tabla" class="table table-hover">
                     <thead>
                         <tr>
                             <th>Empresas</th>
                             <th>Información del servicio</th>
-                            <th>Calidades</th>
+                            <th>Calidades - Butacas libres</th>
                             <th>Salida</th>
                             <th>Llegada</th>
                             <th>Precio Ida</th>
                             <th>Precio Ida/Vuelta</th>
-                            <th>Libres</th>
                         </tr>
                     </thead>
                     <tbody id="bodyTablaServicio">
-                        
+
                     </tbody>
                 </table>
             </div>

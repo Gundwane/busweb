@@ -3,12 +3,19 @@ require './Conexion.php';
 $conexion = new Conexion();
 $getConexion = $conexion->getConexion();
 
-$asientos = $_POST['inputAsientos'];
+$asientos = $_POST['numeroAsientos'];
 $patente = $_POST['patente'];
 echo "<script language='javascript'>console.log($asientos)</script>";
 try {
     for ($i = 0; $i <= $asientos - 1; $i++) {
-        $matrizButacas[$i] = 0;
+        if ($i < 32) {
+          $matrizButacas[$i] = 'SCSS';
+        }else if($i < 52) {
+          $matrizButacas[$i] = 'SC';
+        } else {
+          $matrizButacas[$i] = 'C';
+        }
+
     }
     $serializedArrayButacas = base64_encode(serialize($matrizButacas));
 
@@ -18,6 +25,8 @@ try {
     $statement->bindParam(2, $serializedArrayButacas);
     $statement->bindParam(3, $patente);
     $statement->execute();
+
+    header('Location: construido.html');
 } catch (PDOException $e) {
     echo 'Exception caught: ' . $e->getMessage();
 }
