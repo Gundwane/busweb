@@ -15,8 +15,20 @@
     font-size: 20px;
 }
 
-#divDropdownOrigen2, #divDropdownDestino2{
-    margin: 5px;
+#fechaDiv{
+    left: 8%;
+    top: 10px;
+    position: fixed;
+}
+
+#idiomaDropdown{
+    top: 10px;
+    right: 4%;
+    position: fixed;
+}
+
+.dropdownMargin{
+    margin-bottom: 5px;
 }
 
 .backgroundColor{
@@ -66,7 +78,7 @@
 }
 
 body{
-  background-image:url('../images/bus.jpg');
+  background-image:url('../images/collage.jpg');
   background-repeat: repeat-x;
   margin: 0;
 }

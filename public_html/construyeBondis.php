@@ -8,12 +8,12 @@ $patente = $_POST['patente'];
 echo "<script language='javascript'>console.log($asientos)</script>";
 try {
     for ($i = 0; $i <= $asientos - 1; $i++) {
-        if ($i < 32) {
-          $matrizButacas[$i] = 'SCSS';
+        if ($i < 20) {
+          $matrizButacas[$i] = 'Comun';
         }else if($i < 52) {
-          $matrizButacas[$i] = 'SC';
+          $matrizButacas[$i] = 'Semicama';
         } else {
-          $matrizButacas[$i] = 'C';
+          $matrizButacas[$i] = 'Cama';
         }
 
     }

@@ -42,7 +42,7 @@ class Querys {
         $ciudadDestino = $_POST['ciudadDestino'];
 
         try {
-            $query = "SELECT empresa.nombreEmpresa, tramos.horarioSalida, tramos.horarioLlegada, tramos.precio, buses.arrayAsientos
+            $query = "SELECT empresa.nombreEmpresa, tramos.horarioSalida, tramos.duracion, tramos.precio, buses.arrayAsientos
                      FROM tramos
                      INNER JOIN empresa ON tramos.fk_empresa = empresa.idEmpresa
                      INNER JOIN buses ON tramos.fk_bus = buses.idBus

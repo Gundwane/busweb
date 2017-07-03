@@ -21,8 +21,8 @@
     </head>
     <body id="seleccionServicio" class="backgroundColor">
         <div class="jumbotron">
-            <div class="pull-left"><span>Fecha</span></div>
-            <div class="dropdown pull-right">
+            <div id="fechaDiv"><span>Fecha</span></div>
+            <div id="idiomaDropdown" class="dropdown pull-right">
                 <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Idioma
                     <span class="caret"></span></button>
                 <ul class="dropdown-menu">
@@ -38,7 +38,7 @@
         <div class="col-lg-1"></div>
 
         <div class="col-lg-9 container">
-          <svg width="94%" height="100%" style="top: 0; left: 117px; z-index: -1; position: fixed;">
+          <!--<svg width="94%" height="100%" style="top: 0; left: 117px; z-index: -1; position: fixed;">
             <defs>
               <filter id="blur">
                 <feGaussianBlur in="SourceGraphic" stdDeviation="3" />
@@ -46,14 +46,14 @@
             </defs>
             <rect width="94%" height="100%" stroke="grey" stroke-width="1"
               fill="#A69D9D" filter="url(#blur)" opacity="0.9" style="top: 0; left: 120px;"/>
-          </svg>
+          </svg>-->
           <div class="container well well-lg">
             <div id="divOrigen">
-                <div class="dropdown" id="divDropdownOrigen2">
+                <div class="dropdown dropdownMargin" id="divDropdownOrigen2">
                     <label>Ciudad de Origen</label>
                     <button class="btn dropdown-toggle btn-per" type="button" id="btnDropdownOrigen2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                         Seleccione
-                        <span class="caret"></span>
+                        <span></span>
                     </button>
                     <ul class="dropdown-menu" id="dropdownCiudadesOrigen2">
                     </ul>
@@ -62,11 +62,11 @@
                 <input type="text" name="datepickerOrigen" id="datepickerOrigen2" class="datepicker">
             </div>
             <div id="divDestino">
-                <div class="dropdown" id="divDropdownDestino2">
+                <div class="dropdown dropdownMargin" id="divDropdownDestino2">
                     <label>Ciudad de Destino</label>
                     <button class="btn dropdown-toggle btn-per" type="button" id="btnDropdownDestino2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                        Seleccione
-                        <span class="caret"></span>
+
+                        <span>Seleccione</span>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownCiudadesDestino" id="dropdownCiudadesDestino2">
                     </ul>
@@ -105,7 +105,26 @@
                             <th>Precio Ida/Vuelta</th>
                         </tr>
                     </thead>
-                    <tbody id="bodyTablaServicio">
+                    <tbody id="bodyTablaIda">
+
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="container well well-sm">
+                <table id="tabla" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Empresas</th>
+                            <th>Información del servicio</th>
+                            <th>Calidades - Butacas libres</th>
+                            <th>Salida</th>
+                            <th>Llegada</th>
+                            <th>Precio Ida</th>
+                            <th>Precio Ida/Vuelta</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bodyTablaVuelta">
 
                     </tbody>
                 </table>
@@ -113,6 +132,41 @@
         </div>
 
         <div class="col-lg-1"></div>
+
+
+        <!-- MODAL -->
+        <div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="infoModalLabel">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Información del servicio</h4>
+              </div>
+              <div class="modal-body">
+                <div id="divRadioModal"  style="border-right: 3px solid; width: 15%;">
+                  <div class="radio">
+                    <label><input type="radio" name="optradio">Calidades</label>
+                  </div>
+                  <div class="radio">
+                    <label><input type="radio" name="optradio">Forma de pago</label>
+                  </div>
+                  <div class="radio">
+                    <label><input type="radio" name="optradio">Recorrido</label>
+                  </div>
+                </div>
+                <div id="divContentModal">
+
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
         <!-- SCRIPTS -->
         <script src="js/jquery-1.11.2.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
