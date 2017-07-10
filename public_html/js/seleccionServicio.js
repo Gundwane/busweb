@@ -15,43 +15,121 @@ $(function(){
     $('#btnDropdownDestino2').html(ciudadDestino);
     $('#datepickerOrigen2').val(fechaIda);
     $('#datepickerDestino2').val(fechaVuelta);
+    var imgCama = '<h3>Servicio Cama</h3><br>' +
+                  '<img src="images/butaca-cama.png">' +
+                  '<ul class="list-group">' +
+                    '<li class="list-group-item">180º de reclinación</li>' +
+                    '<li class="list-group-item">Bandeja de apoyo para pies</li>' +
+                    '<li class="list-group-item">Calefacción y aire acondicionado</li>' +
+                    '<li class="list-group-item">Sonido sorround</li>' +
+                    '<li class="list-group-item">Sistema mp3 y Blu-ray</li>' +
+                   '</ul>' +
+                   '<br>';
+    var imgSemicama = '<h3>Servicio Semi Cama</h3><br>' +
+                        '<img src="images/butaca-semicama.png">' +
+                        '<ul class="list-group">' +
+                          '<li class="list-group-item">130º de reclinación</li>' +
+                          '<li class="list-group-item">Bandeja de apoyo para pies</li>' +
+                          '<li class="list-group-item">Calefacción y aire acondicionado</li>' +
+                          '<li class="list-group-item">Sistema mp3 y DVD</li>' +
+                        '</ul>' +
+                        '<br>';
+    var imgComun = '<h3>Servicio Comun</h3><br>' +
+                      '<img src="images/butaca-comun.png">' +
+                      '<ul class="list-group">' +
+                        '<li class="list-group-item">Bandeja de apoyo para pies</li>' +
+                        '<li class="list-group-item">Calefacción y aire acondicionado</li>' +
+                      '</ul>' +
+                      '<br>';
 
-    mostrarCiudades(dropdownOrigen, dropdownDestino);
+
+    mostrarCiudades(dropdownOrigen, dropdownDestino); //Cargar los Dropdowns con las ciudades
+    checkRadio();                                     //Carga el radio elegido en la página anterior
+    buscarServicio();                                 //Busca servicios según las ciudades elegidas en los dropdown
 
     /*Bindeo de la funcion que busca los servicios a los botones Buscar, y al click en una nueva Ciudad*/
-    $("#btnBuscarServicio").on("click", function(){
+    $("#btnBuscarServicio").on("click", function(){      //Al presionar el boton Buscar
         buscarServicio();
     });
 
-    $('#divDropdownOrigen2').on('click', 'li a', function(){
+    $('.dropdownCity').on('click', 'li a', function(){   //Al cambiar la ciudad en Dropdown
        buscarServicio();
     });
-
-    $('#divDropdownDestino2').on('click', 'li a', function(){
-       buscarServicio();
-    });
-
-    $("#tabla").on('click', '.infoServicio', function(){
-      $("#infoModal").modal();
-    })
     /* ------------------------------------------------------------------------------------------------ */
 
-    tituloTramo = function(origen, destino){
-        $("#lblTramo").empty();
-        $("#lblTramo").append("Desde: "+origen+" a "+destino);
+    $('#divRadio2').on('change', 'input:radio', function(){  //Busca nuevos servicios al seleccionar nuevamente Ida o Vuelta
+      radioIdaVuelta = $(this).val();
+      buscarServicio();
+    });
+
+    /* MODAL */
+
+    $(".table").on('click', '.infoServicio', function(){
+      $("#infoModal").modal();
+    });
+
+    $('#infoModal').on('shown.bs.modal', function () {
+      $(this).find("#divContentModal").empty().append(imgComun, imgSemicama, imgCama);
+    })
+
+    $('#divRadioModal').on('click', 'input:radio', function(){
+      var visa = '<img src="images/formasPago/visa.png">';
+      var mastercard = '<img src="images/formasPago/mastercard.png">';
+      var dinersClub = '<img src="images/formasPago/dinersClub.png">';
+      var visaNacion = '<img src="images/formasPago/visaNacion.png">';
+      var divContent = $("#divContentModal");
+      var valueRadio = $(this).val();
+
+      switch (valueRadio) {
+        case 'calidades':
+            divContent.empty().append(imgComun, imgSemicama, imgCama);
+          break;
+        case 'formaPago':
+            divContent.empty().append('<h3>Formas de pago</h3>' +
+                                       visa + ' <b>VISA</b>' + '<br>' +
+                                       mastercard + ' <b>MASTERCARD</b>' + '<br>' +
+                                       dinersClub + ' <b>DINERS CLUB INTERNATIONAL</b>' + '<br>' +
+                                       visaNacion + ' <b>VISA NACION</b>' + '<br>');
+          break;
+        case 'recorrido':
+            divContent.empty().append('');
+          break;
+        default:
+      }
+    });
+
+    /* ------------------------------------------------------------ */
+
+    function tituloTramo(origen, destino){
+        $("#lblTramoIda").empty();
+        $("#lblTramoIda").append("Desde: "+origen+" a "+destino);
     };
 
-    buscarServicio = function(){
-        console.log("Searching...");
-        var origen = botonDropdownOrigen.text();
-        var destino = botonDropdownDestino.text();
-
-        tituloTramo(origen, destino);
-        tramosIda(origen, destino);
-        tramosVuelta(destino, origen);
+    function checkRadio(){
+      if (radioIdaVuelta == 1) {
+        $('#divRadio2 input:radio[value=1]').prop('checked', true);
+      }else {
+        $('#divRadio2 input:radio[value=2]').prop('checked', true);
+      }
     }
 
-    tramosIda = function(origen, destino){
+    function buscarServicio(){
+        var origen = botonDropdownOrigen.text();
+        var destino = botonDropdownDestino.text();
+        checkRadio();
+        tituloTramo(origen, destino);
+        tramosIda(origen, destino);
+        if (radioIdaVuelta == 2) {
+          tramosVuelta(destino, origen);
+          $('#divVuelta').toggle();
+          $("#lblTramoVuelta").empty();
+          $("#lblTramoVuelta").append("Desde: "+destino+" a "+origen);
+        }else {
+          $('#divVuelta').hide();
+        }
+    }
+
+    function tramosIda(origen, destino){
         var url = 'acciones.php?accion=getTramo';
         $.ajax({
             url: url,
@@ -66,7 +144,8 @@ $(function(){
             }
         });
     };
-    tramosVuelta = function(origen, destino){
+
+    function tramosVuelta(origen, destino){
         var url = 'acciones.php?accion=getTramo';
         $.ajax({
             url: url,
@@ -159,17 +238,21 @@ $(function(){
       return tiempoFormateado;
     }
 
-    llenarTabla = function (data, tabla) {
-        var html = "";
+    function llenarTabla(data, tabla) {
+        var html = "", tfoot = $('.tableFoot');
         var butacas, fecha, fechaTotal;
         var precios, precioComun, precioSemicama, precioCama;
-        var fechaDatepicker = $('#datepickerOrigen2').datepicker('getDate');
+        var countResultados = 0;
         getPrecios().then(function(val){
           precios = val;
         });
 
         tabla.empty();
+        tfoot.empty();
+
         $.each(data, function (index, value) {
+            countResultados ++;
+            var fechaDatepicker = $('#datepickerOrigen2').datepicker('getDate');
             fecha = formatearTiempo(fechaDatepicker, value.horarioSalida);
             fechaTotal = sumarFecha(fechaDatepicker, value.horarioSalida, value.duracion);
             butacas = cantidadButacas(value.arrayAsientos);
@@ -192,7 +275,7 @@ $(function(){
               precioCama = "";
             }
 
-            html += "<tr>" +
+            html += "<tr id=" + index + ">" +
                     "<td>" + value.nombreEmpresa + "</td>" +
                     "<td><span id=infoIcon class='glyphicon glyphicon-info-sign infoServicio'></span></td>" +
                     "<td>" +
@@ -212,14 +295,22 @@ $(function(){
                       ((radioIdaVuelta > 1) && (precioSemicama !== "") ? precioSemicama * 2 : "") + "<br>" +
                       ((radioIdaVuelta > 1) && (precioCama !== "") ? precioCama * 2 : "") +
                     "</td>" +
+                    "<td><span class='glyphicon glyphicon-shopping-cart' aria-hidden='true'></span></td>" +
                     "</tr>";
         });
 
         tabla.append(html);
+        tfoot.append(countResultados + ' servicio(s) encontrado(s), mostrando ' + countResultados + ' servicio(s), desde 1 hasta ' + countResultados + '. página 1 / n.');
     };
+
+    $('.table').on('click', '.glyphicon-shopping-cart', function(){
+      if (!$(this).hasClass('selected')) {
+        $(this).css('color', '#E4A11B').addClass('selected');
+      }else {
+        $(this).css('color', '#333').removeClass('selected');
+      }
+    });
 
     dropdownCaptura(dropdownOrigen, botonDropdownOrigen);
     dropdownCaptura(dropdownDestino, botonDropdownDestino);
-    tituloTramo(ciudadOrigen, ciudadDestino);
-    tramosIda(ciudadOrigen, ciudadDestino);
 });

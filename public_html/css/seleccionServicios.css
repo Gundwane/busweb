@@ -1,4 +1,4 @@
-#divOrigen, #divDestino, #divRadio, #divBotones, #divTramo, #divEmpresa{
+#divOrigen, #divDestino, #divRadio, #divBotones, #divTramoIda, #divTramoVuelta, #divEmpresa{
     width: 50%;
     float: left;
     display: block;
@@ -6,11 +6,12 @@
 #divRadio{
     padding: 5px;
 }
-#divTramo, #divEmpresa{
+#divTramoIda, #divTramoVuelta, #divEmpresa{
     padding-top: 20px;
+    padding-left: 17px;
 }
 
-#divTramo, #divEmpresa > span{
+#divTramoIda, #divTramoVuelta, #divEmpresa > span{
     font-weight: bold;
     font-size: 20px;
 }
@@ -25,6 +26,17 @@
     top: 10px;
     right: 4%;
     position: fixed;
+}
+
+#divRadioModal{
+    float:left;
+    border-right: 3px solid;
+    width: 15%;
+}
+
+#divContentModal{
+    float:left;
+    padding-left: 20px;
 }
 
 .dropdownMargin{
@@ -75,6 +87,10 @@
   z-index: -1;
   background-image:url('../images/fondo_gris.jpg');
   position: fixed;
+}
+
+.noDisplay{
+  display: none;
 }
 
 body{

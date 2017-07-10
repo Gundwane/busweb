@@ -49,7 +49,7 @@
           </svg>-->
           <div class="container well well-lg">
             <div id="divOrigen">
-                <div class="dropdown dropdownMargin" id="divDropdownOrigen2">
+                <div class="dropdown dropdownMargin dropdownCity" id="divDropdownOrigen2">
                     <label>Ciudad de Origen</label>
                     <button class="btn dropdown-toggle btn-per" type="button" id="btnDropdownOrigen2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                         Seleccione
@@ -62,10 +62,9 @@
                 <input type="text" name="datepickerOrigen" id="datepickerOrigen2" class="datepicker">
             </div>
             <div id="divDestino">
-                <div class="dropdown dropdownMargin" id="divDropdownDestino2">
+                <div class="dropdown dropdownMargin dropdownCity" id="divDropdownDestino2">
                     <label>Ciudad de Destino</label>
                     <button class="btn dropdown-toggle btn-per" type="button" id="btnDropdownDestino2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-
                         <span>Seleccione</span>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownCiudadesDestino" id="dropdownCiudadesDestino2">
@@ -74,9 +73,9 @@
                 <label>Fecha de regreso</label>
                 <input type="text" name="datepickerDestino" id="datepickerDestino2" class="datepicker">
             </div>
-            <div id="divRadio">
-                <label class="radio-inline"><input type="radio" name="optradio" value="1" checked="checked">Ida</label>
-                <label class="radio-inline"><input type="radio" name="optradio" value="2">Ida y vuelta</label>
+            <div id="divRadio2">
+                <label class="radio-inline"><input type="radio" name="ivradio" value="1">Ida</label>
+                <label class="radio-inline"><input type="radio" name="ivradio" value="2">Ida y vuelta</label>
             </div>
 
             <div id="divBotones">
@@ -88,46 +87,65 @@
                 </button>
             </div>
             </div>
-            <div>
-                <h1>Tramo</h1>
-                <h2><span id="lblTramo"></span></h2>
+            <div id="divIda">
+              <div id="divTramoIda">
+                  <h1>Tramo Ida</h1>
+                  <h2><span id="lblTramoIda"></span></h2>
+              </div>
+              <div id="divTablaIda" class="container well well-sm">
+                  <table id="tabla" class="table table-hover">
+                      <thead>
+                          <tr>
+                              <th>Empresas</th>
+                              <th>Información del servicio</th>
+                              <th>Calidades - Butacas libres</th>
+                              <th>Salida</th>
+                              <th>Llegada</th>
+                              <th>Precio Ida</th>
+                              <th>Precio Ida/Vuelta</th>
+                              <th>Comprar</th>
+                          </tr>
+                      </thead>
+                      <tfoot id="tableFoot" class="tableFoot" style="width: 100%;">
+
+                      </tfoot>
+                      <tbody id="bodyTablaIda">
+
+                      </tbody>
+                  </table>
+              </div>
             </div>
-            <div class="container well well-sm">
-                <table id="tabla" class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>Empresas</th>
-                            <th>Información del servicio</th>
-                            <th>Calidades - Butacas libres</th>
-                            <th>Salida</th>
-                            <th>Llegada</th>
-                            <th>Precio Ida</th>
-                            <th>Precio Ida/Vuelta</th>
-                        </tr>
-                    </thead>
-                    <tbody id="bodyTablaIda">
 
-                    </tbody>
-                </table>
+            <div id="divVuelta" class="noDisplay">
+              <div id="divTramoVuelta">
+                  <h1>Tramo Vuelta</h1>
+                  <h2><span id="lblTramoVuelta"></span></h2>
+              </div>
+              <div id="divTablaVuelta" class="container well well-sm">
+                  <table id="tabla" class="table table-hover">
+                      <thead>
+                          <tr>
+                              <th>Empresas</th>
+                              <th>Información del servicio</th>
+                              <th>Calidades - Butacas libres</th>
+                              <th>Salida</th>
+                              <th>Llegada</th>
+                              <th>Precio Ida</th>
+                              <th>Precio Ida/Vuelta</th>
+                              <th>Comprar</th>
+                          </tr>
+                      </thead>
+                      <tfoot id="tableFoot" class="tableFoot" style="width: 100%;">
+
+                      </tfoot>
+                      <tbody id="bodyTablaVuelta">
+
+                      </tbody>
+                  </table>
+              </div>
             </div>
-
-            <div class="container well well-sm">
-                <table id="tabla" class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>Empresas</th>
-                            <th>Información del servicio</th>
-                            <th>Calidades - Butacas libres</th>
-                            <th>Salida</th>
-                            <th>Llegada</th>
-                            <th>Precio Ida</th>
-                            <th>Precio Ida/Vuelta</th>
-                        </tr>
-                    </thead>
-                    <tbody id="bodyTablaVuelta">
-
-                    </tbody>
-                </table>
+            <div style="position: absolute; bottom:0%; right:-15%;">
+              <button type="button" class="btn btn-info btn-lg"><span class="glyphicon glyphicon-ok-sign"></span> Continuar</button>
             </div>
         </div>
 
@@ -142,25 +160,25 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="myModalLabel">Información del servicio</h4>
               </div>
-              <div class="modal-body">
-                <div id="divRadioModal"  style="border-right: 3px solid; width: 15%;">
+              <div class="modal-body container">
+                <div id="divRadioModal">
                   <div class="radio">
-                    <label><input type="radio" name="optradio">Calidades</label>
+                    <label><input type="radio" name="optradio" value="calidades" checked="checked">Calidades</label>
                   </div>
                   <div class="radio">
-                    <label><input type="radio" name="optradio">Forma de pago</label>
+                    <label><input type="radio" name="optradio" value="formaPago">Forma de pago</label>
                   </div>
                   <div class="radio">
-                    <label><input type="radio" name="optradio">Recorrido</label>
+                    <label><input type="radio" name="optradio" value="recorrido">Recorrido</label>
                   </div>
                 </div>
                 <div id="divContentModal">
-
                 </div>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <div>
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                </div>
               </div>
             </div>
           </div>
