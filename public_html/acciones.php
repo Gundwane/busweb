@@ -25,6 +25,10 @@ switch ($accion){
         $resultado = $querys->getPrecio();
         break;
 
+    case 'getBusPorTramo':
+        $resultado = $querys->getBusPorTramo();
+        break;
+
     default:
         $resultado = "No se encontró la accion";
 }

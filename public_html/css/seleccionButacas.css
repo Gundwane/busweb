@@ -1,0 +1,17 @@
+.butacas{
+  font-size:40px;
+  padding: 3px;
+}
+
+.butacas:hover{
+  color: #8c8c8c;
+}
+
+.spanPasillo{
+  padding: 0px 18px 0px 18px;
+}
+
+.divTabla{
+  float: left;
+  padding: 0px 40px 0px 40px;
+}

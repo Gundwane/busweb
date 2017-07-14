@@ -20,7 +20,6 @@ class Querys {
     }
 
     public function getEmpresa(){
-
         $query = "SELECT nombreEmpresa FROM empresas";
         $statement = $this->_conexion->prepare($query);
         $statement->execute();
@@ -42,7 +41,7 @@ class Querys {
         $ciudadDestino = $_POST['ciudadDestino'];
 
         try {
-            $query = "SELECT empresa.nombreEmpresa, tramos.horarioSalida, tramos.duracion, tramos.precio, buses.arrayAsientos
+            $query = "SELECT empresa.nombreEmpresa, tramos.idTramo, tramos.horarioSalida, tramos.duracion, tramos.precio, buses.arrayAsientos
                      FROM tramos
                      INNER JOIN empresa ON tramos.fk_empresa = empresa.idEmpresa
                      INNER JOIN buses ON tramos.fk_bus = buses.idBus
@@ -71,6 +70,35 @@ class Querys {
         }
     }
 
+    public function unserializarBus($arrayBus){
+      foreach ($arrayBus as $key => $subarray) {
+        foreach ($subarray as $subkey => $value) {
+          if ($subkey === 'arrayAsientos') {
+            $arrayBus[$key][$subkey] = unserialize(base64_decode($value));
+          }
+        }
+      }
+
+      return $arrayBus;
+    }
+
+    public function getBusPorTramo(){
+      $busId = $_POST['busId'];
+
+        $query = "SELECT buses.arrayAsientos
+                  FROM buses
+                  INNER JOIN tramos ON tramos.fk_bus = buses.idBus;
+                  WHERE tramos.fk_bus = ?";
+
+        $statement = $this->_conexion->prepare($query);
+        $statement->bindParam(1, $busId);
+        $statement->execute();
+        $array = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        $array = $this->unserializarBus($array);
+        return $array;
+    }
+
     public function getPrecio(){
       $query = "SELECT * FROM calidades";
       $statement = $this->_conexion->prepare($query);
@@ -78,5 +106,4 @@ class Querys {
       $array = $statement->fetchAll(PDO::FETCH_ASSOC);
       return $array;
     }
-
 }

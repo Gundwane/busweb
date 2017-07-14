@@ -11,6 +11,7 @@ $(function(){
     var botonDropdownDestino = $("#btnDropdownDestino2");
     var tablaIda = $("#bodyTablaIda");
     var tablaVuelta = $("#bodyTablaVuelta");
+    var selected = null;
     $('#btnDropdownOrigen2').html(ciudadOrigen);
     $('#btnDropdownDestino2').html(ciudadDestino);
     $('#datepickerOrigen2').val(fechaIda);
@@ -60,6 +61,16 @@ $(function(){
     $('#divRadio2').on('change', 'input:radio', function(){  //Busca nuevos servicios al seleccionar nuevamente Ida o Vuelta
       radioIdaVuelta = $(this).val();
       buscarServicio();
+    });
+
+    $('#btnContinuar').on('click', function(){
+      console.log('Living hell: '+selected);
+      if (selected != null) {
+        sessionStorage.setItem('servicio1', selected);
+        window.location.replace('seleccionButacas.html');
+      }else {
+
+      }
     });
 
     /* MODAL */
@@ -275,7 +286,7 @@ $(function(){
               precioCama = "";
             }
 
-            html += "<tr id=" + index + ">" +
+            html += "<tr id=" + value.idTramo + ">" +
                     "<td>" + value.nombreEmpresa + "</td>" +
                     "<td><span id=infoIcon class='glyphicon glyphicon-info-sign infoServicio'></span></td>" +
                     "<td>" +
@@ -306,8 +317,10 @@ $(function(){
     $('.table').on('click', '.glyphicon-shopping-cart', function(){
       if (!$(this).hasClass('selected')) {
         $(this).css('color', '#E4A11B').addClass('selected');
+        selected = $(this).closest('tr').attr('id');
       }else {
         $(this).css('color', '#333').removeClass('selected');
+        selected = null;
       }
     });
 
