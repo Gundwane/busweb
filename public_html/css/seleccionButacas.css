@@ -1,17 +1,91 @@
+@font-face {
+    font-family: butlerBold;
+    src: url('fonts/Butler_Bold.otf');
+}
+
 .butacas{
-  font-size:40px;
-  padding: 3px;
+  font-size:35px;
+  padding: 0px;
+  color: #333;
 }
 
-.butacas:hover{
-  color: #8c8c8c;
+.butacaComun{
+  color: green;
 }
 
-.spanPasillo{
-  padding: 0px 18px 0px 18px;
+.butacaSemicama{
+  color: #003300;
+}
+
+.butacaCama{
+  color: #006666;
+}
+
+.butacaClicked{
+  color: #E4A11B !important;
+}
+
+.butacaNumber{
+  color: white;
+  position: absolute;
+  text-align: center;
+  width: 4%;
+  padding-top: 1%;
+}
+
+.caption{
+  text-align: center;
+  color: black;
+  font-weight: bold;
+  font-size: 17px;
+}
+
+.toClick:hover i{
+  color: #efc776;
+}
+
+.pasillo{
+  text-align: center;
+  font-size: 150%;
+  background-color: #d9d9d9;
+  width: 60px;
+}
+
+.tvPasillo{
+  font-size: 20px;
 }
 
 .divTabla{
   float: left;
   padding: 0px 40px 0px 40px;
+}
+
+.divNumero{
+  position: absolute;
+  top: 10px;
+  left:10px;
+  font-size:70%;
+  z-index: 2;
+  color: white;
+}
+
+.divButaca{
+  position: absolute;
+  top: 10px;
+  left:10px;
+  z-index: 1;
+}
+
+td{
+  border: none !important;
+}
+
+.tableBorder{
+  border-color: black;
+  border-collapse: collapse;
+}
+
+body{
+  font-family: daFont;
+  font-size: 170%;
 }

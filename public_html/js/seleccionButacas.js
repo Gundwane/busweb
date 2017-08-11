@@ -1,6 +1,14 @@
 $(function(){
   var servicio1 = sessionStorage.getItem('servicio1');
 
+  $('.tButacas').on('click', 'span', function(){
+    if (!$(this).siblings('i').hasClass('butacaClicked')) {
+      $(this).siblings('.butacas').addClass('butacaClicked');
+    }else{
+      $(this).siblings('.butacas').removeClass('butacaClicked');
+    }
+  });
+
   getButacasByTramo = function(){
     var url = 'acciones.php?accion=getBusPorTramo';
     $.ajax({
@@ -9,7 +17,7 @@ $(function(){
       method: 'POST',
       data: {busId: servicio1},
       success: function(data){
-        generarAutobus(data);
+        autobusData(data);
       },
       error: function(){
         console.log('Error getin the butacas');
@@ -17,23 +25,40 @@ $(function(){
     });
   };
 
-  function generarAutobus(){
-    var html = '', html2 = '';
-    var contador = 0;
-    for (var i = 0; i < 13; i++) {
-      if (i < 8) {
-        html += '<tr><td><i class="fa fa-square butacas idButaca='+ contador +'"></i><i class="fa fa-square butacas idButaca='+ (parseInt(contador)+parseInt(1)) +'"></i><span class="spanPasillo"></span>' +
-        '<i class="fa fa-square butacas idButaca='+ (parseInt(contador)+parseInt(2)) +'"></i><i class="fa fa-square butacas idButaca='+ (parseInt(contador)+parseInt(3)) +'"></i></td></tr>';
-        contador = contador + 4;
-      }else {
-        html2 += '<tr><td><i class="fa fa-square butacas idButaca='+ contador +'"></i><i class="fa fa-square butacas idButaca='+ (parseInt(contador)+parseInt(1)) +'"></i><span class="spanPasillo"></span>' +
-        '<i class="fa fa-square butacas idButaca='+ (parseInt(contador)+parseInt(2)) +'"></i><i class="fa fa-square butacas idButaca='+ (parseInt(contador)+parseInt(3)) +'"></i></td></tr>';
-        contador = contador + 4;
+  autobusData = function(data){
+    var indexer = 0;
+    var bus = assocArrayExtractor(data);
+    var html = '';
+    $.each(bus, function(index, value){
+      if (value === 'Comun'){
+        $('td').each(function(){
+          if (($(this).attr('id')) == index) {
+            $(this).find('span').siblings('i').addClass('butacaComun');
+          }
+        });
+      }else if (value === 'Semicama') {
+        $('td').each(function(){
+          if (($(this).attr('id')) == index) {
+            $(this).find('span').siblings('i').addClass('butacaSemicama');
+          }
+        });
+      }else if (value === 'Cama') {
+        $('td').each(function(){
+          if (($(this).attr('id')) == index) {
+            $(this).find('span').siblings('i').addClass('butacaCama');
+          }
+        });
       }
-    }
-    $('#bTablaButacas').append(html);
-    $('#bTablaButacas2').append(html2);
+    });
   };
 
-  generarAutobus();
+  function assocArrayExtractor(array){
+    var arrayAutobus = $.map(array, function(i){
+      return i.arrayAsientos;
+    });
+
+    return arrayAutobus;
+  };
+
+  getButacasByTramo();
 });

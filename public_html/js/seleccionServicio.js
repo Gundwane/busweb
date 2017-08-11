@@ -63,12 +63,16 @@ $(function(){
       buscarServicio();
     });
 
-    $('#btnContinuar').on('click', function(){
-      console.log('Living hell: '+selected);
-      if (selected != null) {
-        sessionStorage.setItem('servicio1', selected);
-        window.location.replace('seleccionButacas.html');
-      }else {
+    $('#btnContinuar').on('click', function(){               //Envia los servicios seleccionados a la siguiente pag
+      if (selectedIda != null){
+        console.log('Seleted Ida: '+selectedIda);
+        sessionStorage.setItem('servicioIda', selectedIda);
+        if (selectedVuelta != null) {
+          console.log('Seleted Vuelta: '+selectedVuelta);
+          sessionStorage.setItem('servicioVuelta', selectedVuelta);
+        }
+        //window.location.replace('seleccionButacas.html');
+      }else{
 
       }
     });
@@ -164,7 +168,8 @@ $(function(){
             dataType: 'json',
             data: {ciudadOrigen: origen, ciudadDestino: destino},
             success: function(data){
-                llenarTabla(data, tablaVuelta);
+                var flag = true;
+                llenarTabla(data, tablaVuelta, flag);
             },
             error: function(){
                 console.log('Error enviando ciudades');
@@ -249,11 +254,12 @@ $(function(){
       return tiempoFormateado;
     }
 
-    function llenarTabla(data, tabla) {
+    function llenarTabla(data, tabla, flag) {
         var html = "", tfoot = $('.tableFoot');
         var butacas, fecha, fechaTotal;
         var precios, precioComun, precioSemicama, precioCama;
         var countResultados = 0;
+        console.log('Flag: '+flag);
         getPrecios().then(function(val){
           precios = val;
         });
@@ -263,7 +269,17 @@ $(function(){
 
         $.each(data, function (index, value) {
             countResultados ++;
-            var fechaDatepicker = $('#datepickerOrigen2').datepicker('getDate');
+            if (flag == true) {
+              var fechaDatepicker = $('#datepickerDestino2').datepicker('getDate');
+            }else {
+              var fechaDatepicker = $('#datepickerOrigen2').datepicker('getDate');
+            }
+
+            /* REMINDER
+            Si la bandera es 'true', toma la fecha del coso de destino para la tabla de la vuelta.
+            Lo que resta hacer es hacer que no se pueda elegir fecha de vuelta que coincida con el de Ida
+            */
+
             fecha = formatearTiempo(fechaDatepicker, value.horarioSalida);
             fechaTotal = sumarFecha(fechaDatepicker, value.horarioSalida, value.duracion);
             butacas = cantidadButacas(value.arrayAsientos);
@@ -315,12 +331,15 @@ $(function(){
     };
 
     $('.table').on('click', '.glyphicon-shopping-cart', function(){
-      if (!$(this).hasClass('selected')) {
+      if ((!$(this).hasClass('selected')) && ($(this).closest('table').attr('id') === 'tablaIda')) {
         $(this).css('color', '#E4A11B').addClass('selected');
-        selected = $(this).closest('tr').attr('id');
-      }else {
+        selectedIda = $(this).closest('tr').attr('id');
+      }else if ((!$(this).hasClass('selected')) && ($(this).closest('table').attr('id') === 'tablaVuelta')){
+        $(this).css('color', '#E4A11B').addClass('selected');
+        selectedVuelta = $(this).closest('tr').attr('id');
+      }else{
         $(this).css('color', '#333').removeClass('selected');
-        selected = null;
+        //selected = null; Maybe this is not necessary
       }
     });
 

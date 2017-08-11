@@ -10,12 +10,11 @@ try {
     for ($i = 0; $i <= $asientos - 1; $i++) {
         if ($i < 20) {
           $matrizButacas[$i] = 'Comun';
-        }else if($i < 52) {
+        }else if($i < 44) {
           $matrizButacas[$i] = 'Semicama';
         } else {
           $matrizButacas[$i] = 'Cama';
         }
-
     }
     $serializedArrayButacas = base64_encode(serialize($matrizButacas));
 

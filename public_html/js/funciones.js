@@ -10,16 +10,16 @@ $(function () {
         var ciudad;
         dropdown.on('click', 'li', function () {
             ciudad = $(this).text();
-            
+
             if (boton.hasClass("btn-danger")) {
                 boton.switchClass("btn-danger", "btn-primary", 0);
                 $("#divDanger").fadeOut();
             }
             boton.html(ciudad);
             if (dropdown === dropdownOrigen) {
-               arraySession.splice(0,1,ciudad); 
+               arraySession.splice(0,1,ciudad);
                ciudadOrigen = ciudad;
-            }else { 
+            }else {
                arraySession.splice(1,1,ciudad);
                ciudadDestino = ciudad;
             }
@@ -56,14 +56,14 @@ $(function () {
             sessionStorage.setItem('data', JSON.stringify(arraySession));
             window.location.replace('seleccionServicio.html');
         } else {
-            console.log("Error validar");                        //Si no pues...no
+            console.log("Error validar");
         }
     });
 
     $('.datepicker').datepicker({
-        dateFormat: "dd-mm-yy", 
+        dateFormat: "dd-mm-yy",
         dateonly: true,
-        minDate: 0, 
+        minDate: 0,
         firstDay: 1,
         yearRange: '+0:+1',
         changeMonth: true,
@@ -179,5 +179,3 @@ $(function () {
     dropdownCaptura(dropdownOrigen, btnDropdownOrigen);
     dropdownCaptura(dropdownDestino, btnDropdownDestino);
 });
-
-

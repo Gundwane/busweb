@@ -85,18 +85,18 @@ class Querys {
     public function getBusPorTramo(){
       $busId = $_POST['busId'];
 
-        $query = "SELECT buses.arrayAsientos
-                  FROM buses
-                  INNER JOIN tramos ON tramos.fk_bus = buses.idBus;
-                  WHERE tramos.fk_bus = ?";
+      $query = "SELECT buses.arrayAsientos
+                FROM buses
+                INNER JOIN tramos ON tramos.fk_bus = buses.idBus
+                WHERE tramos.idTramo = ?";
 
-        $statement = $this->_conexion->prepare($query);
-        $statement->bindParam(1, $busId);
-        $statement->execute();
-        $array = $statement->fetchAll(PDO::FETCH_ASSOC);
+      $statement = $this->_conexion->prepare($query);
+      $statement->bindParam(1, $busId);
+      $statement->execute();
+      $array = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-        $array = $this->unserializarBus($array);
-        return $array;
+      $array = $this->unserializarBus($array);
+      return $array;
     }
 
     public function getPrecio(){
