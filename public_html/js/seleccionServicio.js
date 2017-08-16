@@ -12,10 +12,16 @@ $(function(){
     var tablaIda = $("#bodyTablaIda");
     var tablaVuelta = $("#bodyTablaVuelta");
     var selected = null;
+    var selectedIdVuelta = null;
     $('#btnDropdownOrigen2').html(ciudadOrigen);
     $('#btnDropdownDestino2').html(ciudadDestino);
     $('#datepickerOrigen2').val(fechaIda);
-    $('#datepickerDestino2').val(fechaVuelta);
+    if (fechaVuelta == '') {
+      $('#datepickerDestino2').val(fechaIda);
+    }else {
+      $('#datepickerDestino2').val(fechaVuelta);
+    }
+
     var imgCama = '<h3>Servicio Cama</h3><br>' +
                   '<img src="images/butaca-cama.png">' +
                   '<ul class="list-group">' +
@@ -44,34 +50,45 @@ $(function(){
                       '<br>';
 
 
-    mostrarCiudades(dropdownOrigen, dropdownDestino); //Cargar los Dropdowns con las ciudades
-    checkRadio();                                     //Carga el radio elegido en la página anterior
-    buscarServicio();                                 //Busca servicios según las ciudades elegidas en los dropdown
+    mostrarCiudades(dropdownOrigen, dropdownDestino);     //Cargar los Dropdowns con las ciudades
+    checkRadio();                                         //Carga el radio elegido en la página anterior
+    buscarServicio();                                     //Busca servicios según las ciudades elegidas en los dropdown
 
     /*Bindeo de la funcion que busca los servicios a los botones Buscar, y al click en una nueva Ciudad*/
-    $("#btnBuscarServicio").on("click", function(){      //Al presionar el boton Buscar
+    $("#btnBuscarServicio").on("click", function(){       //Al presionar el boton Buscar
         buscarServicio();
     });
 
-    $('.dropdownCity').on('click', 'li a', function(){   //Al cambiar la ciudad en Dropdown
+    $('.dropdownCity').on('click', 'li a', function(){    //Al cambiar la ciudad en Dropdown
        buscarServicio();
+    });
+
+    $('.datepicker').on('change', function(){
+      buscarServicio();
     });
     /* ------------------------------------------------------------------------------------------------ */
 
     $('#divRadio2').on('change', 'input:radio', function(){  //Busca nuevos servicios al seleccionar nuevamente Ida o Vuelta
       radioIdaVuelta = $(this).val();
       buscarServicio();
+      if ($(this).val() == 2) {
+        $('#datepickerDestino2').removeAttr('disabled');
+      }else{
+        $('#datepickerDestino2').prop('disabled', true);
+      }
+    });
+
+    $("#backButton").click(function(){
+      window.location.replace('web.html');
     });
 
     $('#btnContinuar').on('click', function(){               //Envia los servicios seleccionados a la siguiente pag
-      if (selectedIda != null){
-        console.log('Seleted Ida: '+selectedIda);
-        sessionStorage.setItem('servicioIda', selectedIda);
-        if (selectedVuelta != null) {
-          console.log('Seleted Vuelta: '+selectedVuelta);
-          sessionStorage.setItem('servicioVuelta', selectedVuelta);
+      if (selectedIdIda != null){
+        sessionStorage.setItem('servicioIda', selectedIdIda);
+        if (selectedIdVuelta != null) {
+          sessionStorage.setItem('servicioVuelta', selectedIdVuelta);
         }
-        //window.location.replace('seleccionButacas.html');
+        window.location.replace('seleccionButacas.html');
       }else{
 
       }
@@ -135,6 +152,7 @@ $(function(){
         tituloTramo(origen, destino);
         tramosIda(origen, destino);
         if (radioIdaVuelta == 2) {
+          fechaVueltaChecker(fechaIda, fechaVuelta);
           tramosVuelta(destino, origen);
           $('#divVuelta').toggle();
           $("#lblTramoVuelta").empty();
@@ -231,35 +249,13 @@ $(function(){
       return tiempoSuma;
     }
 
-    formatearTiempo = function(tiempoFormat, stringTime){
-      var dias = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"];
-      var mes = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
-      if (stringTime === undefined) {
-        var tiempoFormateado = dias[tiempoFormat.getDay()] + " "
-                               + tiempoFormat.getDate() + " de "
-                               + mes[tiempoFormat.getMonth()] + "<br>"
-                               + (tiempoFormat.getHours() < 10 ? "0" + tiempoFormat.getHours() : tiempoFormat.getHours()) + ":"
-                               + (tiempoFormat.getMinutes() < 10 ? "0" + tiempoFormat.getMinutes() : tiempoFormat.getMinutes()) + " hs";
-      }else {
-        var timeSplited = stringTime.split(":");
-        tiempoFormat.setHours(timeSplited[0]);
-        tiempoFormat.setMinutes(timeSplited[1]);
-        var tiempoFormateado = dias[tiempoFormat.getDay()]+ " "
-                               + tiempoFormat.getDate() + " de "
-                               + mes[tiempoFormat.getMonth()] + "<br>"
-                               + timeSplited[0] + ":"
-                               + timeSplited[1] + " hs";
-      }
-
-      return tiempoFormateado;
-    }
-
     function llenarTabla(data, tabla, flag) {
         var html = "", tfoot = $('.tableFoot');
         var butacas, fecha, fechaTotal;
         var precios, precioComun, precioSemicama, precioCama;
         var countResultados = 0;
-        console.log('Flag: '+flag);
+        var fechaIda, fechaVuelta;
+
         getPrecios().then(function(val){
           precios = val;
         });
@@ -274,11 +270,6 @@ $(function(){
             }else {
               var fechaDatepicker = $('#datepickerOrigen2').datepicker('getDate');
             }
-
-            /* REMINDER
-            Si la bandera es 'true', toma la fecha del coso de destino para la tabla de la vuelta.
-            Lo que resta hacer es hacer que no se pueda elegir fecha de vuelta que coincida con el de Ida
-            */
 
             fecha = formatearTiempo(fechaDatepicker, value.horarioSalida);
             fechaTotal = sumarFecha(fechaDatepicker, value.horarioSalida, value.duracion);
@@ -301,7 +292,6 @@ $(function(){
             }else {
               precioCama = "";
             }
-
             html += "<tr id=" + value.idTramo + ">" +
                     "<td>" + value.nombreEmpresa + "</td>" +
                     "<td><span id=infoIcon class='glyphicon glyphicon-info-sign infoServicio'></span></td>" +
@@ -311,7 +301,7 @@ $(function(){
                       (butacas["Cama"] > 0 ? "Cama: " + butacas["Cama"] : "") +
                     "</td>" +
                     "<td>" + fecha + "</td>" +
-                    "<td>" + fechaTotal + "</td>" +
+                    "<td class='horarioLlegada'>" + fechaTotal + "</td>" +
                     "<td>" +
                       (precioComun !== "" ? "$"+precioComun : "") + "<br>" +
                       (precioSemicama !== "" ? "$"+precioSemicama : "") + "<br>" +
@@ -332,16 +322,55 @@ $(function(){
 
     $('.table').on('click', '.glyphicon-shopping-cart', function(){
       if ((!$(this).hasClass('selected')) && ($(this).closest('table').attr('id') === 'tablaIda')) {
+        fechaIda = $(this).closest('tr').find('.horarioLlegada span').text();
+
         $(this).css('color', '#E4A11B').addClass('selected');
-        selectedIda = $(this).closest('tr').attr('id');
+        selectedIdIda = $(this).closest('tr').attr('id');
       }else if ((!$(this).hasClass('selected')) && ($(this).closest('table').attr('id') === 'tablaVuelta')){
-        $(this).css('color', '#E4A11B').addClass('selected');
-        selectedVuelta = $(this).closest('tr').attr('id');
+        fechaVuelta = $(this).closest('tr').find('.horarioLlegada span').text();
+
+        selectedIdVuelta = $(this).closest('tr').attr('id');
+        tiempoDiferencia(fechaIda, fechaVuelta);
       }else{
         $(this).css('color', '#333').removeClass('selected');
-        //selected = null; Maybe this is not necessary
       }
     });
+
+    function formatearTiempo(tiempoFormat, stringTime){
+      var dias = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"];
+      var mes = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+      if (stringTime === undefined) {
+        var tiempoFormateado = dias[tiempoFormat.getDay()] + " "
+                               + tiempoFormat.getDate() + " de "
+                               + mes[tiempoFormat.getMonth()] + "<br><span>"
+                               + (tiempoFormat.getHours() < 10 ? "0" + tiempoFormat.getHours() : tiempoFormat.getHours()) + ":"
+                               + (tiempoFormat.getMinutes() < 10 ? "0" + tiempoFormat.getMinutes() : tiempoFormat.getMinutes()) + "</span> hs";
+      }else {
+        var timeSplited = stringTime.split(":");
+        tiempoFormat.setHours(timeSplited[0]);
+        tiempoFormat.setMinutes(timeSplited[1]);
+        var tiempoFormateado = dias[tiempoFormat.getDay()]+ " "
+                               + tiempoFormat.getDate() + " de "
+                               + mes[tiempoFormat.getMonth()] + "<br><span>"
+                               + timeSplited[0] + ":"
+                               + timeSplited[1] + "</span> hs";
+      }
+
+      return tiempoFormateado;
+    }
+
+    function tiempoDiferencia(fecha1, fecha2){        //Calcula que no se ingrese un horario de vuelta anterior al de llegada a destino
+      console.log('Fechas: '+fecha1+' '+fecha2);
+      var timeFecha1 = fecha1.getDay();
+    };
+
+    function fechaVueltaChecker(){                    //Calcula que la fecha de vuelta no sea anterior a la de ida
+      var diaI = $('#datepickerOrigen2').datepicker('getDate');
+      var diaV = $('#datepickerDestino2').datepicker('getDate');
+      if (diaV.getDate() < diaI.getDate()) {
+        mensajeAlerta('Nope', 'La fecha de regreso no puede ser inferior a la de ida');
+      }
+    };
 
     dropdownCaptura(dropdownOrigen, botonDropdownOrigen);
     dropdownCaptura(dropdownDestino, botonDropdownDestino);

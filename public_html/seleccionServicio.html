@@ -33,20 +33,14 @@
             <div class="container">
                 <h3>Paso 2 - Selección de servicios</h3>
             </div>
+            <div>
+              <button type="button" id="backButton">Back</button>
+            </div>
         </div>
 
         <div class="col-lg-1"></div>
 
         <div class="col-lg-9 container">
-          <!--<svg width="94%" height="100%" style="top: 0; left: 117px; z-index: -1; position: fixed;">
-            <defs>
-              <filter id="blur">
-                <feGaussianBlur in="SourceGraphic" stdDeviation="3" />
-              </filter>
-            </defs>
-            <rect width="94%" height="100%" stroke="grey" stroke-width="1"
-              fill="#A69D9D" filter="url(#blur)" opacity="0.9" style="top: 0; left: 120px;"/>
-          </svg>-->
           <div class="container well well-lg">
             <div id="divOrigen">
                 <div class="dropdown dropdownMargin dropdownCity" id="divDropdownOrigen2">
@@ -71,7 +65,7 @@
                     </ul>
                 </div>
                 <label>Fecha de regreso</label>
-                <input type="text" name="datepickerDestino" id="datepickerDestino2" class="datepicker">
+                <input type="text" name="datepickerDestino" id="datepickerDestino2" class="datepicker" disabled>
             </div>
             <div id="divRadio2">
                 <label class="radio-inline"><input type="radio" name="ivradio" value="1">Ida</label>
@@ -147,6 +141,12 @@
             <div style="position: absolute; bottom:0%; right:-15%;">
               <button type="button" id="btnContinuar" class="btn btn-info btn-lg"><span class="glyphicon glyphicon-ok-sign"></span> Continuar</button>
             </div>
+            <div class="danger alert-danger well" role="alert" id="divDanger">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                <strong id="strongDanger"></strong>
+                <br>
+                <span id="spanDanger"></span>
+            </div>
         </div>
 
         <div class="col-lg-1"></div>
@@ -189,6 +189,7 @@
         <script src="js/jquery-1.11.2.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="js/jquery-ui.min.js"></script>
+        <script src="js/mensaje.js"></script>
         <script src="js/funciones.js"></script>
         <script src="js/seleccionServicio.js"></script>
     </body>

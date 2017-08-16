@@ -32,6 +32,14 @@ $(function () {
         $("#divDanger").fadeOut();                                              //Estas dos funciones las vuelven a azul cuando clickeas
     });
 
+    $('#divRadio').on('change', 'input:radio', function(){  //Busca nuevos servicios al seleccionar nuevamente Ida o Vuelta
+      if ($(this).val() == 2) {
+        $('#datepickerDestino').removeAttr('disabled');
+      }else {
+        $('#datepickerDestino').prop('disabled', true);
+      }
+    });
+
     $("#datepickerDestino").on("click", function () {
         $(this).removeClass("redBorder");
         $("#divDanger").fadeOut();

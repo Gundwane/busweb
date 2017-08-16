@@ -39,6 +39,19 @@
     padding-left: 20px;
 }
 
+#divDanger{
+    display: none;
+    background-color: #ffcccc;
+    text-align: center;
+    padding: 5px;
+    position: fixed;
+    left: 15%; /*A la derecha deje un espacio de 0px*/
+    right: 15%; /*A la izquierda deje un espacio de 0px*/
+    bottom: 0px; /*Abajo deje un espacio de 0px*/
+    height: 50px; /*alto del div*/
+    z-index: 0;
+}
+
 .dropdownMargin{
     margin-bottom: 5px;
 }
