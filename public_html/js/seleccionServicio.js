@@ -13,13 +13,17 @@ $(function(){
     var tablaVuelta = $("#bodyTablaVuelta");
     var selected = null;
     var selectedIdVuelta = null;
+    var horaIda, horaVuelta, diaIda, diaVuelta, nomEmpresa1, nomEmpresa2;
+    var fechaIda2, fechaVuelta2; //fechaVuelta2 es almacenada en el localStorage y recuperada en datos de pasajero
     $('#btnDropdownOrigen2').html(ciudadOrigen);
     $('#btnDropdownDestino2').html(ciudadDestino);
     $('#datepickerOrigen2').val(fechaIda);
+
     if (fechaVuelta == '') {
       $('#datepickerDestino2').val(fechaIda);
     }else {
       $('#datepickerDestino2').val(fechaVuelta);
+      $('#datepickerDestino2').removeAttr('disabled');
     }
 
     var imgCama = '<h3>Servicio Cama</h3><br>' +
@@ -55,7 +59,7 @@ $(function(){
     buscarServicio();                                     //Busca servicios según las ciudades elegidas en los dropdown
 
     /*Bindeo de la funcion que busca los servicios a los botones Buscar, y al click en una nueva Ciudad*/
-    $("#btnBuscarServicio").on("click", function(){       //Al presionar el boton Buscar
+    $('#btnBuscarServicio').on('click', function(){       //Al presionar el boton Buscar
         buscarServicio();
     });
 
@@ -71,7 +75,7 @@ $(function(){
     $('#divRadio2').on('change', 'input:radio', function(){  //Busca nuevos servicios al seleccionar nuevamente Ida o Vuelta
       radioIdaVuelta = $(this).val();
       buscarServicio();
-      if ($(this).val() == 2) {
+      if ($(this).val() == 2) {                              //"Disablea" y activa datepicker
         $('#datepickerDestino2').removeAttr('disabled');
       }else{
         $('#datepickerDestino2').prop('disabled', true);
@@ -79,16 +83,27 @@ $(function(){
     });
 
     $("#backButton").click(function(){
-      window.location.replace('web.html');
+      window.location.replace('datosIniciales.html');
     });
 
     $('#btnContinuar').on('click', function(){               //Envia los servicios seleccionados a la siguiente pag
-      if (selectedIdIda != null){
-        sessionStorage.setItem('servicioIda', selectedIdIda);
+      if (selectedIdIda !== null){
+        var ciudadOrigen = botonDropdownOrigen.text();
+        var ciudadDestino = botonDropdownDestino.text();
+        localStorage.setItem('servicioIda', selectedIdIda);
+        localStorage.setItem('ciudadDestino', ciudadDestino);
+        localStorage.setItem('ciudadOrigen', ciudadOrigen);
+        localStorage.setItem('fechaIda', fechaIda2);
+        localStorage.setItem('horaIda', horaIda);
+        localStorage.setItem('empresaIda', nomEmpresa1);
+        sessionStorage.setItem('1', nomEmpresa1);
+        window.location.replace('condicionesComerciales.html');
         if (selectedIdVuelta != null) {
-          sessionStorage.setItem('servicioVuelta', selectedIdVuelta);
+          tiempoDiferencia(horaIda, horaVuelta, diaIda, diaVuelta);
+        }else {
+          localStorage.setItem('servicioVuelta', null);
+          sessionStorage.setItem('2', null);
         }
-        window.location.replace('seleccionButacas.html');
       }else{
 
       }
@@ -148,11 +163,14 @@ $(function(){
     function buscarServicio(){
         var origen = botonDropdownOrigen.text();
         var destino = botonDropdownDestino.text();
+        fecha1 = $('#datepickerOrigen2').datepicker('getDate');
+        fecha2 = $('#datepickerDestino2').datepicker('getDate');
+
         checkRadio();
         tituloTramo(origen, destino);
         tramosIda(origen, destino);
         if (radioIdaVuelta == 2) {
-          fechaVueltaChecker(fechaIda, fechaVuelta);
+          fechaChecker(fecha1, fecha2);
           tramosVuelta(destino, origen);
           $('#divVuelta').toggle();
           $("#lblTramoVuelta").empty();
@@ -251,7 +269,7 @@ $(function(){
 
     function llenarTabla(data, tabla, flag) {
         var html = "", tfoot = $('.tableFoot');
-        var butacas, fecha, fechaTotal;
+        var butacas, fechaTotal;
         var precios, precioComun, precioSemicama, precioCama;
         var countResultados = 0;
         var fechaIda, fechaVuelta;
@@ -293,14 +311,14 @@ $(function(){
               precioCama = "";
             }
             html += "<tr id=" + value.idTramo + ">" +
-                    "<td>" + value.nombreEmpresa + "</td>" +
+                    "<td><span id='spanEmpresa'>" + value.nombreEmpresa + "</span></td>" +
                     "<td><span id=infoIcon class='glyphicon glyphicon-info-sign infoServicio'></span></td>" +
                     "<td>" +
                       (butacas["Comun"] > 0 ? "Comun: " + butacas["Comun"] : "") + "<br>" +
                       (butacas["Semicama"] > 0 ? "Semicama: " + butacas["Semicama"] : "") + "<br>" +
                       (butacas["Cama"] > 0 ? "Cama: " + butacas["Cama"] : "") +
                     "</td>" +
-                    "<td>" + fecha + "</td>" +
+                    "<td class='horarioSalida'>" + fecha + "</td>" +
                     "<td class='horarioLlegada'>" + fechaTotal + "</td>" +
                     "<td>" +
                       (precioComun !== "" ? "$"+precioComun : "") + "<br>" +
@@ -322,15 +340,19 @@ $(function(){
 
     $('.table').on('click', '.glyphicon-shopping-cart', function(){
       if ((!$(this).hasClass('selected')) && ($(this).closest('table').attr('id') === 'tablaIda')) {
-        fechaIda = $(this).closest('tr').find('.horarioLlegada span').text();
-
-        $(this).css('color', '#E4A11B').addClass('selected');
+        horaIda = $(this).closest('tr').find('.horarioLlegada .horaSpan').text();
+        diaIda = $(this).closest('tr').find('.horarioLlegada .diaSpan').text();
         selectedIdIda = $(this).closest('tr').attr('id');
-      }else if ((!$(this).hasClass('selected')) && ($(this).closest('table').attr('id') === 'tablaVuelta')){
-        fechaVuelta = $(this).closest('tr').find('.horarioLlegada span').text();
-
-        selectedIdVuelta = $(this).closest('tr').attr('id');
-        tiempoDiferencia(fechaIda, fechaVuelta);
+        nomEmpresa1 = $(this).closest('tr').find('#spanEmpresa').text();
+        fechaIda2 = $(this).closest('tr').find('.horarioSalida').html().split('<br>')[0];
+        $(this).css('color', '#E4A11B').addClass('selected');
+        }else if ((!$(this).hasClass('selected')) && ($(this).closest('table').attr('id') === 'tablaVuelta')){
+          horaVuelta = $(this).closest('tr').find('.horarioLlegada .horaSpan').text();
+          diaVuelta = $(this).closest('tr').find('.horarioLlegada .diaSpan').text(); //revisar utilidad de esta variable (no me acuerdo para que pija se usa)
+          fechaVuelta2 = $(this).closest('tr').find('.horarioSalida').html().split('<br>')[0];//divide horarioLlegada en 2 usando <br> para "splitear", y almacena el primer elemento de las dos partes
+          selectedIdVuelta = $(this).closest('tr').attr('id');
+          nomEmpresa2 = $(this).closest('tr').find('#spanEmpresa').text();
+          $(this).css('color', '#E4A11B').addClass('selected');
       }else{
         $(this).css('color', '#333').removeClass('selected');
       }
@@ -341,8 +363,8 @@ $(function(){
       var mes = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
       if (stringTime === undefined) {
         var tiempoFormateado = dias[tiempoFormat.getDay()] + " "
-                               + tiempoFormat.getDate() + " de "
-                               + mes[tiempoFormat.getMonth()] + "<br><span>"
+                               + "<span class='diaSpan'>" + tiempoFormat.getDate() + "</span> de "
+                               + mes[tiempoFormat.getMonth()] + "<br><span class='horaSpan'>"
                                + (tiempoFormat.getHours() < 10 ? "0" + tiempoFormat.getHours() : tiempoFormat.getHours()) + ":"
                                + (tiempoFormat.getMinutes() < 10 ? "0" + tiempoFormat.getMinutes() : tiempoFormat.getMinutes()) + "</span> hs";
       }else {
@@ -350,8 +372,8 @@ $(function(){
         tiempoFormat.setHours(timeSplited[0]);
         tiempoFormat.setMinutes(timeSplited[1]);
         var tiempoFormateado = dias[tiempoFormat.getDay()]+ " "
-                               + tiempoFormat.getDate() + " de "
-                               + mes[tiempoFormat.getMonth()] + "<br><span>"
+                               + "<span class='diaSpan'>" + tiempoFormat.getDate() + "</span> de "
+                               + mes[tiempoFormat.getMonth()] + "<br><span class='horaSpan'>"
                                + timeSplited[0] + ":"
                                + timeSplited[1] + "</span> hs";
       }
@@ -359,16 +381,32 @@ $(function(){
       return tiempoFormateado;
     }
 
-    function tiempoDiferencia(fecha1, fecha2){        //Calcula que no se ingrese un horario de vuelta anterior al de llegada a destino
-      console.log('Fechas: '+fecha1+' '+fecha2);
-      var timeFecha1 = fecha1.getDay();
+    function tiempoDiferencia(hora1, hora2, fecha1, fecha2){        //Calcula que no se ingrese un horario de vuelta anterior al de llegada a destino
+      hora1split = hora1.split(':');
+      hora2split = hora2.split(':');
+
+      if (fecha1 > fecha2) {
+        mensajeAlerta('El horario de regreso no puede ser anterior al de llegada');
+        return;
+        }else if (hora1split[0] > hora2split[0]) {
+          mensajeAlerta('El horario de regreso no puede ser anterior al de llegada');
+          return;
+          }else if ((hora1split[0] == hora2split[0]) && (hora1split[1] > hora2split[1])) {
+            mensajeAlerta('El horario de regreso no puede ser anterior al de llegada');
+            return;
+      }else {
+        localStorage.setItem('servicioVuelta', selectedIdVuelta);
+        sessionStorage.setItem('2', nomEmpresa2);
+        localStorage.setItem('fechaVuelta', fechaVuelta2);
+        localStorage.setItem('horaVuelta', horaVuelta);
+        localStorage.setItem('empresaVuelta', nomEmpresa2);
+        window.location.replace('condicionesComerciales.html');
+      }
     };
 
-    function fechaVueltaChecker(){                    //Calcula que la fecha de vuelta no sea anterior a la de ida
-      var diaI = $('#datepickerOrigen2').datepicker('getDate');
-      var diaV = $('#datepickerDestino2').datepicker('getDate');
+    function fechaChecker(diaI, diaV){                               //Calcula que la fecha de vuelta no sea anterior a la de ida
       if (diaV.getDate() < diaI.getDate()) {
-        mensajeAlerta('Nope', 'La fecha de regreso no puede ser inferior a la de ida');
+        mensajeAlerta('Nope', 'La fecha de regreso no puede ser anterior a la de ida');
       }
     };
 

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/jquery-ui.min.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/pago.css" rel="stylesheet">
+    <link href="css/bootstrap-select.min.css" rel="stylesheet">
+    <title>Pago</title>
+  </head>
+  <body>
+    <div class="jumbotron">
+        <div id="fechaDiv"><span>Fecha</span></div>
+        <div id="idiomaDropdown" class="dropdown pull-right">
+            <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Idioma
+                <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+                <li><a href="#">Español</a></li>
+                <li><a href="#">Inglés</a></li>
+            </ul>
+        </div>
+        <div class="container">
+            <h3>Paso 6 - Pago</h3>
+        </div>
+        <div>
+          <button type="button" id="backButton" class="btn btn-default fa fa-chevron-left"> Volver</button>
+        </div>
+    </div>
+    <div class="col-lg-2"></div>
+    <div class="col-lg-8">
+      <div id="ida" class="well">
+        <h3>Tramo de Ida</h3>
+        <span class="calidadPrecio">Precio por calidad de servicio: </span>
+        <br>
+        <i class="fa fa-square comun"></i><span id="cantComunI"> Comun x </span><br>
+        <i class="fa fa-square semicama"></i><span id="cantSemicamaI"> Semicama x </span><br>
+        <i class="fa fa-square cama"></i><span id="cantCamaI"> Cama x </span><br>
+        <label>Precio Total:</label><span class="totalPrecio"> </span><br>
+        <label>Recargo por tarjeta:</label><span class="recargoTarjeta"> </span>
+      </div>
+      <div id="vuelta" class="well">
+        <h3>Tramo de Vuelta</h3>
+        <span class="calidadPrecio">Precio por calidad de servicio: </span>
+        <br>
+        <i class="fa fa-square comun"></i><span id="cantComunV"> Comun x </span><br>
+        <i class="fa fa-square semicama"></i><span id="cantSemicamaV"> Semicama x </span><br>
+        <i class="fa fa-square cama"></i><span id="cantCamaV"> Cama x </span><br>
+        <label>Precio Total:</label><span class="totalPrecio"> </span><br>
+        <label>Recargo por tarjeta:</label><span class="recargoTarjeta"> </span>
+      </div>
+
+      <div class="well">
+        <h3><label>Monto total:</label><span id="montoTotal"></span></h3>
+      </div>
+
+      <div id="tarjeta" class="well">
+        <h3>TARJETA</h3>
+        <div class="form-group form-inline">
+          <div class="dropdown input-group">
+           <label class="input-group-addon">Tarjeta: </label>
+           <button id="btnDrpDni1" class="btn btn-primary dropdown-toggle form-control" type="button" data-toggle="dropdown">Seleccione...
+           <span class="caret"></span></button>
+           <ul class="dropdown-menu">
+             <li><a>VISA</a><!--<img src="images/formasPago/visa.png">--></li>
+             <li><a>MASTERCARD</a><!--<img src="images/formasPago/mastercard.png">--></li>
+             <li><a>DINNERS CLUB</a><!--<img src="images/formasPago/dinersClub.png">--></li>
+             <li><a>VISA - BANCO NACION</a><!--<img src="images/formasPago/visaNacion.png">--></li>
+           </ul>
+          </div>
+          <div class="dropdown input-group">
+           <label class="input-group-addon">Cuotas: </label>
+           <button class="btn btn-primary dropdown-toggle form-control" type="button" data-toggle="dropdown">Seleccione<span class="caret"></span></button>
+           <ul class="dropdown-menu">
+             <li><a>1 pago</a></li>
+             <li><a>2 pagos</a></li>
+             <li><a>3 pagos</a></li>
+             <li><a>6 pagos</a></li>
+             <li><a>12 pagos</a></li>
+             <li><a>24 pagos</a></li>
+           </ul>
+          </div>
+          <br><label>Datos del titular de la tarjeta:</label><br>
+          <form action="">
+            <div class="dropdown input-group">
+              <label class="input-group-addon">Tipo de documento</label>
+              <button id="btnDrpDni" class="btn btn-primary dropdown-toggle form-control" type="button" data-toggle="dropdown">DNI<span class="caret"></span></button>
+              <ul class="dropdown-menu">
+                <li><a>DNI</a></li>
+                <li><a>Pasaporte</a></li>
+                <li><a>CDI</a></li>
+                <li><a>LE</a></li>
+              </ul>
+            </div>
+            <div class="input-group">
+              <label class="input-group-addon">Número</label><input id="txtNumero" type="text" class="form-control" pattern="[0-9]*" placeholder="Número de documento" maxlength="8" required>
+            </div>
+            <div class="input-group">
+              <label class="input-group-addon">Apellido</label><input id="txtApellido"  type="text" class="form-control" maxlength="50" placeholder="Apellido" required>
+            </div>
+            <div class="input-group">
+              <label class="input-group-addon">Nombre</label><input id="txtNombre" type="text" class="form-control" maxlength="50" placeholder="Nombre" required>
+            </div>
+            <div class="input-group">
+              <label class="input-group-addon">E-mail</label><input id="txtEmail" type="email" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,63}$" placeholder="email@dominio.com" required>
+            </div>
+            <div class="dropdown input-group">
+             <label class="input-group-addon">Nacionalidad</label>
+             <button id="btnDrpNac" data-trigger="focus" data-content="Elige una nacionalidad" class="btn btn-primary dropdown-toggle form-control" type="button" data-toggle="dropdown">Seleccione <span class="caret"></span></button>
+             <ul class="dropdown-menu">
+               <li><a>Argentina</a></li>
+               <li><a>Chile</a></li>
+               <li><a>Brasil</a></li>
+               <li><a>Uruguay</a></li>
+             </ul>
+            </div>
+            <div class="input-group">
+              <label class="input-group-addon">Número de contacto</label>
+              <input id="txtTelefono" type="text" class="form-control" pattern="[0-9]*" placeholder="Teléfono de contacto" required>
+            </div>
+            <div class="input-group">
+              <label class="input-group-addon">Fecha de nacimiento</label>
+              <input id="datepicker" type="text" id="datepicker" class="datepicker">
+            </div>
+          </form>
+          <button id="boton" type="button" name="button">TEST</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-2"></div>
+
+  <!-- SCRIPTS -->
+  <script src="js/jquery-1.11.2.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/pago.js"></script>
+  <script src="js/jquery-ui.min.js"></script>
+  </body>
+</html>

@@ -1,23 +1,74 @@
 $(function(){
-  var servicio1 = sessionStorage.getItem('servicio1');
+  var flagIda = '.tIda';
+  var flagVuelta = '.tVuelta';
+  var servicioIda = localStorage.getItem('servicioIda');
+  var objectButacas = {};
+  getButacasByTramo(servicioIda, flagIda);
+  if (localStorage.getItem('servicioVuelta') != 'null'){
+    var servicioVuelta = localStorage.getItem('servicioVuelta');
+    getButacasByTramo(servicioVuelta, flagVuelta);
+    $('.left, .right').css('visibility','visible');
+  }
 
-  $('.tButacas').on('click', 'span', function(){
+  $('.tButacas').on('click', 'span', function(event){
+    event.stopPropagation();
+    var tempStore, number, objectIndex;
+
     if (!$(this).siblings('i').hasClass('butacaClicked')) {
       $(this).siblings('.butacas').addClass('butacaClicked');
+
+      if ($(this).siblings('i').hasClass('butacaComun')) {  //Checkea que esté seleccionada y si es de la tabla de ida o vuelta
+        var key = $(this).text();
+        //ESTE CODIGO ES HORRIBLE. REVISAR Y MEJORAR APENAS PUEDA
+        if ($(this).closest('tbody').hasClass('tIda')) {
+          objectButacas[key] = ['Comun', 'Ida'];
+        }else if($(this).closest('tbody').hasClass('tVuelta')){
+          objectButacas[key] = ['Comun', 'Vuelta'];
+        }
+      }else if ($(this).siblings('i').hasClass('butacaSemicama')) {
+        var key = $(this).text();
+        if ($(this).closest('tbody').hasClass('tIda')) {
+          objectButacas[key] = ['Semicama', 'Ida'];
+        }else {
+          objectButacas[key] = ['Semicama', 'Vuelta'];
+        }
+      }else if ($(this).siblings('i').hasClass('butacaCama')) {
+        var key = $(this).text();
+        if ($(this).closest('tbody').hasClass('tIda')) {
+          objectButacas[key] = ['Cama', 'Ida'];
+        }else {
+          objectButacas[key] = ['Cama', 'Vuelta'];
+        }
+      }
     }else{
       $(this).siblings('.butacas').removeClass('butacaClicked');
+      number = $(this).text();
+        $.each(objectButacas, function(index, value) {
+          if (index == number) {
+            delete objectButacas[index];
+          }
+        });
     }
   });
 
-  getButacasByTramo = function(){
+  $("#backButton").click(function(){
+    window.location.replace('datosIniciales.html');
+  });
+
+  $('#btnContinuar').click(function(){
+    localStorage.setItem('array', JSON.stringify(objectButacas));
+    window.location.replace('datosPasajero.html');
+  })
+
+  function getButacasByTramo(servicioId, flag){
     var url = 'acciones.php?accion=getBusPorTramo';
     $.ajax({
       url: url,
       dataType: 'json',
       method: 'POST',
-      data: {busId: servicio1},
+      data: {busId: servicioId},
       success: function(data){
-        autobusData(data);
+        autobusData(data, flag);
       },
       error: function(){
         console.log('Error getin the butacas');
@@ -25,27 +76,33 @@ $(function(){
     });
   };
 
-  autobusData = function(data){
+  autobusData = function(data, flag){
     var indexer = 0;
     var bus = assocArrayExtractor(data);
     var html = '';
     $.each(bus, function(index, value){
       if (value === 'Comun'){
-        $('td').each(function(){
+        $(flag).find('td').each(function(){
           if (($(this).attr('id')) == index) {
             $(this).find('span').siblings('i').addClass('butacaComun');
           }
         });
       }else if (value === 'Semicama') {
-        $('td').each(function(){
+        $(flag).find('td').each(function(){
           if (($(this).attr('id')) == index) {
             $(this).find('span').siblings('i').addClass('butacaSemicama');
           }
         });
       }else if (value === 'Cama') {
-        $('td').each(function(){
+        $(flag).find('td').each(function(){
           if (($(this).attr('id')) == index) {
             $(this).find('span').siblings('i').addClass('butacaCama');
+          }
+        });
+      }else {
+        $(flag).find('td').each(function(){
+          if (($(this).attr('id')) == index) {
+            $(this).find('span').prop('disabled', true);
           }
         });
       }
@@ -59,6 +116,4 @@ $(function(){
 
     return arrayAutobus;
   };
-
-  getButacasByTramo();
 });

@@ -1,0 +1,20 @@
+.comun{
+  color: green;
+}
+
+.semicama{
+  color: #003300;
+}
+
+.cama{
+  color: #006666;
+}
+
+.datepicker{
+  position: relative;
+  z-index: 10000 !important;
+}
+
+.form-group *{
+  margin-bottom: 5px;
+}

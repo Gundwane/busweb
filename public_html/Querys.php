@@ -28,12 +28,12 @@ class Querys {
     }
 
     public function getBus(){
-        $query = "SELECT arrayButacas FROM buses WHERE patenteBus='AF465FG'";
+        $query = "SELECT arrayAsientos FROM buses WHERE idBus=3";
         $statement = $this->_conexion->prepare($query);
         $statement->execute();
         $row = $statement->fetchColumn();
-        $arrayBus = unserialize($row);
-        return $arrayBus;
+        $arrayBus = unserialize(base64_decode($row));
+        print_r($arrayBus);
     }
 
     public function getTramo() {
@@ -106,4 +106,144 @@ class Querys {
       $array = $statement->fetchAll(PDO::FETCH_ASSOC);
       return $array;
     }
+
+    public function getCondiciones(){
+      $nomEmp = $_POST['nomEmp'];
+
+      $query = "SELECT condiciones FROM empresa WHERE nombreEmpresa= ?";
+
+      $statement = $this->_conexion->prepare($query);
+      $statement->bindParam(1, $nomEmp);
+      $statement->execute();
+      $row = $statement->fetchColumn();
+      $row = nl2br($row);
+      echo $row;
+    }
+
+    public function precioTramo($idTramo){
+      $query = "SELECT tramos.precio FROM tramos WHERE tramos.idTramo = ?";
+
+      $statement = $this->_conexion->prepare($query);
+      $statement->bindParam(1, $idTramo);
+      $statement->execute();
+      $row = $statement->fetchColumn();
+      return $row;
+    }
+
+    public function preciocalidad(){
+      $idTramo = $_POST['tramo'];
+      $precios;
+      $array = [];
+
+      $array[] = $this->precioTramo($idTramo);
+      $precios = $this->getPrecio();
+      foreach ($precios as $key => $value) {
+        $array[$value['calidad']] = $value['multiplicador'];
+      }
+      return $array;
+    }
+
+    public function insertPasajero(){
+      global $idPasajero;
+
+      $nombre = $_POST['nombre'];
+      $apellido = $_POST['apellido'];
+      $tipoDni = $_POST['tipoDni'];
+      $dni = $_POST['dni'];
+      $email = $_POST['email'];
+      $nacionalidad = $_POST['nacionalidad'];
+
+      $query = "INSERT INTO pasajero (nombre, apellido, tipoDni, dni, email, nacionalidad) values (?, ?, ?, ?, ?, ?)";
+      $statement = $this->_conexion->prepare($query);
+      $statement->bindParam(1, $nombre);
+      $statement->bindParam(2, $apellido);
+      $statement->bindParam(3, $tipoDni);
+      $statement->bindParam(4, $dni);
+      $statement->bindParam(5, $email);
+      $statement->bindParam(6, $nacionalidad);
+      $statement->execute();
+
+      return $this->_conexion->lastInsertId();
+    }
+
+    public function insertTitular(){
+      global $idTitular;
+
+      $tipoDni = $_POST['tipoDni'];
+      $dni = $_POST['dni'];
+      $apellido = $_POST['apellido'];
+      $nombre = $_POST['nombre'];
+      $email = $_POST['email'];
+      $telefono = $_POST['telefono'];
+      $nacionalidad = $_POST['nacionalidad'];
+      $numeroContacto = $_POST['numeroContacto'];
+      $fechaNacimiento = $_POST['fechaNacimiento'];
+
+      $query = "INSERT INTO titularTarjeta (nombre, apellido, tipoDni, dni, telefono, email, nacionalidad, fechaNacimiento) VALUES (?, ?, ?, ?, ?, ?, ?,DATE ?)";
+      $statement = $this->_conexion->prepare($query);
+      $statement->bindParam(1, $nombre);
+      $statement->bindParam(2, $apellido);
+      $statement->bindParam(3, $tipoDni);
+      $statement->bindParam(4, $dni);
+      $statement->bindParam(5, $telefono);
+      $statement->bindParam(6, $email);
+      $statement->bindParam(7, $nacionalidad);
+      $statement->bindParam(8, $fechaNacimiento);
+      $statement->execute();
+
+      return $this->_conexion->lastInsertId();
+    }
+
+    public function updateButacas(){
+      $tramoId = $_POST['idTramo'];
+      $butaca = $_POST['butaca'];
+      $query = "SELECT buses.idBus, buses.arrayAsientos
+                FROM buses
+                INNER JOIN tramos ON tramos.fk_bus = buses.idBus
+                WHERE tramos.idTramo = ?";
+
+      $statement = $this->_conexion->prepare($query);
+      $statement->bindParam(1, $tramoId);
+      $statement->execute();
+      $array = $statement->fetchAll(PDO::FETCH_ASSOC);
+      $idBus = $array[0]['idBus'];
+      $arrayButacas = $array[0]['arrayAsientos'];
+
+      $arrayButacas = unserialize(base64_decode($arrayButacas));
+      foreach ($arrayButacas as $key => $value) {
+        if ($key == $butaca) {
+          $arrayButacas[$key] = $value.'RESERVADO';
+        }
+      }
+
+      $serializedArrayButacas = base64_encode(serialize($arrayButacas));
+      $query2 = "UPDATE buses
+                SET arrayAsientos = ?
+                WHERE idBus = ?";
+      $statement = $this->_conexion->prepare($query2);
+      $statement->bindParam(1, $serializedArrayButacas);
+      $statement->bindParam(2, $idBus);
+      $statement->execute();
+    }
+
+    public function insertTicket(){
+      $idPasajero = $_POST['idPasajero'];
+      $idTitular = $_POST['idTitular'];
+      $idTramo = $_POST['idTramo'];
+      $fechaSalida = $_POST['fechaSalida'];
+      $butaca = $_POST['butaca'];
+
+      //echo 'Pasajero: '.$idPasajero.' Titular: '.$idTitular.' Tramo: '.$idTramo.' Fecha: '.$fechaSalida.' Butaca: '.$butaca;
+
+      $query = "INSERT INTO ticket (fk_pasajero, fk_titularTarjeta, fk_tramo, fechaSalida, numeroButaca) VALUES (?, ?, ?, ?, ?)";
+      $statement = $this->_conexion->prepare($query);
+      $statement->bindParam(1, $idPasajero);
+      $statement->bindParam(2, $idTitular);
+      $statement->bindParam(3, $idTramo);
+      $statement->bindParam(4, $fechaSalida);
+      $statement->bindParam(5, $butaca);
+      $statement->execute();
+    }
+
+
 }

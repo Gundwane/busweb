@@ -3,8 +3,9 @@ $(function(){
         $("#divDanger").fadeIn();
         $("#strongDanger").html(titulo);
         $("#spanDanger").html(mensaje);
-    };
-  $(document).click(function(){
+  };
+
+  $('#divDanger').on('click', function(){
     $("#divDanger").fadeOut();
   });
 })

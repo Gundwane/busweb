@@ -1,8 +1,10 @@
 $(function () {
+    cleanLocalStorage();
     var dropdownOrigen = $('#dropdownCiudadesOrigen');
     var btnDropdownOrigen = $("#btnDropdownOrigen");
     var dropdownDestino = $('#dropdownCiudadesDestino');
     var btnDropdownDestino = $("#btnDropdownDestino");
+    var usuario = localStorage.getItem('usuario');
     var ciudadOrigen, ciudadDestino;
     var arraySession = [];
 
@@ -27,6 +29,8 @@ $(function () {
         });
     };
 
+    $('#spanUser').append(usuario+'!');
+
     $("#datepickerOrigen").on("click", function () {                            //Remover clases de inputs
         $(this).removeClass("redBorder");                                       //El Dropdown se pone en rojo cuando hay un error
         $("#divDanger").fadeOut();                                              //Estas dos funciones las vuelven a azul cuando clickeas
@@ -44,6 +48,10 @@ $(function () {
         $(this).removeClass("redBorder");
         $("#divDanger").fadeOut();
     });
+
+    $('#backButton').click(function(){
+      window.location.replace('index.html');
+    })
 
     $("#btnBuscar").click(function () {                                         //Boton Submit
         var inputFechaIda = new Date();
@@ -176,6 +184,14 @@ $(function () {
         dropdownOrigen.append(html);
         dropdownDestino.append(html);
     };
+
+    function cleanLocalStorage() {
+      for(key in localStorage) {
+        if (key != 'usuario') {
+          delete localStorage[key];
+        }
+      }
+    }
 
     mensajeAlerta = function (titulo, mensaje) {
         $("#divDanger").fadeIn();

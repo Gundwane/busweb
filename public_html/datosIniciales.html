@@ -1,19 +1,88 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Datos Iniciales</title>
+
+        <!-- Bootstrap -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/jquery-ui.min.css" rel="stylesheet">
+        <link href="css/divs.css" rel="stylesheet">
+        <link href="css/bootstrap-select.min.css" rel="stylesheet">
+        <link href="css/font-awesome.min.css" rel="stylesheet" >
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
     </head>
     <body>
-        <div class="col-lg-1"></div>
-        <div class="col-lg-10">
-            
+        <div class="jumbotron">
+            <span id="spanUser" class="label label-default">Bienvenido </span>
+            <div class="container">
+                Banner empresa
+            </div>
+            <button type="button" id="backButton" class="btn btn-default fa fa-chevron-left"> Volver</button>
         </div>
-        <div class="col-lg-1"></div>
-        
+        <div class="col-lg-2"></div>
+
+        <div class="col-lg-8">
+            <form id="formWeb" method="post" action="validacion.php">
+                <div id="divOrigen">
+                    <div class="dropdown" id="divDropdownOrigen">
+                        <label>Ciudad de Origen</label>
+                        <button class="btn btn-primary dropdown-toggle" type="button" id="btnDropdownOrigen" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            Seleccione
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" id="dropdownCiudadesOrigen">
+                        </ul>
+                    </div>
+                    <label>Fecha de ida</label>
+                    <input type="text" name="datepickerOrigen" id="datepickerOrigen" class="datepicker">
+                </div>
+                <div id="divDestino">
+                    <div class="dropdown" id="divDropdownDestino">
+                        <label>Ciudad de Destino</label>
+                        <button class="btn btn-primary dropdown-toggle" type="button" id="btnDropdownDestino" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            Seleccione
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownCiudadesDestino" id="dropdownCiudadesDestino">
+                        </ul>
+                    </div>
+                    <label>Fecha de regreso</label>
+                    <input type="text" name="datepickerDestino" id="datepickerDestino" class="datepicker" disabled>
+                </div>
+                <div id="divRadio">
+                    <label class="radio-inline"><input type="radio" name="optradio" value="1" checked="checked">Ida</label>
+                    <label class="radio-inline"><input type="radio" name="optradio" value="2">Ida y vuelta</label>
+                    <button type="button" id="btnBuscar" class="btn btn-primary pull-right">
+                        <span class="glyphicon glyphicon-search"></span>Buscar
+                    </button>
+                    <button type="button" id="btnImprimir" class="btn btn-primary pull-right">
+                        <span class="glyphicon glyphicon-file"></span>Imprimir pasaje
+                    </button>
+                </div>
+            </form>
+            <div class="danger alert-danger well" role="alert" id="divDanger">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                <strong id="strongDanger"></strong>
+                <br>
+                <span id="spanDanger"></span>
+            </div>
+        </div>
+
+        <div class="col-lg-2"></div>
+
+        <!-- SCRIPTS -->
         <script src="js/jquery-1.11.2.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
+        <script src="js/datosIniciales.js"></script>
+        <script src="js/jquery-ui.min.js"></script>
     </body>
 </html>

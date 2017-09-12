@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/jquery-ui.min.css" rel="stylesheet">
+    <link href="css/bootstrap-select.min.css" rel="stylesheet">
+    <link href="css/condicionesComerciales.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+
+    <title>Condiciones Comerciales</title>
+  </head>
+  <body>
+    <div class="jumbotron">
+        <div id="fechaDiv"><span>Fecha</span></div>
+        <div id="idiomaDropdown" class="dropdown pull-right">
+            <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Idioma
+                <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+                <li><a href="#">Español</a></li>
+                <li><a href="#">Inglés</a></li>
+            </ul>
+        </div>
+        <div class="container">
+            <h3>Paso 3 - Condiciones Comerciales</h3>
+        </div>
+        <div>
+          <button type="button" id="backButton" class="btn btn-default fa fa-chevron-left"> Volver</button>
+        </div>
+    </div>
+
+    <div class="col-lg-1"></div>
+    <div class="col-lg-9">
+      <div id="empresaIda" class="container">
+        <h3><span class="spanNombre"></span></h3>
+        <div class="well well-sm"><span class="spanData"></span></div>
+        <br>
+        <label><input type="checkbox" id="empresa1Checker" value=""> Acepto las condiciones</label>
+      </div>
+      <hr>
+      <div id="empresaVuelta" class="container">
+        <h3><span class="spanNombre"></span></h3>
+        <div class="well"><span class="spanData"></span></div>
+        <br>
+        <label><input type="checkbox" id="empresa2Checker"> Acepto las condiciones</label>
+      </div>
+      <button id="btnContinuar" type="button" class="btn btn-info" name="button" disabled>Continuar</button>
+    </div>
+    <div class="col-lg-1"></div>
+
+    <script src="js/jquery-1.11.2.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/condicionesComerciales.js"></script>
+  </body>
+</html>
