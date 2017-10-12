@@ -2,15 +2,16 @@ $(function(){
   var origen = localStorage.getItem('ciudadOrigen');
   var destino = localStorage.getItem('ciudadDestino');
   var fechaIda = localStorage.getItem('fechaIda');
+  var fechaVuelta = localStorage.getItem('fechaVuelta');
   var horaIda = localStorage.getItem('horaIda');
   var empresaOrigen = localStorage.getItem('empresaIda');
   var array = JSON.parse(localStorage.getItem('array'));
   var html;
   var objDatosIda = {};
   var objDatosVuelta = {};
-  if (fechaVuelta != 'null') {
+  if (fechaVuelta !== null) {
+    console.log('I should not be here. But I am aniway, because i dont fuckin care about that null shit');
     $('#divVuelta').css('display', 'block');
-    var fechaVuelta = localStorage.getItem('fechaVuelta');
     var horaVuelta = localStorage.getItem('horaVuelta');
 
     $('#origenV').append(destino);

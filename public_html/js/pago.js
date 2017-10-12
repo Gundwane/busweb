@@ -4,26 +4,115 @@ $(function(){
   var arrayButacas = JSON.parse(localStorage.getItem('array'));
   var datosPasajeroIda = JSON.parse(localStorage.getItem('datosIda'));
   var datosPasajeroVuelta = JSON.parse(localStorage.getItem('datosVuelta'));
-  var fechaIda = localStorage.getItem('fechaIda');
+  var fechaIda = JSON.parse(localStorage.getItem('fechaIdaNF'));
   var idPasajero = null, idTitular = null;
-  var butacaActual;
   getPrecios();
 
   $('.dropdown-menu a').click(function(){
     $(this).closest('.dropdown').find('.btn').html($(this).text());
   });
 
+  $('#backButton').click(function(){
+    window.location.replace('datosPasajero.html');
+  })
+
   $('#boton').click(function(){
-    $.each(arrayButacas, function(index) {
-      butacaActual = index;
-      updateButaca(index);
-      insertPasajero(datosPasajeroIda);
+    var butaca;
+    function insertTitular(idPasajero){
+      var idPasajero = idPasajero;
+      var url = 'acciones.php?accion=insertTitular';
+
+      var tipoDni = $('#btnDrpDni').text();
+      var dni = $('#txtNumero').val();
+      var apellido = $('#txtApellido').val();
+      var nombre = $('#txtNombre').val();
+      var email = $('#txtEmail').val();
+      var telefono = $('#txtTelefono').val();
+      var nacionalidad = $('#btnDrpNac').text();
+      var numeroContacto = $('#txtNumero').val();
+      var fechaNacimiento = $('#datepicker').datepicker('getDate');
+      fechaNacimiento = $.datepicker.formatDate('yy-mm-dd', fechaNacimiento);
+
+      $.ajax({
+        url: url,
+        method: 'POST',
+        data: {tipoDni: tipoDni, dni: dni, apellido: apellido, nombre: nombre, email: email, telefono: telefono, nacionalidad: nacionalidad, numeroContacto: numeroContacto, fechaNacimiento: fechaNacimiento },
+        success: function(data){
+          insertTicket(idPasajero, data, butaca);
+        },
+        error: function(){
+          console.log('Error');
+        }
+      })
+    }
+
+    function insertPasajero(datosPasajero){
+      var url = 'acciones.php?accion=insertPasajero';
+      var nombre = datosPasajero['nombre'];
+      var apellido = datosPasajero['apellido'];
+      var tipoDni = datosPasajero['tipoDni'];
+      var dni = datosPasajero['dni'];
+      var email = datosPasajero['email'];
+      var nacionalidad = datosPasajero['nacionalidad'];
+
+      $.ajax({
+        url: url,
+        method: 'POST',
+        data: {nombre: nombre, apellido: apellido, tipoDni: tipoDni, dni: dni, email: email, nacionalidad: nacionalidad},
+        success: function(data){
+          insertTitular(data);
+        },
+        error: function(){
+          console.log('Error');
+        }
+      })
+    }
+
+    $.each(arrayButacas, function(index, value) {
+      butaca = index;
+
+      if (value[1] == 'Ida') {
+        updateButaca(idTramo, butaca);
+        insertPasajero(datosPasajeroIda);
+      }else {
+        updateButaca(idTramo, butaca);
+        insertPasajero(datosPasajeroVuelta);
+      }
+
+
     });
   });
 
-  function pas(idPasajero, idTitular){
-    idPasajero = id;
+  function updateButaca(tramo, butaca){
+    var url = 'acciones.php?accion=updateButacas';
+    $.ajax({
+      url: url,
+      method: 'POST',
+      data: {idTramo: idTramo, butaca: butaca},
+      success: function(){
+
+      },
+      error: function(){
+        console.log('Error');
+      }
+    })
   }
+
+  function insertTicket(idPasajero, idTitular, butaca){
+    var url = 'acciones.php?accion=insertTicket';
+
+    $.ajax({
+      url: url,
+      method: 'POST',
+      data: {idPasajero: idPasajero, idTitular: idTitular, idTramo: idTramo, fechaSalida: fechaIda, butaca: butaca},
+      success: function(data){
+        console.log('Yeah');
+      },
+      error: function(){
+        console.log('Error');
+      }
+    })
+  };
 
   function getPrecios(){
     var url = 'acciones.php?accion=precioTramo';
@@ -42,7 +131,7 @@ $(function(){
     })
   }
 
-  calcularMonto = function(data, array){
+  function calcularMonto(data, array){
     var precioTotal = 0, precioTotalIda = 0, precioTotalVuelta = 0;
     var precioTramo = data[0];
     var precioComunI = 0, precioSemicamaI = 0, precioCamaI = 0;
@@ -116,103 +205,12 @@ $(function(){
     $('#montoTotal').append(' '+precioTotal);
   }
 
-  insertPasajero = function(datosPasajero){
-    var url = 'acciones.php?accion=insertPasajero';
-    var nombre = datosPasajero['nombre'];
-    var apellido = datosPasajero['apellido'];
-    var tipoDni = datosPasajero['tipoDni'];
-    var dni = datosPasajero['dni'];
-    var email = datosPasajero['email'];
-    var nacionalidad = datosPasajero['nacionalidad'];
-
-    $.ajax({
-      url: url,
-      method: 'POST',
-      data: {nombre: nombre, apellido: apellido, tipoDni: tipoDni, dni: dni, email: email, nacionalidad: nacionalidad},
-      success: function(data){
-        insertTitular(data);
-      },
-      error: function(){
-        console.log('Error');
-      }
-    })
-  }
-
-  insertTitular = function(idPasajero){
-    var idPasajero = idPasajero;
-    var url = 'acciones.php?accion=insertTitular';
-
-    var tipoDni = $('#btnDrpDni').text();
-    var dni = $('#txtNumero').val();
-    var apellido = $('#txtApellido').val();
-    var nombre = $('#txtNombre').val();
-    var email = $('#txtEmail').val();
-    var telefono = $('#txtTelefono').val();
-    var nacionalidad = $('#btnDrpNac').text();
-    var numeroContacto = $('#txtNumero').val();
-    var fechaNacimiento = $('#datepicker').datepicker('getDate');
-    fechaNacimiento = $.datepicker.formatDate('yy-mm-dd', fechaNacimiento);
-    $.ajax({
-      url: url,
-      method: 'POST',
-      data: {tipoDni: tipoDni, dni: dni, apellido: apellido, nombre: nombre, email: email, telefono: telefono, nacionalidad: nacionalidad, numeroContacto: numeroContacto, fechaNacimiento: fechaNacimiento },
-      success: function(data){
-        insertTicket(idPasajero, data);
-      },
-      error: function(){
-        console.log('Error');
-      }
-    })
-  }
-
-  updateButaca = function(butaca){
-    var url = 'acciones.php?accion=updateButacas';
-
-    $.ajax({
-      url: url,
-      method: 'POST',
-      data: {idTramo: idTramo, butaca: butaca},
-      //data: {idTramo: idTramo, butacas: arrayButacas},
-      success: function(){
-      },
-      error: function(){
-        console.log('Error');
-      }
-    })
-  }
-
-  insertTicket = function(idPasajero, idTitular){
-    var url = 'acciones.php?accion=insertTicket';
-
-    $.ajax({
-      url: url,
-      method: 'POST',
-      data: {idPasajero: idPasajero, idTitular: idTitular, idTramo: idTramo, fechaSalida: fechaIda, butaca: butacaActual},
-      success: function(data){
-        console.log('Yeah');
-      },
-      error: function(){
-        console.log('Error');
-      }
-    })
-  };
-
-  test = function(){
-    var url = 'acciones.php?accion=test';
-
-    $.ajax({
-      url: url,
-      method: 'GET',
-      success: function(data){
-        console.log('Yeah');
-      },
-      error: function(){
-        console.log('Error');
-      }
-    })
-  }
+  /*function reorderDate(stringDate){
+    var array, date;
+    array = stringDate.split('-');
+    date = new Date(array[2], array[1], array[0]);
+    return date;
+  }*/
 
   $('.datepicker').datepicker();
-  //insertPasajero(datosPasajeroIda);
-  //insertTitular();
 })

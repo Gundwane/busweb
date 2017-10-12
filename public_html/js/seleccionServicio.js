@@ -94,6 +94,7 @@ $(function(){
         localStorage.setItem('ciudadDestino', ciudadDestino);
         localStorage.setItem('ciudadOrigen', ciudadOrigen);
         localStorage.setItem('fechaIda', fechaIda2);
+        localStorage.setItem('fechaIdaNF', JSON.stringify(($('#datepickerOrigen2').datepicker({ dateFormat: 'yyyy,MM,dd' }).val())));
         localStorage.setItem('horaIda', horaIda);
         localStorage.setItem('empresaIda', nomEmpresa1);
         sessionStorage.setItem('1', nomEmpresa1);
@@ -399,6 +400,7 @@ $(function(){
         sessionStorage.setItem('2', nomEmpresa2);
         localStorage.setItem('fechaVuelta', fechaVuelta2);
         localStorage.setItem('horaVuelta', horaVuelta);
+        localStorage.setItem('fechaVueltaNF', $('#datepickerDestino2').datepicker('getDate'));
         localStorage.setItem('empresaVuelta', nomEmpresa2);
         window.location.replace('condicionesComerciales.html');
       }

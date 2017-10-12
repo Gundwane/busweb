@@ -6,7 +6,12 @@ $(function(){
   var flag = false;
 
   condicionesToSpan(empresa1, div1);
-  if (empresa2 !== 'null') {
+  if (empresa2 != empresa1) {
+    console.log('My obsession');
+  }else {
+    console.log('Else');
+  }
+  if (empresa2 !== 'null' || empresa1 !== empresa2) {
     div2.css('display', 'block');
     condicionesToSpan(empresa2, div2);
   }

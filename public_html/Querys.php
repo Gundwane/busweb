@@ -117,6 +117,7 @@ class Querys {
       $statement->execute();
       $row = $statement->fetchColumn();
       $row = nl2br($row);
+
       echo $row;
     }
 
@@ -179,7 +180,7 @@ class Querys {
       $numeroContacto = $_POST['numeroContacto'];
       $fechaNacimiento = $_POST['fechaNacimiento'];
 
-      $query = "INSERT INTO titularTarjeta (nombre, apellido, tipoDni, dni, telefono, email, nacionalidad, fechaNacimiento) VALUES (?, ?, ?, ?, ?, ?, ?,DATE ?)";
+      $query = "INSERT INTO titulartarjeta (nombre, apellido, tipoDni, dni, telefono, email, nacionalidad, fechaNacimiento) VALUES (?, ?, ?, ?, ?, ?, ?,DATE ?)";
       $statement = $this->_conexion->prepare($query);
       $statement->bindParam(1, $nombre);
       $statement->bindParam(2, $apellido);
@@ -217,6 +218,7 @@ class Querys {
       }
 
       $serializedArrayButacas = base64_encode(serialize($arrayButacas));
+
       $query2 = "UPDATE buses
                 SET arrayAsientos = ?
                 WHERE idBus = ?";
@@ -227,12 +229,14 @@ class Querys {
     }
 
     public function insertTicket(){
-      $idPasajero = $_POST['idPasajero'];
-      $idTitular = $_POST['idTitular'];
-      $idTramo = $_POST['idTramo'];
+      $idPasajero = (int)trim($_POST['idPasajero'], '"');
+      $idTitular = (int)trim($_POST['idTitular'], '"');
+      $idTramo = (int)$_POST['idTramo'];
       $fechaSalida = $_POST['fechaSalida'];
-      $butaca = $_POST['butaca'];
-
+      $butaca = (int)$_POST['butaca'];
+      $fecha = strtotime($fechaSalida);
+      $fecha = date('Y-m-d', $fecha);
+      //echo gettype($idPasajero), "\n", gettype($idTitular), "\n", gettype($idTramo), "\n", gettype($fechaSalida), "\n", gettype($butaca), "\n";
       //echo 'Pasajero: '.$idPasajero.' Titular: '.$idTitular.' Tramo: '.$idTramo.' Fecha: '.$fechaSalida.' Butaca: '.$butaca;
 
       $query = "INSERT INTO ticket (fk_pasajero, fk_titularTarjeta, fk_tramo, fechaSalida, numeroButaca) VALUES (?, ?, ?, ?, ?)";
@@ -240,10 +244,8 @@ class Querys {
       $statement->bindParam(1, $idPasajero);
       $statement->bindParam(2, $idTitular);
       $statement->bindParam(3, $idTramo);
-      $statement->bindParam(4, $fechaSalida);
+      $statement->bindParam(4, $fecha);
       $statement->bindParam(5, $butaca);
       $statement->execute();
     }
-
-
 }
