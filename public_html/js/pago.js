@@ -18,70 +18,69 @@ $(function(){
 
   $('#boton').click(function(){
     var butaca;
-    function insertTitular(idPasajero){
-      var idPasajero = idPasajero;
-      var url = 'acciones.php?accion=insertTitular';
-
-      var tipoDni = $('#btnDrpDni').text();
-      var dni = $('#txtNumero').val();
-      var apellido = $('#txtApellido').val();
-      var nombre = $('#txtNombre').val();
-      var email = $('#txtEmail').val();
-      var telefono = $('#txtTelefono').val();
-      var nacionalidad = $('#btnDrpNac').text();
-      var numeroContacto = $('#txtNumero').val();
-      var fechaNacimiento = $('#datepicker').datepicker('getDate');
-      fechaNacimiento = $.datepicker.formatDate('yy-mm-dd', fechaNacimiento);
-
-      $.ajax({
-        url: url,
-        method: 'POST',
-        data: {tipoDni: tipoDni, dni: dni, apellido: apellido, nombre: nombre, email: email, telefono: telefono, nacionalidad: nacionalidad, numeroContacto: numeroContacto, fechaNacimiento: fechaNacimiento },
-        success: function(data){
-          insertTicket(idPasajero, data, butaca);
-        },
-        error: function(){
-          console.log('Error');
-        }
-      })
-    }
-
-    function insertPasajero(datosPasajero){
-      var url = 'acciones.php?accion=insertPasajero';
-      var nombre = datosPasajero['nombre'];
-      var apellido = datosPasajero['apellido'];
-      var tipoDni = datosPasajero['tipoDni'];
-      var dni = datosPasajero['dni'];
-      var email = datosPasajero['email'];
-      var nacionalidad = datosPasajero['nacionalidad'];
-
-      $.ajax({
-        url: url,
-        method: 'POST',
-        data: {nombre: nombre, apellido: apellido, tipoDni: tipoDni, dni: dni, email: email, nacionalidad: nacionalidad},
-        success: function(data){
-          insertTitular(data);
-        },
-        error: function(){
-          console.log('Error');
-        }
-      })
-    }
 
     $.each(arrayButacas, function(index, value) {
       butaca = index;
 
       if (value[1] == 'Ida') {
         updateButaca(idTramo, butaca);
-        insertPasajero(datosPasajeroIda);
+        insertPasajero(datosPasajeroIda, butaca);
       }else {
         updateButaca(idTramo, butaca);
         insertPasajero(datosPasajeroVuelta);
       }
-
-
     });
   });
+
+  function insertTitular(idPasajero, butaca){
+    var idPasajero = idPasajero;
+    var url = 'acciones.php?accion=insertTitular';
+
+    var tipoDni = $('#btnDrpDni').text();
+    var dni = $('#txtNumero').val();
+    var apellido = $('#txtApellido').val();
+    var nombre = $('#txtNombre').val();
+    var email = $('#txtEmail').val();
+    var telefono = $('#txtTelefono').val();
+    var nacionalidad = $('#btnDrpNac').text();
+    var numeroContacto = $('#txtNumero').val();
+    var fechaNacimiento = $('#datepicker').datepicker('getDate');
+    fechaNacimiento = $.datepicker.formatDate('yy-mm-dd', fechaNacimiento);
+
+    $.ajax({
+      url: url,
+      method: 'POST',
+      data: {tipoDni: tipoDni, dni: dni, apellido: apellido, nombre: nombre, email: email, telefono: telefono, nacionalidad: nacionalidad, numeroContacto: numeroContacto, fechaNacimiento: fechaNacimiento },
+      success: function(data){
+        insertTicket(idPasajero, data, butaca);
+      },
+      error: function(){
+        console.log('Error');
+      }
+    })
+  }
+
+  function insertPasajero(datosPasajero, butaca){
+    var url = 'acciones.php?accion=insertPasajero';
+    var nombre = datosPasajero['nombre'];
+    var apellido = datosPasajero['apellido'];
+    var tipoDni = datosPasajero['tipoDni'];
+    var dni = datosPasajero['dni'];
+    var email = datosPasajero['email'];
+    var nacionalidad = datosPasajero['nacionalidad'];
+
+    $.ajax({
+      url: url,
+      method: 'POST',
+      data: {nombre: nombre, apellido: apellido, tipoDni: tipoDni, dni: dni, email: email, nacionalidad: nacionalidad},
+      success: function(data){
+        insertTitular(data, butaca);
+      },
+      error: function(){
+        console.log('Error');
+      }
+    })
+  }
 
   function updateButaca(tramo, butaca){
     var url = 'acciones.php?accion=updateButacas';
