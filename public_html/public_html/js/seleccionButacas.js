@@ -1,12 +1,10 @@
 $(function(){
   var flagIda = '.tIda';
   var flagVuelta = '.tVuelta';
-  var flagVCheck = false;
   var servicioIda = localStorage.getItem('servicioIda');
   var objectButacas = {};
   getButacasByTramo(servicioIda, flagIda);
   if (localStorage.getItem('servicioVuelta') != 'null'){
-    flagVCheck = true;
     var servicioVuelta = localStorage.getItem('servicioVuelta');
     getButacasByTramo(servicioVuelta, flagVuelta);
     $('.left, .right').css('visibility','visible');
@@ -58,31 +56,8 @@ $(function(){
   });
 
   $('#btnContinuar').click(function(){
-    var flagOne = false;
-    if (flagVCheck) {
-      var flagTwo = false;
-    }else {
-      var flagTwo = true;
-    }
-
-    $.each(objectButacas, function(key, value){
-      if (value[1] == 'Ida') {
-        flagOne = true;
-      }
-
-      if (value[1] == 'Vuelta') {
-        flagTwo = true;
-      }
-    })
-
-    if (flagOne && flagTwo) {
-      localStorage.setItem('array', JSON.stringify(objectButacas));
-      window.location.replace('datosPasajero.html');
-    }else if(!flagOne){
-      console.log('No ida');
-    }else{
-      console.log('No vuelta');
-    }
+    localStorage.setItem('array', JSON.stringify(objectButacas));
+    window.location.replace('datosPasajero.html');
   })
 
   function getButacasByTramo(servicioId, flag){

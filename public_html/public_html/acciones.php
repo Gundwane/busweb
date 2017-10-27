@@ -57,10 +57,6 @@ switch ($accion){
         $resultado = $querys->insertTicket();
         break;
 
-    case 'getTicket':
-        $resultado = $querys->getTicket();
-        break;
-
     default:
         $resultado = "No se encontró la accion";
 }

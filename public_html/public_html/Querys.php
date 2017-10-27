@@ -6,14 +6,12 @@ class Querys {
 
     private $_conexion = null;
 
-    public function __construct()
-    {
+    public function __construct() {
         $conexion = new Conexion();
         $this->_conexion = $conexion->getConexion();
     }
 
-    public function ciudades()
-    {
+    public function ciudades() {
         $query = "SELECT nombre FROM ciudades";
         $statement = $this->_conexion->prepare($query);
         $statement->execute();
@@ -21,8 +19,7 @@ class Querys {
         return $array;
     }
 
-    public function getEmpresa()
-    {
+    public function getEmpresa(){
         $query = "SELECT nombreEmpresa FROM empresas";
         $statement = $this->_conexion->prepare($query);
         $statement->execute();
@@ -30,8 +27,7 @@ class Querys {
         return $array;
     }
 
-    public function getBus()
-    {
+    public function getBus(){
         $query = "SELECT arrayAsientos FROM buses WHERE idBus=3";
         $statement = $this->_conexion->prepare($query);
         $statement->execute();
@@ -40,8 +36,7 @@ class Querys {
         print_r($arrayBus);
     }
 
-    public function getTramo()
-    {
+    public function getTramo() {
         $ciudadOrigen = $_POST['ciudadOrigen'];
         $ciudadDestino = $_POST['ciudadDestino'];
 
@@ -75,8 +70,7 @@ class Querys {
         }
     }
 
-    public function unserializarBus($arrayBus)
-    {
+    public function unserializarBus($arrayBus){
       foreach ($arrayBus as $key => $subarray) {
         foreach ($subarray as $subkey => $value) {
           if ($subkey === 'arrayAsientos') {
@@ -88,8 +82,7 @@ class Querys {
       return $arrayBus;
     }
 
-    public function getBusPorTramo()
-    {
+    public function getBusPorTramo(){
       $busId = $_POST['busId'];
 
       $query = "SELECT buses.arrayAsientos
@@ -106,8 +99,7 @@ class Querys {
       return $array;
     }
 
-    public function getPrecio()
-    {
+    public function getPrecio(){
       $query = "SELECT * FROM calidades";
       $statement = $this->_conexion->prepare($query);
       $statement->execute();
@@ -115,8 +107,7 @@ class Querys {
       return $array;
     }
 
-    public function getCondiciones()
-    {
+    public function getCondiciones(){
       $nomEmp = $_POST['nomEmp'];
 
       $query = "SELECT condiciones FROM empresa WHERE nombreEmpresa= ?";
@@ -130,8 +121,7 @@ class Querys {
       echo $row;
     }
 
-    public function precioTramo($idTramo)
-    {
+    public function precioTramo($idTramo){
       $query = "SELECT tramos.precio FROM tramos WHERE tramos.idTramo = ?";
 
       $statement = $this->_conexion->prepare($query);
@@ -141,8 +131,7 @@ class Querys {
       return $row;
     }
 
-    public function preciocalidad()
-    {
+    public function preciocalidad(){
       $idTramo = $_POST['tramo'];
       $precios;
       $array = [];
@@ -155,8 +144,7 @@ class Querys {
       return $array;
     }
 
-    public function insertPasajero()
-    {
+    public function insertPasajero(){
       global $idPasajero;
 
       $nombre = $_POST['nombre'];
@@ -179,8 +167,7 @@ class Querys {
       return $this->_conexion->lastInsertId();
     }
 
-    public function insertTitular()
-    {
+    public function insertTitular(){
       global $idTitular;
 
       $tipoDni = $_POST['tipoDni'];
@@ -208,8 +195,7 @@ class Querys {
       return $this->_conexion->lastInsertId();
     }
 
-    public function updateButacas()
-    {
+    public function updateButacas(){
       $tramoId = $_POST['idTramo'];
       $butaca = $_POST['butaca'];
       $query = "SELECT buses.idBus, buses.arrayAsientos
@@ -242,8 +228,7 @@ class Querys {
       $statement->execute();
     }
 
-    public function insertTicket()
-    {
+    public function insertTicket(){
       $idPasajero = (int)trim($_POST['idPasajero'], '"');
       $idTitular = (int)trim($_POST['idTitular'], '"');
       $idTramo = (int)$_POST['idTramo'];
@@ -251,6 +236,8 @@ class Querys {
       $butaca = (int)$_POST['butaca'];
       $fecha = strtotime($fechaSalida);
       $fecha = date('Y-m-d', $fecha);
+      //echo gettype($idPasajero), "\n", gettype($idTitular), "\n", gettype($idTramo), "\n", gettype($fechaSalida), "\n", gettype($butaca), "\n";
+      //echo 'Pasajero: '.$idPasajero.' Titular: '.$idTitular.' Tramo: '.$idTramo.' Fecha: '.$fechaSalida.' Butaca: '.$butaca;
 
       $query = "INSERT INTO ticket (fk_pasajero, fk_titularTarjeta, fk_tramo, fechaSalida, numeroButaca) VALUES (?, ?, ?, ?, ?)";
       $statement = $this->_conexion->prepare($query);
@@ -260,27 +247,5 @@ class Querys {
       $statement->bindParam(4, $fecha);
       $statement->bindParam(5, $butaca);
       $statement->execute();
-    }
-
-    public function getTicket()
-    {
-      $dni = $_POST['numeroDni'];
-      $email = $_POST['email'];
-
-      $query = "SELECT pasajero.nombre AS pnombre, pasajero.apellido, pasajero.dni, corigen.nombre AS conombre, cdestino.nombre AS cdnombre, tramos.precio, tramos.horarioSalida, ticket.numeroButaca
-      FROM tramos
-      INNER JOIN ticket ON ticket.fk_tramo = tramos.idTramo
-      INNER JOIN pasajero ON ticket.fk_pasajero = pasajero.idCliente
-      INNER JOIN ciudades AS corigen ON tramos.fk_ciudadOrigen = corigen.idCiudad
-      INNER JOIN ciudades AS cdestino ON tramos.fk_ciudadDestino = cdestino.idCiudad
-      WHERE pasajero.dni = :dni AND pasajero.email = :email";
-
-
-      $statement = $this->_conexion->prepare($query);
-      $statement->bindParam(':dni', $dni);
-      $statement->bindParam(':email', $email);
-      $statement->execute();
-      $array = $statement->fetchAll(PDO::FETCH_ASSOC);
-      return $array;
     }
 }
