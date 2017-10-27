@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/ticket.css" rel="stylesheet">
+    <title>Imprima su ticket</title>
+  </head>
+  <body>
+      <div class="col-lg-3"></div>
+      <div class="col-lg-6">
+        <div class="dropdown input-group">
+          <label class="input-group-addon">Tipo de documento</label>
+          <button id="btnDni" class="btn btn-primary dropdown-toggle form-control" type="button" data-toggle="dropdown">DNI<span class="caret"></span></button>
+          <ul class="dropdown-menu">
+            <li><a>DNI</a></li>
+            <li><a>Pasaporte</a></li>
+            <li><a>CDI</a></li>
+            <li><a>LE</a></li>
+          </ul>
+        </div>
+        <div class="input-group">
+          <label class="input-group-addon">Número de documento</label>
+          <input id="txtNumero" type="text" class="form-control" pattern="[0-9]*" placeholder="Número de documento" maxlength="8" required>
+        </div>
+        <div class="input-group">
+          <label class="input-group-addon">E-mail</label>
+          <input id="txtEmail" type="email" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,63}$" placeholder="email@dominio.com" required>
+        </div>
+        <div class="input-group">
+          <button type="button" class="btn btn-default" id="btnBuscar">BUSCAR</button>
+        </div>
+      </div>
+      <div class="">
+        <table class="table table-responsive table-striped">
+          <thead>
+            <tr>
+              <th>Nº</th>
+              <th>Nombre</th>
+              <th>Apellido</th>
+              <th>DNI</th>
+              <th>De</th>
+              <th>A</th>
+              <th>Precio</th>
+              <th>Horario de salida</th>
+              <th>Nº de butaca</th>
+            </tr>
+          </thead>
+          <tbody id="tbody">
+
+          </tbody>
+        </table>
+      </div>
+      <div class="col-lg-3"></div>
+  <script src="js/jquery-1.11.2.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/ticket.js"></script>
+  </body>
+</html>

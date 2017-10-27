@@ -12,6 +12,10 @@ $(function(){
     $(this).closest('.dropdown').find('.btn').html($(this).text());
   });
 
+  $('.dropdown-menu a').click(function(){
+    $(this).closest('.dropup').find('.btn').html($(this).text());
+  });
+
   $('#backButton').click(function(){
     window.location.replace('datosPasajero.html');
   })
@@ -105,7 +109,7 @@ $(function(){
       method: 'POST',
       data: {idPasajero: idPasajero, idTitular: idTitular, idTramo: idTramo, fechaSalida: fechaIda, butaca: butaca},
       success: function(data){
-        console.log('Yeah');
+        window.location.replace('ticket.html');
       },
       error: function(){
         console.log('Error');
