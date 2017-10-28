@@ -6,12 +6,15 @@ $(function(){
   var flag = false;
 
   condicionesToSpan(empresa1, div1);
-  if (empresa2 != empresa1) {
-    console.log('My obsession');
+
+  if (!empresa2) {
+    if (empresa2 !== empresa1) {
+      div2.css('display', 'block');
+      condicionesToSpan(empresa2, div2);
+    }else{
+
+    }
   }else {
-    console.log('Else');
-  }
-  if (empresa2 !== 'null' || empresa1 !== empresa2) {
     div2.css('display', 'block');
     condicionesToSpan(empresa2, div2);
   }
@@ -34,17 +37,13 @@ $(function(){
         $('#btnContinuar').removeAttr('disabled');
       }else {
         $('#btnContinuar').prop('disabled', true);
+      }
     }
-  }
-
   })
 
   $('#btnContinuar').click(function(){
     window.location.replace('seleccionButacas.html');
   })
-
-  //IDEA: Que la funcion reciba las clases e IDs desde afuera para evitar la llamada sincrona y poder reutilizar la funcion
-  // con ambos pedidos. De hecho...esto habilitaria a usar mas empresas en el futuro. Oh si! Good architecture!
 
   function condicionesToSpan(nombreEmpresa, divId){
     var url = 'acciones.php?accion=condiciones';

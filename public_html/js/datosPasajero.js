@@ -9,8 +9,8 @@ $(function(){
   var html;
   var objDatosIda = {};
   var objDatosVuelta = {};
+
   if (fechaVuelta !== null) {
-    console.log('I should not be here. But I am aniway, because i dont fuckin care about that null shit');
     $('#divVuelta').css('display', 'block');
     var horaVuelta = localStorage.getItem('horaVuelta');
 
@@ -41,7 +41,6 @@ $(function(){
     e.preventDefault();
     if ($('#btnDrpNac1').text() == 'Seleccione ') {
       $('#btnDrpNac1').focus();
-      //$('[data-toggle="popover"]').popover('show');
       return;
     }
 
@@ -90,6 +89,7 @@ $(function(){
   });
 
   $.each(array, function(index, value) {
+    console.log('I: '+index+' V:'+value);
     html = '<tr>' +
             '<td><span>' + index + '</span></td>' +
             '<td><span>' + value[0] + '</span></td>' +
