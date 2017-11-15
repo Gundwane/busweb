@@ -23,11 +23,28 @@ $(function(){
 
   $('#boton').click(function(){
     var butaca;
+    var dniTitular = $('#txtNumero').val();
+    var url = 'acciones.php?accion=checkTarjetaDB';
 
-    $.each(datos, function(index, value){
+    $.ajax({
+      url: url,
+      method: 'POST',
+      data: {id: dniTitular},
+      success: function(data){
+        var codigo = data;
+        console.log(codigo);
+        if (codigo > 99) {
+          alert('Estas habilitado');
+        }else {
+          alert('SSSHHHHUPET! No podés hacer la compra porque tu tarjeta no te deja');
+        }
+      }
+    })
+
+    /*$.each(datos, function(index, value){
       updateButaca(idTramo, butaca);
       insertPasajero(value);
-    })
+    })*/
   });
 
   function insertPasajero(datosPasajero){

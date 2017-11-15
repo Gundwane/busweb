@@ -37,6 +37,10 @@ switch ($accion){
         $resultado = $querys->preciocalidad();
         break;
 
+    case 'checkTarjetaDB':
+        $resultado = $querys->checkTarjetaDB();
+        break;
+             
     case 'insertPasajero':
         $resultado = $querys->insertPasajero();
         break;

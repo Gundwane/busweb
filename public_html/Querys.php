@@ -155,6 +155,19 @@ class Querys {
       return $array;
     }
 
+    public function checkTarjetaDB()
+    {
+      $id = $_POST['id'];
+
+      $query = "SELECT codigo FROM tarjetaDB WHERE dni = :dni";
+      $statement = $this->_conexion->prepare($query);
+      $statement->bindParam(':dni', $id);
+      $statement->execute();
+      $code = (int)$statement->fetchColumn();
+      
+      return $code;
+    }
+
     public function insertPasajero()
     {
       global $idPasajero;
