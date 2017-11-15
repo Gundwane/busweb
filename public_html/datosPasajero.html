@@ -34,61 +34,12 @@
       <div id=divIda>
         <div class="well">
           <h3>Resumen del tramo de ida</h3>
-          <label for="origen">Ciudad de origen:</label><span id="origenI"> </span>
-          <label for="fechahora">Fecha de salida:</label><span id="fechahoraI"> </span>
-          <label for="destino">Ciudad destino:</label><span id="destinoI"> </span>
-          <label for="empresa">Empresa:</label><span id="empresaI"> </span>
-          <table class="table table-condensed" id="butacasTableIda">
-            <thead>
-              <tr>
-                <th>Número de Butaca</th>
-                <th>Calidad</th>
-              </tr>
-            </thead>
-            <tbody>
+          <label for="origen">Ciudad de origen:</label><span id="origenI"></span>
+            <label for="fechahora">Fecha de salida:</label><span id="fechahoraI"></span>
+            <label for="destino">Ciudad destino:</label><span id="destinoI"></span>
+            <label for="empresa">Empresa:</label><span id="empresaI"></span>
+          <div id="formDivIda" class="" style="display: table; padding-bottom: 5px;">
 
-            </tbody>
-          </table>
-
-          <div id="formDivIda" class="">
-            <form id="formIda" class="form-inline" method="post">
-              <div class="form-group formMargin">
-               <div class="dropdown input-group">
-                <label class="input-group-addon">Tipo de documento</label>
-                <button id="btnDrpDni1" class="btn btn-primary dropdown-toggle form-control" type="button" data-toggle="dropdown">DNI<span class="caret"></span></button>
-                <ul class="dropdown-menu">
-                  <li><a>DNI</a></li>
-                  <li><a>Pasaporte</a></li>
-                  <li><a>CDI</a></li>
-                  <li><a>LE</a></li>
-                </ul>
-               </div>
-               <div class="input-group">
-                 <label class="input-group-addon">Numero</label><input id="txtNumeroI" type="text" class="form-control" pattern="[0-9]*" placeholder="Numero de documento" maxlength="8" required>
-               </div>
-               <div class="input-group">
-                 <label class="input-group-addon">Apellido</label><input id="txtApellidoI"  type="text" class="form-control" maxlength="50" placeholder="Apellido" required>
-               </div>
-               <div class="input-group">
-                 <label class="input-group-addon">Nombre</label><input id="txtNombreI" type="text" class="form-control" maxlength="50" placeholder="Nombre" required>
-               </div>
-               <div class="input-group">
-                 <label class="input-group-addon">E-mail</label><input id="txtEmailI" type="email" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,63}$" placeholder="email@dominio.com" required>
-               </div>
-               <div class="dropdown input-group">
-                <li id="popover1" data-trigger="focus" data-toggle="popover" data-placement="bottom" data-container="body" data-content="Supp">
-                <label class="input-group-addon">Nacionalidad</label>
-                <button id="btnDrpNac1" data-trigger="focus" data-content="Elige una nacionalidad" class="btn btn-primary dropdown-toggle form-control" type="button" data-toggle="dropdown">Seleccione <span class="caret"></span></button>
-                <ul class="dropdown-menu">
-                  <li><a>Argentina</a></li>
-                  <li><a>Chile</a></li>
-                  <li><a>Brasil</a></li>
-                  <li><a>Uruguay</a></li>
-                </ul>
-               </div>
-               <button id="copyButton" class="btn btn-info" type="button" name="button">Copiar datos</button>
-              </div>
-            </form>
           </div>
         </div>
       </div>
@@ -101,56 +52,9 @@
             <label for="fechahora">Fecha de salida:</label><span id="fechahoraV"> </span>
             <label for="destino">Ciudad destino:</label><span id="destinoV"> </span>
             <label for="empresa">Empresa:</label><span id="empresaV"> </span>
-            <table class="table table-condensed" id="butacasTableVuelta">
-              <thead>
-                <tr>
-                  <th>Número de Butaca</th>
-                  <th>Calidad</th>
-                </tr>
-              </thead>
-              <tbody>
-
-              </tbody>
-            </table>
           </div>
-          <div id="formDivVuelta" class="">
-            <form id="formVuelta" class="form-inline" method="post">
-              <div class="form-group">
-               <div class="dropdown input-group">
-                <label class="input-group-addon">Tipo de documento</label>
-                <button id="btnDrpDni2" class="btn btn-primary dropdown-toggle form-control" type="button" data-toggle="dropdown">DNI
-                <span class="caret"></span></button>
-                <ul class="dropdown-menu">
-                  <li><a>DNI</a></li>
-                  <li><a>Pasaporte</a></li>
-                  <li><a>CDI</a></li>
-                  <li><a>LE</a></li>
-                </ul>
-               </div>
-               <div class="input-group">
-                 <label class="input-group-addon">Numero</label><input id="txtNumeroV" type="text" class="form-control" pattern="[0-9]*" placeholder="Numero" maxlength="8" required>
-               </div>
-               <div class="input-group">
-                 <label class="input-group-addon">Apellido</label><input id="txtApellidoV" type="text" class="form-control" maxlength="50" placeholder="Apellido" required>
-               </div>
-               <div class="input-group">
-                 <label class="input-group-addon">Nombre</label><input id="txtNombreV" type="text" class="form-control" maxlength="50" placeholder="Nombre" required>
-               </div>
-               <div class="input-group">
-                 <label class="input-group-addon">E-mail</label><input id="txtEmailV" type="email" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,63}$" placeholder="email@dominio.com" required>
-               </div>
-               <div class="dropdown input-group">
-                <label class="input-group-addon">Nacionalidad</label>
-                <button id="btnDrpNac2" class="btn btn-primary dropdown-toggle form-control" type="button" data-toggle="dropdown">Seleccione <span class="caret"></span></button>
-                <ul class="dropdown-menu">
-                  <li><a>Argentina</a></li>
-                  <li><a>Chile</a></li>
-                  <li><a>Brasil</a></li>
-                  <li><a>Uruguay</a></li>
-                </ul>
-               </div>
-              </div>
-            </form>
+          <div id="formDivVuelta" class="" style="display: table; padding-bottom: 5px;">
+
           </div>
         </div>
       </div>

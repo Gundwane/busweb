@@ -6,16 +6,18 @@ $(function(){
   var horaIda = localStorage.getItem('horaIda');
   var empresaOrigen = localStorage.getItem('empresaIda');
   var array = JSON.parse(localStorage.getItem('array'));
+  var aLength = array.length;
   var html;
-  var objDatosIda = {};
-  var objDatosVuelta = {};
+  var arrayDatos = [];
+  var counter = 0;
 
   if (fechaVuelta !== null) {
+    console.log('Otra vez esto, la re ppputa madre');
     $('#divVuelta').css('display', 'block');
     var horaVuelta = localStorage.getItem('horaVuelta');
 
     $('#origenV').append(destino);
-    $('#fechahoraV').append(fechaVuelta+' a las '+horaVuelta);
+    $('#fechahoraV').append(fechaVuelta+ ' a las ' +horaVuelta);
     $('#destinoV').append(origen);
     $('#empresaV').append(empresaOrigen);
   }else {
@@ -27,78 +29,91 @@ $(function(){
   $('#destinoI').append(destino);
   $('#empresaI').append(empresaOrigen);
 
-  $('#copyButton').click(function(){
-    $('#txtNumeroV').val($('#txtNumeroI').val());
-    $('#txtApellidoV').val($('#txtApellidoI').val());
-    $('#txtNombreV').val($('#txtNombreI').val());
-    $('#txtEmailV').val($('#txtEmailI').val());
-    $('#txtNumeroV').val($('#txtNumeroI').val());
-    $('#btnDrpNac2').html($('#btnDrpNac1').text());
-    $('#btnDrpDni2').html($('#btnDrpDni1').text());
-  });
-
   $('#btnSubmit').on('click', function(e){
+    var idObject = 0;
     e.preventDefault();
-    if ($('#btnDrpNac1').text() == 'Seleccione ') {
+
+    if ($('#btnDrpNac1').text() == 'Seleccione ') {         //Nacionalidades checker
       $('#btnDrpNac1').focus();
       return;
     }
 
-    if ($('#formIda')[0].reportValidity() == false) {
-      return;
-    }else {
-      objDatosIda["tipoDni"] = $('#btnDrpDni1').text();
-      objDatosIda["dni"] = $('#txtNumeroI').val();
-      objDatosIda["apellido"] = $('#txtApellidoI').val();
-      objDatosIda["nombre"] = $('#txtNombreI').val();
-      objDatosIda["email"] = $('#txtEmailI').val();
-      objDatosIda["nacionalidad"] = $('#btnDrpNac1').text();
-      localStorage.setItem('datosIda', JSON.stringify(objDatosIda));
-    }
+    $('.form').each(function(){
+      var datos = {};
+      if ($(this)[0].reportValidity() == true) {
+        datos["tramo"] = $(this).data('tramo');
+        datos["numButaca"] = $(this).find('#spanButaca').data('id');
+        datos["tipoDni"] = $(this).find('#btnDrpDni1').text();
+        datos["dni"] = $(this).find('#txtNumeroI').val();
+        datos["apellido"] = $(this).find('#txtApellidoI').val();
+        datos["nombre"] = $(this).find('#txtNombreI').val();
+        datos["email"] = $(this).find('#txtEmailI').val();
+        datos["nacionalidad"] = $(this).find('#btnDrpNac1').text();
 
-    if ($('#divVuelta').is(':visible')) {                       //Si el DIV del tramo de vuelta está visible, se checkea la validez del form de ese tramo
-      if ($('#btnDrpNac2').text() == 'Seleccione ') {
-        $('#btnDrpNac2').focus();
-        $('#popover1').popover('focus');
-        return;
-      }
-
-      if ($('#formVuelta')[0].reportValidity() == false) {
-        return;
+        arrayDatos.push(datos);
       }else {
-        objDatosVuelta["tipoDni"] = $('#btnDrpDni2').text();
-        objDatosVuelta["dni"] = $('#txtNumeroV').val();
-        objDatosVuelta["apellido"] = $('#txtApellidoV').val();
-        objDatosVuelta["nombre"] = $('#txtNombreV').val();
-        objDatosVuelta["email"] = $('#txtEmailV').val();
-        objDatosVuelta["nacionalidad"] = $('#btnDrpNac2').text();
-        localStorage.setItem('datosVuelta', JSON.stringify(objDatosVuelta));
-        window.location.replace('pago.html');
+        return;
       }
-    }else {
-      window.location.replace('pago.html');
-    }
+    })
+    localStorage['datosPasajero'] = JSON.stringify(arrayDatos);
+    window.location.replace('pago.html');
   })
 
   $('#backButton').click(function(){
     window.location.replace('seleccionButacas.html');
   })
 
-  $('.dropdown-menu a').click(function(){
+
+  $('#formDivIda').on('click', '.dropdown-menu a', function(){
     $(this).closest('.dropdown').find('.btn').html($(this).text());
   });
 
   $.each(array, function(index, value) {
-    console.log('I: '+index+' V:'+value);
-    html = '<tr>' +
-            '<td><span>' + index + '</span></td>' +
-            '<td><span>' + value[0] + '</span></td>' +
-           '</tr>';
-
+    var form = '<form id="formIda" data-tramo="ida" class="form-inline form" method="post">' +
+                  '<div id="divButaca" style="padding: 5px; border-top: groove #2E2E2E;">' +
+                    '<span id="spanButaca" data-id='+ index +'>Número de butaca: '+ index +'</span>' +
+                    '<span> Calidad: '+ value[0] +'</span>' +
+                  '</div>' +
+                  '<div class="form-group formMargin row">' +
+                   '<div class="dropdown input-group col-sm-2">' +
+                    '<label style="width: 50%;">Tipo de documento</label>' +
+                    '<button id="btnDrpDni1" class="btn btn-primary dropdown-toggle form-control" type="button" data-toggle="dropdown">DNI<span></span></button>' +
+                    '<ul class="dropdown-menu">' +
+                      '<li><a>DNI</a></li>' +
+                      '<li><a>Pasaporte</a></li>' +
+                      '<li><a>CDI</a></li>' +
+                      '<li><a>LE</a></li>' +
+                    '</ul>' +
+                   '</div>' +
+                   '<div class="input-group col-sm-2">' +
+                     '<label>Numero</label><input id="txtNumeroI" type="text" class="form-control" pattern="[0-9]*" maxlength="8" required>' +
+                   '</div>' +
+                   '<div class="input-group col-sm-2">' +
+                     '<label>Apellido</label><input id="txtApellidoI"  type="text" class="form-control" maxlength="50" required>' +
+                   '</div>' +
+                   '<div class="input-group col-sm-2">' +
+                     '<label>Nombre</label><input id="txtNombreI" type="text" class="form-control" maxlength="50" required>' +
+                   '</div>' +
+                   '<div class="input-group col-sm-2">' +
+                     '<label>E-mail</label><input id="txtEmailI" type="email" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,63}$" required>' +
+                   '</div>' +
+                   '<div class="dropdown input-group col-sm-2">' +
+                    '<li id="popover1" data-trigger="focus" data-toggle="popover" data-placement="bottom" data-container="body" data-content="Supp">' +
+                    '<label>Nacionalidad</label>' +
+                    '<button id="btnDrpNac1" data-trigger="focus" data-content="Elige una nacionalidad" class="btn btn-primary dropdown-toggle form-control" type="button" data-toggle="dropdown">Seleccione <span></span></button>' +
+                    '<ul class="dropdown-menu">' +
+                      '<li><a>Argentina</a></li>' +
+                      '<li><a>Chile</a></li>' +
+                      '<li><a>Brasil</a></li>' +
+                      '<li><a>Uruguay</a></li>' +
+                    '</ul>' +
+                   '</div>' +
+                  '</div>' +
+                '</form>';
     if (value[1] == 'Ida') {
-      $('#butacasTableIda').append(html);
+      $('#formDivIda').append(form);
     }else{
-      $('#butacasTableVuelta').append(html);
+      $('#formDivVuelta').append(form);
     }
   });
 

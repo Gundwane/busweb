@@ -2,11 +2,12 @@ $(function(){
   var montoTotal;
   var idTramo = localStorage.getItem('servicioIda');
   var arrayButacas = JSON.parse(localStorage.getItem('array'));
-  var datosPasajeroIda = JSON.parse(localStorage.getItem('datosIda'));
-  var datosPasajeroVuelta = JSON.parse(localStorage.getItem('datosVuelta'));
+  var datos = JSON.parse(localStorage.getItem('datosPasajero'));
   var fechaIda = JSON.parse(localStorage.getItem('fechaIdaNF'));
   var idPasajero = null, idTitular = null;
   getPrecios();
+
+  console.log(datos);
 
   $('.dropdown-menu a').click(function(){
     $(this).closest('.dropdown').find('.btn').html($(this).text());
@@ -23,18 +24,33 @@ $(function(){
   $('#boton').click(function(){
     var butaca;
 
-    $.each(arrayButacas, function(index, value) {
-      butaca = index;
-
-      if (value[1] == 'Ida') {
-        updateButaca(idTramo, butaca);
-        insertPasajero(datosPasajeroIda, butaca);
-      }else {
-        updateButaca(idTramo, butaca);
-        insertPasajero(datosPasajeroVuelta);
-      }
-    });
+    $.each(datos, function(index, value){
+      updateButaca(idTramo, butaca);
+      insertPasajero(value);
+    })
   });
+
+  function insertPasajero(datosPasajero){
+    var url = 'acciones.php?accion=insertPasajero';
+    var nombre = datosPasajero['nombre'];
+    var apellido = datosPasajero['apellido'];
+    var tipoDni = datosPasajero['tipoDni'];
+    var dni = datosPasajero['dni'];
+    var email = datosPasajero['email'];
+    var nacionalidad = datosPasajero['nacionalidad'];
+    var butaca = datosPasajero['numButaca'];
+    $.ajax({
+      url: url,
+      method: 'POST',
+      data: {nombre: nombre, apellido: apellido, tipoDni: tipoDni, dni: dni, email: email, nacionalidad: nacionalidad},
+      success: function(data){
+        insertTitular(data, butaca);
+      },
+      error: function(){
+        console.log('Error');
+      }
+    })
+  }
 
   function insertTitular(idPasajero, butaca){
     var idPasajero = idPasajero;
@@ -64,28 +80,6 @@ $(function(){
     })
   }
 
-  function insertPasajero(datosPasajero, butaca){
-    var url = 'acciones.php?accion=insertPasajero';
-    var nombre = datosPasajero['nombre'];
-    var apellido = datosPasajero['apellido'];
-    var tipoDni = datosPasajero['tipoDni'];
-    var dni = datosPasajero['dni'];
-    var email = datosPasajero['email'];
-    var nacionalidad = datosPasajero['nacionalidad'];
-
-    $.ajax({
-      url: url,
-      method: 'POST',
-      data: {nombre: nombre, apellido: apellido, tipoDni: tipoDni, dni: dni, email: email, nacionalidad: nacionalidad},
-      success: function(data){
-        insertTitular(data, butaca);
-      },
-      error: function(){
-        console.log('Error');
-      }
-    })
-  }
-
   function updateButaca(tramo, butaca){
     var url = 'acciones.php?accion=updateButacas';
     $.ajax({
@@ -103,13 +97,14 @@ $(function(){
 
   function insertTicket(idPasajero, idTitular, butaca){
     var url = 'acciones.php?accion=insertTicket';
+    console.log('Id pasajero: '+idPasajero);
 
     $.ajax({
       url: url,
       method: 'POST',
-      data: {idPasajero: idPasajero, idTitular: idTitular, idTramo: idTramo, fechaSalida: fechaIda, butaca: butaca},
+      data: {dniPasajero: idPasajero, idTitular: idTitular, idTramo: idTramo, fechaSalida: fechaIda, butaca: butaca},
       success: function(data){
-        window.location.replace('ticket.html');
+        //window.location.replace('ticket.html');
       },
       error: function(){
         console.log('Error');
@@ -208,12 +203,15 @@ $(function(){
     $('#montoTotal').append(' '+precioTotal);
   }
 
-  /*function reorderDate(stringDate){
-    var array, date;
-    array = stringDate.split('-');
-    date = new Date(array[2], array[1], array[0]);
-    return date;
-  }*/
+  function dataSend(data){
+    console.log(data);
+    $.each(data, function(index, value){
+      $.each(value, function(subindex, subvalue){
+        console.log(subindex+' '+subvalue);
+      })
+    })
+  }
+
 
   $('.datepicker').datepicker();
 })

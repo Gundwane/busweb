@@ -35,7 +35,7 @@
             <div class="container">
                 <h3>Paso 2 - Selección de servicios</h3>
             </div>
-            <div>
+            <div style="left: 8%; top: 110px; position: absolute;">
               <button type="button" id="backButton" class="btn btn-default fa fa-chevron-left"> Volver</button>
             </div>
         </div>
@@ -56,7 +56,17 @@
                 </div>
                 <label>Fecha de ida</label>
                 <input type="text" name="datepickerOrigen" id="datepickerOrigen2" class="datepicker">
+                <div id="divRadio2">
+                    <label class="radio-inline"><input type="radio" name="ivradio" value="1">Ida</label>
+                    <label class="radio-inline"><input type="radio" name="ivradio" value="2">Ida y vuelta</label>
+                </div>
+                <div id="divBtnBuscar">
+                  <button type="button" id="btnBuscarServicio" class="btn btn-per">
+                      <span class="glyphicon glyphicon-search"></span>Buscar
+                  </button>
+                </div>
             </div>
+
             <div id="divDestino">
                 <div class="dropdown dropdownMargin dropdownCity" id="divDropdownDestino2">
                     <label>Ciudad de Destino</label>
@@ -68,8 +78,13 @@
                 </div>
                 <label>Fecha de regreso</label>
                 <input type="text" name="datepickerDestino" id="datepickerDestino2" class="datepicker" disabled>
+                <div style="position: absolute; top: 12%;">
+                  <button type="button" id="btnImprimir" class="btn btn-per">
+                      <span class="glyphicon glyphicon-file"></span>Imprimir pasaje
+                  </button>
+                </div>
             </div>
-            <div id="divRadio2">
+            <!--<div id="divRadio2">
                 <label class="radio-inline"><input type="radio" name="ivradio" value="1">Ida</label>
                 <label class="radio-inline"><input type="radio" name="ivradio" value="2">Ida y vuelta</label>
             </div>
@@ -78,10 +93,10 @@
                 <button type="button" id="btnBuscarServicio" class="btn pull-left btn-per">
                     <span class="glyphicon glyphicon-search"></span>Buscar
                 </button>
-                <button type="button" id="btnImprimir" class="btn pull-right btn-per">
+                <button type="button" id="btnImprimir" style="" class="btn pull-right btn-per">
                     <span class="glyphicon glyphicon-file"></span>Imprimir pasaje
                 </button>
-            </div>
+            </div>-->
             </div>
             <div id="divIda">
               <div id="divTramoIda">

@@ -1,5 +1,5 @@
 .form-group *{
-  margin-bottom: 5px;
+  padding: 4px !important;
 }
 
 #divVuelta{

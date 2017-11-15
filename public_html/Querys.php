@@ -119,10 +119,10 @@ class Querys {
     {
       $nomEmp = $_POST['nomEmp'];
 
-      $query = "SELECT condiciones FROM empresa WHERE nombreEmpresa= ?";
+      $query = "SELECT condiciones FROM empresa WHERE nombreEmpresa = :nombreEmpresa";
 
       $statement = $this->_conexion->prepare($query);
-      $statement->bindParam(1, $nomEmp);
+      $statement->bindParam(':nombreEmpresa', $nomEmp);
       $statement->execute();
       $row = $statement->fetchColumn();
       $row = nl2br($row);
@@ -132,10 +132,10 @@ class Querys {
 
     public function precioTramo($idTramo)
     {
-      $query = "SELECT tramos.precio FROM tramos WHERE tramos.idTramo = ?";
+      $query = "SELECT tramos.precio FROM tramos WHERE tramos.idTramo = :idTramo";
 
       $statement = $this->_conexion->prepare($query);
-      $statement->bindParam(1, $idTramo);
+      $statement->bindParam(':idTramo', $idTramo);
       $statement->execute();
       $row = $statement->fetchColumn();
       return $row;
@@ -166,17 +166,18 @@ class Querys {
       $email = $_POST['email'];
       $nacionalidad = $_POST['nacionalidad'];
 
-      $query = "INSERT INTO pasajero (nombre, apellido, tipoDni, dni, email, nacionalidad) values (?, ?, ?, ?, ?, ?)";
+      $query = "INSERT INTO pasajero (dni, nombre, apellido, tipoDni, email, nacionalidad)
+                VALUES (:dni, :nombre, :apellido, :tipoDni, :email, :nacionalidad)";
       $statement = $this->_conexion->prepare($query);
-      $statement->bindParam(1, $nombre);
-      $statement->bindParam(2, $apellido);
-      $statement->bindParam(3, $tipoDni);
-      $statement->bindParam(4, $dni);
-      $statement->bindParam(5, $email);
-      $statement->bindParam(6, $nacionalidad);
+      $statement->bindParam(':dni', $dni);
+      $statement->bindParam(':nombre', $nombre);
+      $statement->bindParam(':apellido', $apellido);
+      $statement->bindParam(':tipoDni', $tipoDni);
+      $statement->bindParam(':email', $email);
+      $statement->bindParam(':nacionalidad', $nacionalidad);
       $statement->execute();
 
-      return $this->_conexion->lastInsertId();
+      return $dni;
     }
 
     public function insertTitular()
@@ -193,19 +194,20 @@ class Querys {
       $numeroContacto = $_POST['numeroContacto'];
       $fechaNacimiento = $_POST['fechaNacimiento'];
 
-      $query = "INSERT INTO titulartarjeta (nombre, apellido, tipoDni, dni, telefono, email, nacionalidad, fechaNacimiento) VALUES (?, ?, ?, ?, ?, ?, ?,DATE ?)";
+      $query = "INSERT INTO titulartarjeta (dni, nombre, apellido, tipoDni, telefono, email, nacionalidad, fechaNacimiento)
+                VALUES (:dni, :nombre, :apellido, :tipoDni, :telefono, :email, :nacionalidad, DATE :fechaNacimiento)";
       $statement = $this->_conexion->prepare($query);
-      $statement->bindParam(1, $nombre);
-      $statement->bindParam(2, $apellido);
-      $statement->bindParam(3, $tipoDni);
-      $statement->bindParam(4, $dni);
-      $statement->bindParam(5, $telefono);
-      $statement->bindParam(6, $email);
-      $statement->bindParam(7, $nacionalidad);
-      $statement->bindParam(8, $fechaNacimiento);
+      $statement->bindParam(':nombre', $nombre);
+      $statement->bindParam(':apellido', $apellido);
+      $statement->bindParam(':tipoDni', $tipoDni);
+      $statement->bindParam(':dni', $dni);
+      $statement->bindParam(':telefono', $telefono);
+      $statement->bindParam(':email', $email);
+      $statement->bindParam(':nacionalidad', $nacionalidad);
+      $statement->bindParam(':fechaNacimiento', $fechaNacimiento);
       $statement->execute();
 
-      return $this->_conexion->lastInsertId();
+      return $dni;
     }
 
     public function updateButacas()
@@ -244,7 +246,7 @@ class Querys {
 
     public function insertTicket()
     {
-      $idPasajero = (int)trim($_POST['idPasajero'], '"');
+      $idPasajero = (int)trim($_POST['dniPasajero'], '"');
       $idTitular = (int)trim($_POST['idTitular'], '"');
       $idTramo = (int)$_POST['idTramo'];
       $fechaSalida = $_POST['fechaSalida'];
@@ -252,14 +254,29 @@ class Querys {
       $fecha = strtotime($fechaSalida);
       $fecha = date('Y-m-d', $fecha);
 
-      $query = "INSERT INTO ticket (fk_pasajero, fk_titularTarjeta, fk_tramo, fechaSalida, numeroButaca) VALUES (?, ?, ?, ?, ?)";
+      $query = "INSERT INTO ticket (fk_pasajero, fk_titularTarjeta, fk_tramo, fechaSalida, numeroButaca)
+                VALUES (:dniPasajero, :idTitular, :idTramo, :fecha, :butaca)";
       $statement = $this->_conexion->prepare($query);
-      $statement->bindParam(1, $idPasajero);
-      $statement->bindParam(2, $idTitular);
-      $statement->bindParam(3, $idTramo);
-      $statement->bindParam(4, $fecha);
-      $statement->bindParam(5, $butaca);
-      $statement->execute();
+      $statement->bindParam(':dniPasajero', $idPasajero);
+      $statement->bindParam(':idTitular', $idTitular);
+      $statement->bindParam(':idTramo', $idTramo);
+      $statement->bindParam(':fecha', $fecha);
+      $statement->bindParam(':butaca', $butaca);
+
+      if ($statement->execute()) {
+        echo 'TICKET INSERTADO';
+      }else {
+        echo 'ERROR INSERTANDO TICKET';
+        $query2 = "DELETE FROM pasajero WHERE dni = :dni";
+        $statement2 = $this->conexion->prepare($query);
+        $statement2->bindParam(':dni', $idPasajero);
+        $statement2->execute();
+
+        $query3 = "DELETE FROM titulartarjeta WHERE dni = :dni";
+        $statement3 = $this->conexion->prepare($query);
+        $statement3->bindParam(':dni', $idTitular);
+        $statement3->execute();
+      }
     }
 
     public function getTicket()
@@ -270,7 +287,7 @@ class Querys {
       $query = "SELECT pasajero.nombre AS pnombre, pasajero.apellido, pasajero.dni, corigen.nombre AS conombre, cdestino.nombre AS cdnombre, tramos.precio, tramos.horarioSalida, ticket.numeroButaca
       FROM tramos
       INNER JOIN ticket ON ticket.fk_tramo = tramos.idTramo
-      INNER JOIN pasajero ON ticket.fk_pasajero = pasajero.idCliente
+      INNER JOIN pasajero ON ticket.fk_pasajero = pasajero.dni
       INNER JOIN ciudades AS corigen ON tramos.fk_ciudadOrigen = corigen.idCiudad
       INNER JOIN ciudades AS cdestino ON tramos.fk_ciudadDestino = cdestino.idCiudad
       WHERE pasajero.dni = :dni AND pasajero.email = :email";

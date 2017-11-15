@@ -7,16 +7,16 @@ $(function(){
 
   condicionesToSpan(empresa1, div1);
 
-  if (!empresa2) {
+  if (empresa2 != 'null') {
     if (empresa2 !== empresa1) {
       div2.css('display', 'block');
       condicionesToSpan(empresa2, div2);
     }else{
-
+      div2.css('display', 'none');
     }
   }else {
-    div2.css('display', 'block');
-    condicionesToSpan(empresa2, div2);
+    div2.css('display', 'none');
+    //condicionesToSpan(empresa2, div2);
   }
 
   $('#backButton').click(function(){
