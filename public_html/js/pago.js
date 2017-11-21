@@ -30,21 +30,24 @@ $(function(){
       url: url,
       method: 'POST',
       data: {id: dniTitular},
-      success: function(data){
-        var codigo = data;
-        console.log(codigo);
+      success: function(codigo){
         if (codigo > 99) {
           alert('Estas habilitado');
+          $.each(datos, function(index, value){
+            console.log(index+' '+value);
+            updateButaca(idTramo, butaca);
+            insertPasajero(value);
+          })
         }else {
           alert('SSSHHHHUPET! No podés hacer la compra porque tu tarjeta no te deja');
         }
       }
     })
 
-    /*$.each(datos, function(index, value){
+    $.each(datos, function(index, value){
       updateButaca(idTramo, butaca);
       insertPasajero(value);
-    })*/
+    })
   });
 
   function insertPasajero(datosPasajero){
@@ -121,7 +124,10 @@ $(function(){
       method: 'POST',
       data: {dniPasajero: idPasajero, idTitular: idTitular, idTramo: idTramo, fechaSalida: fechaIda, butaca: butaca},
       success: function(data){
-        //window.location.replace('ticket.html');
+        setTimeout(function(){
+          mensajeAlerta('Pasajes reservados : )');
+        }, 2000);
+        window.location.replace('ticket.html');
       },
       error: function(){
         console.log('Error');

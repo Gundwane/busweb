@@ -17,8 +17,9 @@ try {
     $statement->bindParam(1, $name);
     $statement->bindParam(2, $pass);
     $statement->execute();
-    
+
     echo "Password creado...";
+    header("Location: index.html");
 } catch (Exception $exc) {
     echo $exc->getTraceAsString();
 }

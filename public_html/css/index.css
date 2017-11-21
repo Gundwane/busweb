@@ -1,0 +1,60 @@
+@font-face {
+    font-family: butlerBold;
+    src: url('fonts/Butler_Bold.otf');
+}
+
+.btn{
+  margin: 5px;
+}
+
+.jumbotron{
+  background-color: #252d30;
+  max-height: 250;
+  max-width: 100%;
+  margin-bottom: 0;
+  color: white;
+  text-align: center;
+}
+
+.image{
+  margin-right: 0;
+  margin-left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #848484;
+  background-image: url('../images/bus-vector.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  object-fit: contain;
+  display: block;
+  position: fixed;
+  filter: blur(3px);
+  z-index: 1;
+}
+
+.main{
+  background: rgba(255, 255, 255, 0.80);
+  /*top: 30%;
+  margin-left: 33%;
+  position: fixed;
+  z-index: 2;*/
+  position: absolute;
+  width: 300px;
+  z-index: 15;
+  top: 50%;
+  left: 50%;
+  margin: -100px 0 0 -150px;
+}
+
+body{
+  font-family: butlerBold;
+  background-color: #848484;
+}
+
+input{
+  text-align: center;
+}
+
+form{
+  text-align: center;
+}
