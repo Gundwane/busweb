@@ -7,6 +7,8 @@ $(function () {
     var usuario = localStorage.getItem('usuario');
     var ciudadOrigen, ciudadDestino;
     var arraySession = [];
+    var fecha = new Date();
+    var mes = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
 
     dropdownCaptura = function (dropdown, boton) {
         var ciudad;
@@ -31,6 +33,8 @@ $(function () {
 
     $('#spanUser').append(usuario+'!');
 
+    $('#spanFecha').append(fecha.getDate()+' de '+mes[fecha.getMonth()]+' de '+fecha.getFullYear());
+
     $('#btnImprimir').click(function(){
       window.location.replace('ticket.html');
     })
@@ -40,7 +44,7 @@ $(function () {
         $("#divDanger").fadeOut();                                              //Estas dos funciones las vuelven a azul cuando clickeas
     });
 
-    $('#divRadio').on('change', 'input:radio', function(){  //Busca nuevos servicios al seleccionar nuevamente Ida o Vuelta
+    $('#divRadio').on('change', 'input:radio', function(){                      //Busca nuevos servicios al seleccionar nuevamente Ida o Vuelta
       if ($(this).val() == 2) {
         $('#datepickerDestino').removeAttr('disabled');
       }else {

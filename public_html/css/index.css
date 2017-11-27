@@ -12,7 +12,7 @@
   max-height: 250;
   max-width: 100%;
   margin-bottom: 0;
-  color: white;
+  color: #F2F2F2;
   text-align: center;
 }
 
@@ -34,16 +34,17 @@
 
 .main{
   background: rgba(255, 255, 255, 0.80);
-  /*top: 30%;
-  margin-left: 33%;
-  position: fixed;
-  z-index: 2;*/
   position: absolute;
   width: 300px;
-  z-index: 15;
+  z-index: 2;
   top: 50%;
   left: 50%;
   margin: -100px 0 0 -150px;
+}
+
+.btn{
+  background-color: #252d30;
+  color: #F2F2F2;
 }
 
 body{

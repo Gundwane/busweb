@@ -1,0 +1,167 @@
+@font-face {
+    font-family: butlerBold;
+    src: url('fonts/Butler_Bold.otf');
+}
+
+@media only screen and (max-width: 500px) {
+    .main-glass{
+      float: left;
+      overflow: auto;
+      height: 300px !important;
+    }
+
+    #bds{
+      float: left;
+    }
+}
+
+.jumbotron{
+  background-color: #252d30;
+  height: 180px;
+  margin-bottom: 0;
+  color: #F2F2F2;
+}
+
+.jumbotronTitle{
+  text-align: center;
+}
+
+.jumbotron > span{
+  margin-left: 5px;
+}
+
+.jumbotron > button{
+  margin-left: 5px;
+}
+
+.main-glass{
+  height: 200px;
+  margin-top: 40px;
+  position: relative;
+  overflow: hidden;
+  background: inherit;
+  z-index: 1;
+  box-shadow: 0 .5em 1em rgba(0,0,0,.3);
+}
+
+.main-glass::before{
+  content: "";
+  top: 0; right: 0; bottom: 0; left: 0;
+  position: absolute;
+  filter: blur(5px);
+  background: inherit;
+  box-shadow: inset 0 0 3000px rgba(255,255,255,.8);
+  margin: -20px;
+  z-index: -1;
+}
+
+.btn{
+  background-color: #252d30;
+  color: #F2F2F2;
+}
+
+.btn:hover{
+  background-color: #F2F2F2;
+  color: #252d30;
+  border-color: #252d30;
+}
+
+.btn:focus{
+  background-color: #BDBDBD;
+  color: #252d30;
+  border-color: #252d30;
+}
+
+.redBorder{
+  border: 1px solid red;
+  box-shadow: 0px 0px 5px red;
+}
+
+#backButton{
+  background-color: #F2F2F2;
+  color: #252d30;
+}
+
+#backButton:hover{
+  background-color: #BDBDBD;
+  color: #252d30;
+  border-color: #F2F2F2;
+}
+
+#spanUser{
+  font-size: 15px;
+}
+
+#spanFecha{
+  float: right;
+  font-size: 15px;
+}
+
+#divOrigen{
+    margin: 4px;
+    float: left;
+}
+
+#divDropdownOrigen, #divDropdownDestino{
+    margin: 5px;
+    width: 400px;
+    height: 50px;
+}
+
+#divDestino{
+    margin: 5px;
+    float: right;
+}
+
+#divRadio{
+    margin: 5px;
+    clear: both;
+    position: relative;
+    top: 30px;
+}
+
+#divImprimir{
+    margin: 5px;
+    width: 400px;
+    height: 50px;
+}
+
+#btnBuscar{
+    position: absolute;
+    left: 53%;
+}
+
+#divDanger{
+    display: none;
+    text-align: center;
+    padding: 5px;
+    position: fixed;
+    left: 15%; /*A la derecha deje un espacio de 0px*/
+    right: 15%; /*A la izquierda deje un espacio de 0px*/
+    bottom: 0px; /*Abajo deje un espacio de 0px*/
+    height: 50px; /*alto del div*/
+    z-index: 0;
+}
+
+ul{
+  margin-top: -15px !important;
+}
+
+form{
+  margin-top: 15px;
+}
+
+main{
+  background: url('../images/background.jpg');
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+html, body, main {
+  height: 100%;
+}
+
+body{
+  font-family: butlerBold;
+}

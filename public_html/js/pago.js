@@ -7,8 +7,6 @@ $(function(){
   var idPasajero = null, idTitular = null;
   getPrecios();
 
-  console.log(datos);
-
   $('.dropdown-menu a').click(function(){
     $(this).closest('.dropdown').find('.btn').html($(this).text());
   });
@@ -117,7 +115,6 @@ $(function(){
 
   function insertTicket(idPasajero, idTitular, butaca){
     var url = 'acciones.php?accion=insertTicket';
-    console.log('Id pasajero: '+idPasajero);
 
     $.ajax({
       url: url,
@@ -227,10 +224,9 @@ $(function(){
   }
 
   function dataSend(data){
-    console.log(data);
     $.each(data, function(index, value){
       $.each(value, function(subindex, subvalue){
-        console.log(subindex+' '+subvalue);
+        
       })
     })
   }

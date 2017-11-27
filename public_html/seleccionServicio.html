@@ -42,12 +42,12 @@
 
         <div class="col-lg-1"></div>
 
-        <div class="col-lg-9 container">
-          <div class="container well well-lg">
+        <div id="mainDiv" class="col-lg-9">
+          <div class="main-glass">
             <div id="divOrigen">
                 <div class="dropdown dropdownMargin dropdownCity" id="divDropdownOrigen2">
                     <label>Ciudad de Origen</label>
-                    <button class="btn dropdown-toggle btn-per" type="button" id="btnDropdownOrigen2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    <button class="btn dropdown-toggle" type="button" id="btnDropdownOrigen2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                         Seleccione
                         <span></span>
                     </button>
@@ -78,32 +78,19 @@
                 </div>
                 <label>Fecha de regreso</label>
                 <input type="text" name="datepickerDestino" id="datepickerDestino2" class="datepicker" disabled>
-                <div style="position: absolute; top: 12%;">
+                <div>
                   <button type="button" id="btnImprimir" class="btn btn-per">
                       <span class="glyphicon glyphicon-file"></span>Imprimir pasaje
                   </button>
                 </div>
             </div>
-            <!--<div id="divRadio2">
-                <label class="radio-inline"><input type="radio" name="ivradio" value="1">Ida</label>
-                <label class="radio-inline"><input type="radio" name="ivradio" value="2">Ida y vuelta</label>
-            </div>
-
-            <div id="divBotones">
-                <button type="button" id="btnBuscarServicio" class="btn pull-left btn-per">
-                    <span class="glyphicon glyphicon-search"></span>Buscar
-                </button>
-                <button type="button" id="btnImprimir" style="" class="btn pull-right btn-per">
-                    <span class="glyphicon glyphicon-file"></span>Imprimir pasaje
-                </button>
-            </div>-->
-            </div>
-            <div id="divIda">
+          </div>
+            <div id="divIda" class="main-glass">
               <div id="divTramoIda">
                   <h1>Tramo Ida</h1>
                   <h2><span id="lblTramoIda"></span></h2>
               </div>
-              <div id="divTablaIda" class="container well well-sm">
+              <div id="divTablaIda">
                   <table id="tablaIda" class="table table-hover">
                       <thead>
                           <tr>
@@ -117,7 +104,7 @@
                               <th>Comprar</th>
                           </tr>
                       </thead>
-                      <tfoot id="tableFoot" class="tableFoot" style="width: 100%;">
+                      <tfoot id="tableFoot" class="tableFoot">
 
                       </tfoot>
                       <tbody id="bodyTablaIda">
@@ -156,7 +143,7 @@
               </div>
             </div>
             <div style="position: absolute; bottom:0%; right:-15%;">
-              <button type="button" id="btnContinuar" class="btn btn-info btn-lg"><span class="glyphicon glyphicon-ok-sign"></span> Continuar</button>
+              <button type="button" id="btnContinuar" class="btn btn-lg"><span class="glyphicon glyphicon-ok-sign"></span> Continuar</button>
             </div>
             <div class="danger alert-danger well" role="alert" id="divDanger">
                 <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
@@ -164,7 +151,6 @@
                 <br>
                 <span id="spanDanger"></span>
             </div>
-        </div>
 
         <div class="col-lg-1"></div>
 

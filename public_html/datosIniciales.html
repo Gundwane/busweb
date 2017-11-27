@@ -9,9 +9,9 @@
         <!-- Bootstrap -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/jquery-ui.min.css" rel="stylesheet">
-        <link href="css/divs.css" rel="stylesheet">
         <link href="css/bootstrap-select.min.css" rel="stylesheet">
         <link href="css/font-awesome.min.css" rel="stylesheet" >
+        <link href="css/datosIniciales.css" rel="stylesheet">
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -21,64 +21,65 @@
         <![endif]-->
     </head>
     <body>
+      <main role="main">
         <div class="jumbotron">
-            <span id="spanUser" class="label label-default">Bienvenido </span>
-            <div class="container">
-                Banner empresa
+            <span id="spanUser" class="label">¡Bienvenido, </span><span id="spanFecha" class="label"></span>
+            <div class="container jumbotronTitle">
+                <h2>Buscador de horarios</h2>
             </div>
-            <button type="button" id="backButton" class="btn btn-default fa fa-chevron-left"> Volver</button>
+            <button id="backButton" type="button"  class="btn fa fa-chevron-left"> Volver</button>
         </div>
         <div class="col-lg-2"></div>
 
-        <div class="col-lg-8">
-            <form id="formWeb" method="post" action="validacion.php">
-                <div id="divOrigen">
-                    <div class="dropdown" id="divDropdownOrigen">
-                        <label>Ciudad de Origen</label>
-                        <button class="btn btn-primary dropdown-toggle" type="button" id="btnDropdownOrigen" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                            Seleccione
-                            <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu" id="dropdownCiudadesOrigen">
-                        </ul>
-                    </div>
-                    <label>Fecha de ida</label>
-                    <input type="text" name="datepickerOrigen" id="datepickerOrigen" class="datepicker">
-                </div>
-                <div id="divDestino">
-                    <div class="dropdown" id="divDropdownDestino">
-                        <label>Ciudad de Destino</label>
-                        <button class="btn btn-primary dropdown-toggle" type="button" id="btnDropdownDestino" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                            Seleccione
-                            <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownCiudadesDestino" id="dropdownCiudadesDestino">
-                        </ul>
-                    </div>
-                    <label>Fecha de regreso</label>
-                    <input type="text" name="datepickerDestino" id="datepickerDestino" class="datepicker" disabled>
-                </div>
-                <div id="divRadio">
-                    <label class="radio-inline"><input type="radio" name="optradio" value="1" checked="checked">Ida</label>
-                    <label class="radio-inline"><input type="radio" name="optradio" value="2">Ida y vuelta</label>
-                    <button type="button" id="btnBuscar" class="btn btn-primary pull-right">
+        <div class="main-glass col-lg-8">
+          <form id="formWeb" method="post" action="validacion.php">
+              <div id="divOrigen">
+                  <div class="dropdown" id="divDropdownOrigen">
+                      <label>Ciudad de Origen</label>
+                      <button class="btn dropdown-toggle" type="button" id="btnDropdownOrigen" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                          Seleccione
+                          <span class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu" id="dropdownCiudadesOrigen">
+                      </ul>
+                  </div>
+                  <label>Fecha de ida</label>
+                  <input type="text" name="datepickerOrigen" id="datepickerOrigen" class="datepicker">
+              </div>
+              <div id="divDestino">
+                  <div class="dropdown" id="divDropdownDestino">
+                      <label>Ciudad de Destino</label>
+                      <button class="btn dropdown-toggle" type="button" id="btnDropdownDestino" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                          Seleccione
+                          <span class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu" aria-labelledby="dropdownCiudadesDestino" id="dropdownCiudadesDestino">
+                      </ul>
+                  </div>
+                  <label>Fecha de regreso</label>
+                  <input type="text" name="datepickerDestino" id="datepickerDestino" class="datepicker" disabled>
+              </div>
+              <div id="divRadio">
+                  <label class="radio-inline"><input type="radio" name="optradio" value="1" checked="checked">Ida</label>
+                  <label class="radio-inline"><input type="radio" name="optradio" value="2">Ida y vuelta</label>
+                    <button type="button" id="btnBuscar" class="btn pull-right">
                         <span class="glyphicon glyphicon-search"></span>Buscar
                     </button>
-                    <button type="button" id="btnImprimir" class="btn btn-primary pull-right">
+                    <button type="button" id="btnImprimir" class="btn pull-right">
                         <span class="glyphicon glyphicon-file"></span>Imprimir pasaje
                     </button>
-                </div>
-            </form>
-            <div class="danger alert-danger well" role="alert" id="divDanger">
-                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                <strong id="strongDanger"></strong>
-                <br>
-                <span id="spanDanger"></span>
-            </div>
+              </div>
+          </form>
+          <div class="danger alert-danger well" role="alert" id="divDanger">
+              <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+              <strong id="strongDanger"></strong>
+              <br>
+              <span id="spanDanger"></span>
+          </div>
         </div>
 
         <div class="col-lg-2"></div>
-
+      </main>
         <!-- SCRIPTS -->
         <script src="js/jquery-1.11.2.min.js"></script>
         <script src="js/bootstrap.min.js"></script>

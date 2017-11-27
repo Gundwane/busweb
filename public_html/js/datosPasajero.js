@@ -12,7 +12,6 @@ $(function(){
   var counter = 0;
 
   if (fechaVuelta !== null) {
-    console.log('Otra vez esto, la re ppputa madre');
     $('#divVuelta').css('display', 'block');
     var horaVuelta = localStorage.getItem('horaVuelta');
 
