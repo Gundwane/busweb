@@ -18,3 +18,16 @@
 .form-group *{
   margin-bottom: 5px;
 }
+
+#ida, #vuelta{
+  margin-bottom: 5px;
+}
+
+#tarjeta{
+  margin-top: 50px;
+}
+
+body{
+  background: url('../images/wallpaper-4.jpg') no-repeat;
+  background-size: cover;
+}

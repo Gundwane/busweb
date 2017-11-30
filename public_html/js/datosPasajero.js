@@ -76,7 +76,7 @@ $(function(){
                   '<div class="form-group formMargin row">' +
                    '<div class="dropdown input-group col-sm-2">' +
                     '<label style="width: 50%;">Tipo de documento</label>' +
-                    '<button id="btnDrpDni1" class="btn btn-primary dropdown-toggle form-control" type="button" data-toggle="dropdown">DNI<span></span></button>' +
+                    '<button id="btnDrpDni1" class="btn dropdown-toggle form-control" type="button" data-toggle="dropdown">DNI<span></span></button>' +
                     '<ul class="dropdown-menu">' +
                       '<li><a>DNI</a></li>' +
                       '<li><a>Pasaporte</a></li>' +
@@ -99,7 +99,7 @@ $(function(){
                    '<div class="dropdown input-group col-sm-2">' +
                     '<li id="popover1" data-trigger="focus" data-toggle="popover" data-placement="bottom" data-container="body" data-content="Supp">' +
                     '<label>Nacionalidad</label>' +
-                    '<button id="btnDrpNac1" data-trigger="focus" data-content="Elige una nacionalidad" class="btn btn-primary dropdown-toggle form-control" type="button" data-toggle="dropdown">Seleccione <span></span></button>' +
+                    '<button id="btnDrpNac1" data-trigger="focus" data-content="Elige una nacionalidad" class="btn dropdown-toggle form-control" type="button" data-toggle="dropdown">Seleccione <span></span></button>' +
                     '<ul class="dropdown-menu">' +
                       '<li><a>Argentina</a></li>' +
                       '<li><a>Chile</a></li>' +

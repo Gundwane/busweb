@@ -1,3 +1,22 @@
 .input-group{
   padding: 3px;
 }
+
+.button-glass{
+  margin-top: 3px;
+  margin-bottom: 3px;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+  background: #252d30;
+  z-index: 1;
+}
+
+h2{
+  text-align: center;
+}
+
+body{
+  background: url('../images/wallpaper-3.jpg') no-repeat;
+  background-size: cover;
+}

@@ -20,7 +20,8 @@
         <![endif]-->
     </head>
     <body>
-      <div class="jumbotron">
+      <div class="main-glass">
+        <div class="jumbotron">
           <div id="fechaDiv"><span>Fecha</span></div>
           <div id="idiomaDropdown" class="dropdown pull-right">
               <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Idioma
@@ -37,8 +38,7 @@
             <button type="button" id="backButton" class="btn btn-default fa fa-chevron-left"> Volver</button>
           </div>
       </div>
-      <div class="col-lg-3">
-        <div>
+      <div id="cacapedo" class="col-lg-3">
             <p> El plano muestra las butacas disponibles al momento de su
           consulta. Seleccione hasta 8 butacas en cada compra. (4 idas + 4
           vueltas). Su elección quedará
@@ -52,9 +52,8 @@
          <i class="fa fa-square butacaSemicama"></i><span> Servicio Semi Cama</span>
          <br>
          <i class="fa fa-square butacaCama"></i><span> Servicio Cama</span>
-        </div>
       </div>
-      <div class="col-lg-6">
+      <div id="butacasDiv" class="col-lg-6">
         <!-- CARROUSELL -->
         <div id="carousel-example-generic" class="carousel slide" data-interval="false">
         <!-- Indicators -->
@@ -410,10 +409,10 @@
       </div>
       <div class="col-lg-3">
         <div id="divBtn">
-          <button type="button" id="btnContinuar" class="btn btn-info btn-lg"><span class="glyphicon glyphicon-ok-sign"></span> Continuar</button>
+          <button type="button" id="btnContinuar" class="btn btn-lg button-glass"><span class="glyphicon glyphicon-ok-sign"></span> Continuar</button>
         </div>
       </div>
-
+      </div>
       <!-- SCRIPTS -->
       <script src="js/jquery-1.11.2.min.js"></script>
       <script src="js/bootstrap.min.js"></script>

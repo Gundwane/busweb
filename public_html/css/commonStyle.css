@@ -1,0 +1,68 @@
+.jumbotron{
+  background-color: #252d30;
+  color: #F2F2F2;;
+  position: static;
+}
+
+.btn{
+  background-color: #252d30;
+  color: #F2F2F2;
+}
+
+.btn:hover{
+  background-color: #F2F2F2;
+  color: #252d30;
+  border-color: #252d30;
+  transition: background-color 100ms;
+}
+
+.btn:focus{
+  background-color: #BDBDBD;
+  color: #252d30;
+  border-color: #252d30;
+}
+
+.button-glass{
+  margin-top: 3px;
+  margin-bottom: 3px;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+  background: #252d30;
+  z-index: 1;
+  box-shadow: 0 .5em 1em rgba(0,0,0,.9);
+}
+
+.jumbotron-button{
+  margin-left: 10px;
+  margin-right: 10px;
+  background-color: #F2F2F2;
+  color: #252d30;
+}
+
+.jumbotron-button:hover{
+  background-color: #252d30;
+  color: #F2F2F2;
+  border-color: #F2F2F2;
+  transition: background-color 100ms;
+}
+
+.main-glass{
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+  background: inherit;
+  z-index: 1;
+  box-shadow: 0 .5em 1em rgba(0,0,0,.8);
+}
+
+.main-glass::before{
+  content: "";
+  top: 0; right: 0; bottom: 0; left: 0;
+  position: absolute;
+  filter: blur(5px);
+  background: inherit;
+  box-shadow: inset 0 0 3000px rgba(255,255,255,.8);
+  margin: -20px;
+  z-index: -1;
+}

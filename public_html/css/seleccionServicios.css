@@ -1,3 +1,8 @@
+@font-face {
+    font-family: butlerBold;
+    src: url('fonts/Butler_Bold.otf');
+}
+
 .dropdownMargin{
     margin-bottom: 5px;
 }
@@ -31,6 +36,7 @@
 
 .main-glass{
   margin-top: 40px;
+  padding: 20px;
   position: relative;
   overflow: hidden;
   background: inherit;
@@ -49,12 +55,19 @@
   z-index: -1;
 }
 
-.noDisplay{
-  display: none;
+.button-glass{
+  margin-top: 3px;
+  margin-bottom: 3px;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+  background: #252d30;
+  z-index: 1;
+  box-shadow: 0 .5em 1em rgba(0,0,0,.9);
 }
 
-#mainDiv{
-  background: url('../images/grey-white-wallpaper.jpg');
+.noDisplay{
+  display: none;
 }
 
 #backButton{
@@ -68,24 +81,16 @@
   border-color: #F2F2F2;
 }
 
-#divOrigen, #divDestino, #divRadio, #divBotones, #divTramoIda, #divTramoVuelta, #divEmpresa{
-  margin-top: 20px;
-  width: 50%;
+#divOrigen, #divDestino{
   float: left;
-  display: block;
-  padding: 5px;
-}
-#divRadio{
-    padding: 5px;
-}
-#divTramoIda, #divTramoVuelta, #divEmpresa{
-    padding-top: 20px;
-    padding-left: 17px;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-bottom: 10px;
+  margin-top: 10px;
 }
 
 #divTramoIda, #divTramoVuelta, #divEmpresa > span{
     font-weight: bold;
-    font-size: 20px;
 }
 
 #fechaDiv{
@@ -128,8 +133,15 @@
   padding: 5px;
 }
 
+#btnImprimir{
+  margin-top: 30px;
+}
+
 body{
-  background-repeat: repeat-x;
+  background: url('../images/bus-road-smaller.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
   color: #252d30;
-  margin: 0;
+  font-family: butlerBold;
+  font-size: 160%;
 }

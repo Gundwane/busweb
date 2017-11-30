@@ -90,7 +90,7 @@ $(function(){
       if (selectedIdIda !== null){
         var ciudadOrigen = botonDropdownOrigen.text();
         var ciudadDestino = botonDropdownDestino.text();
-        localStorage.setItem('servicioIda', selectedIdIda);  //REEMPLAZAR ESTE NOMBRE POR ALGO MAS DESCRIPTIVO. 
+        localStorage.setItem('servicioIda', selectedIdIda);  //REEMPLAZAR ESTE NOMBRE POR ALGO MAS DESCRIPTIVO.
         localStorage.setItem('ciudadDestino', ciudadDestino);
         localStorage.setItem('ciudadOrigen', ciudadOrigen);
         localStorage.setItem('fechaIda', fechaIda2);
@@ -173,11 +173,13 @@ $(function(){
         if (radioIdaVuelta == 2) {
           fechaChecker(fecha1, fecha2);
           tramosVuelta(destino, origen);
-          $('#divVuelta').toggle();
+          $('#divTramoVuelta').toggle();
+          $('#divTablaVuelta').toggle();
           $("#lblTramoVuelta").empty();
           $("#lblTramoVuelta").append("Desde: "+destino+" a "+origen);
         }else {
-          $('#divVuelta').hide();
+          $('#divTramoVuelta').hide();
+          $('#divTablaVuelta').hide();
         }
     }
 

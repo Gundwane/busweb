@@ -5,15 +5,33 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/commonStyle.css" rel="stylesheet">
     <link href="css/ticket.css" rel="stylesheet">
     <title>Imprima su ticket</title>
   </head>
   <body>
+    <div class="jumbotron">
+        <div id="fechaDiv"><span>Fecha</span></div>
+        <div id="idiomaDropdown" class="dropdown pull-right">
+            <button class="btn jumbotron-button dropdown-toggle" type="button" data-toggle="dropdown">Idioma
+                <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+                <li><a href="#">Español</a></li>
+                <li><a href="#">Inglés</a></li>
+            </ul>
+        </div>
+        <div class="container">
+            <h2>Ingresa tus datos y obtené tu ticket</h2>
+        </div>
+        <div>
+          <button type="button" id="backButton" class="btn jumbotron-button fa fa-chevron-left"> Volver</button>
+        </div>
+    </div>
       <div class="col-lg-3"></div>
-      <div class="col-lg-6">
+      <div class="col-lg-6 main-glass">
         <div class="dropdown input-group">
           <label class="input-group-addon">Tipo de documento</label>
-          <button id="btnDni" class="btn btn-primary dropdown-toggle form-control" type="button" data-toggle="dropdown">DNI<span class="caret"></span></button>
+          <button id="btnDni" class="btn dropdown-toggle form-control" type="button" data-toggle="dropdown">DNI<span class="caret"></span></button>
           <ul class="dropdown-menu">
             <li><a>DNI</a></li>
             <li><a>Pasaporte</a></li>
@@ -29,8 +47,8 @@
           <label class="input-group-addon">E-mail</label>
           <input id="txtEmail" type="email" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,63}$" placeholder="email@dominio.com" required>
         </div>
-        <div class="input-group">
-          <button type="button" class="btn btn-default" id="btnBuscar">BUSCAR</button>
+        <div class="input-group btn-block">
+          <button type="button" class="btn btn-block button-glass" id="btnBuscar">BUSCAR</button>
         </div>
       </div>
       <div class="">

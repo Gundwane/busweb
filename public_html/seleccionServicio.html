@@ -40,10 +40,7 @@
             </div>
         </div>
 
-        <div class="col-lg-1"></div>
-
-        <div id="mainDiv" class="col-lg-9">
-          <div class="main-glass">
+        <div id="mainDiv" class="main-glass" >
             <div id="divOrigen">
                 <div class="dropdown dropdownMargin dropdownCity" id="divDropdownOrigen2">
                     <label>Ciudad de Origen</label>
@@ -66,8 +63,7 @@
                   </button>
                 </div>
             </div>
-
-            <div id="divDestino">
+            <div id="divDestino" style="float: left;">
                 <div class="dropdown dropdownMargin dropdownCity" id="divDropdownDestino2">
                     <label>Ciudad de Destino</label>
                     <button class="btn dropdown-toggle btn-per" type="button" id="btnDropdownDestino2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -85,75 +81,74 @@
                 </div>
             </div>
           </div>
-            <div id="divIda" class="main-glass">
-              <div id="divTramoIda">
-                  <h1>Tramo Ida</h1>
-                  <h2><span id="lblTramoIda"></span></h2>
-              </div>
-              <div id="divTablaIda">
-                  <table id="tablaIda" class="table table-hover">
-                      <thead>
-                          <tr>
-                              <th>Empresas</th>
-                              <th>Información del servicio</th>
-                              <th>Calidades - Butacas libres</th>
-                              <th>Salida</th>
-                              <th>Llegada</th>
-                              <th>Precio Ida</th>
-                              <th>Precio Ida/Vuelta</th>
-                              <th>Comprar</th>
-                          </tr>
-                      </thead>
-                      <tfoot id="tableFoot" class="tableFoot">
 
-                      </tfoot>
-                      <tbody id="bodyTablaIda">
+          <div id="divTramoIda" class="main-glass" style="width: 100%;">
+              <h1>Tramo Ida</h1>
+              <h2><span id="lblTramoIda"></span></h2>
+          </div>
+          <div id="divIda" class="main-glass">
+            <div id="divTablaIda">
+                <table id="tablaIda" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Empresas</th>
+                            <th>Información del servicio</th>
+                            <th>Calidades - Butacas libres</th>
+                            <th>Salida</th>
+                            <th>Llegada</th>
+                            <th>Precio Ida</th>
+                            <th>Precio Ida/Vuelta</th>
+                            <th>Comprar</th>
+                        </tr>
+                    </thead>
+                    <tfoot id="tableFoot" class="tableFoot">
 
-                      </tbody>
-                  </table>
-              </div>
+                    </tfoot>
+                    <tbody id="bodyTablaIda">
+
+                    </tbody>
+                </table>
             </div>
+          </div>
 
-            <div id="divVuelta" class="noDisplay">
-              <div id="divTramoVuelta">
-                  <h1>Tramo Vuelta</h1>
-                  <h2><span id="lblTramoVuelta"></span></h2>
-              </div>
-              <div id="divTablaVuelta" class="container well well-sm">
-                  <table id="tablaVuelta" class="table table-hover">
-                      <thead>
-                          <tr>
-                              <th>Empresas</th>
-                              <th>Información del servicio</th>
-                              <th>Calidades - Butacas libres</th>
-                              <th>Salida</th>
-                              <th>Llegada</th>
-                              <th>Precio Ida</th>
-                              <th>Precio Ida/Vuelta</th>
-                              <th>Comprar</th>
-                          </tr>
-                      </thead>
-                      <tfoot id="tableFoot" class="tableFoot" style="width: 100%;">
 
-                      </tfoot>
-                      <tbody id="bodyTablaVuelta">
+          <div id="divTramoVuelta" class="main-glass noDisplay">
+                <h1>Tramo Vuelta</h1>
+                <h2><span id="lblTramoVuelta"></span></h2>
+          </div>
+          <div id="divTablaVuelta" class="main-glass noDisplay">
+                <table id="tablaVuelta" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Empresas</th>
+                            <th>Información del servicio</th>
+                            <th>Calidades - Butacas libres</th>
+                            <th>Salida</th>
+                            <th>Llegada</th>
+                            <th>Precio Ida</th>
+                            <th>Precio Ida/Vuelta</th>
+                            <th>Comprar</th>
+                        </tr>
+                    </thead>
+                    <tfoot id="tableFoot" class="tableFoot">
 
-                      </tbody>
-                  </table>
-              </div>
+                    </tfoot>
+                    <tbody id="bodyTablaVuelta">
+
+                    </tbody>
+                </table>
             </div>
-            <div style="position: absolute; bottom:0%; right:-15%;">
-              <button type="button" id="btnContinuar" class="btn btn-lg"><span class="glyphicon glyphicon-ok-sign"></span> Continuar</button>
-            </div>
-            <div class="danger alert-danger well" role="alert" id="divDanger">
-                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                <strong id="strongDanger"></strong>
-                <br>
-                <span id="spanDanger"></span>
-            </div>
-
-        <div class="col-lg-1"></div>
-
+          <div class="btn-block">
+            <button type="button" id="btnContinuar" class="btn btn-lg btn-block button-glass">
+              <span class="glyphicon glyphicon-ok-sign"></span> Continuar
+            </button>
+          </div>
+          <div class="danger alert-danger well" role="alert" id="divDanger">
+              <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+              <strong id="strongDanger"></strong>
+              <br>
+              <span id="spanDanger"></span>
+          </div>
 
         <!-- MODAL -->
         <div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="infoModalLabel">
