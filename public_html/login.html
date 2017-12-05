@@ -5,7 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Transportes</title>
         <link href="css/bootstrap.min.css" rel="stylesheet">
-        <link href="css/index.css" rel="stylesheet">
+        <link href="css/commonStyle.css" rel="stylesheet">
+        <link href="css/login.css" rel="stylesheet">
     </head>
     <body>
         <div class="jumbotron">
@@ -18,20 +19,20 @@
             <form action="login.php" method="POST">
                 <h1>LOGIN</h1>
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Código Agencia</label>
+                    <label for="">Código Agencia</label>
                     <input type="text" class="form-control" id="codigoAgencia" name="codigoAgencia" placeholder="">
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Nombre</label>
+                    <label for="">Nombre</label>
                     <input type="text" class="form-control" id="nombreLogin" name="nombreLogin" placeholder="">
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputPassword1">Password</label>
+                    <label for="">Password</label>
                     <input type="password" class="form-control" id="passwordLogin" name="passwordLogin" placeholder="">
                 </div>
                 <button id="btnSubmit" type="submit" class="btn btn-default">Aceptar</button>
                 <br>
-                <button id="btnNuevo" type="submit" class="btn btn-default">Nuevo Usuario</button>
+                <button id="btnNuevo" type="button" class="btn btn-default">Nuevo Usuario</button>
             </form>
         </div>
         <div class="col-lg-4">
@@ -40,6 +41,6 @@
         <!-- SCRIPTS -->
         <script src="js/jquery-1.11.2.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
-        <script src="js/index.js"></script>
+        <script src="js/login.js"></script>
     </body>
 </html>

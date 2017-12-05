@@ -6,32 +6,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/jquery-ui.min.css" rel="stylesheet">
+    <link href="css/font.css" rel="stylesheet">
+    <link href="css/commonStyle.css" rel="stylesheet">
     <link href="css/datosPasajero.css" rel="stylesheet">
     <link href="css/font-awesome.min.css" rel="stylesheet">
     <title>Datos del pasajero</title>
   </head>
   <body>
     <div class="jumbotron">
-        <div id="fechaDiv"><span>Fecha</span></div>
+        <span id="spanFecha" class="label"></span>
         <div id="idiomaDropdown" class="dropdown pull-right">
-            <button class="btn jumbotron-button dropdown-toggle" type="button" data-toggle="dropdown">Idioma
+            <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Idioma
                 <span class="caret"></span></button>
             <ul class="dropdown-menu">
                 <li><a href="#">Español</a></li>
                 <li><a href="#">Inglés</a></li>
             </ul>
         </div>
-        <div class="container">
-            <h3>Paso 5 - Datos del pasajero</h3>
+        <div class="container jumbotronTitle">
+            <h2>Paso 5 - Datos del pasajero</h2>
         </div>
         <div>
-          <button type="button" id="backButton" class="btn jumbotron-button fa fa-chevron-left"> Volver</button>
+          <button type="button" id="backButton" class="btn btn-default fa fa-chevron-left"> Volver</button>
         </div>
     </div>
     <div class="col-lg-2"></div>
 
-    <div class="col-lg-8 main-glass">
-      <div id=divIda>
+    <div class="col-lg-8">
+      <div id=divIda class="main-glass">
         <div class="">
           <h3>Resumen del tramo de ida</h3>
           <label for="origen">Ciudad de origen:</label><span id="origenI"></span>
@@ -44,8 +46,8 @@
         </div>
       </div>
 
-      <div id="divVuelta">
-        <div class="well">
+      <div id="divVuelta" class="main-glass">
+        <div class="">
           <div>
             <h3>Resumen del tramo de vuelta</h3>
             <label for="origen">Ciudad de origen:</label><span id="origenV"> </span>
@@ -58,13 +60,16 @@
           </div>
         </div>
       </div>
+      <button type="submit" id="btnSubmit" class="btn btn-lg btn-block button-glass">
+        <span class="glyphicon glyphicon-ok-sign"></span> Continuar
+      </button>
     </div>
-    <button type="submit" id="btnSubmit" class="btn btn-lg button-glass"><span class="glyphicon glyphicon-ok-sign"></span> Continuar</button>
     <div class="col-lg-2"></div>
 
     <!-- SCRIPTS -->
     <script src="js/jquery-1.11.2.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/fechaGetter.js"></script>
     <script src="js/datosPasajero.js"></script>
   </body>
 </html>

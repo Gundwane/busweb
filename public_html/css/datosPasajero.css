@@ -1,8 +1,3 @@
-@font-face {
-    font-family: butlerBold;
-    src: url('fonts/Butler_Bold.otf');
-}
-
 .form-group *{
   padding: 4px !important;
 }
@@ -31,35 +26,8 @@
   border-color: #252d30;
 }
 
-.button-glass{
-  margin-top: 3px;
-  margin-bottom: 3px;
-  padding: 20px;
-  position: relative;
-  overflow: hidden;
-  background: #252d30;
-  z-index: 1;
-  box-shadow: 0 .5em 1em rgba(0,0,0,.9);
-}
-
 .main-glass{
-  padding: 20px;
-  position: relative;
-  overflow: hidden;
-  background: inherit;
-  z-index: 1;
-  box-shadow: 0 .5em 1em rgba(0,0,0,.8);
-}
-
-.main-glass::before{
-  content: "";
-  top: 0; right: 0; bottom: 0; left: 0;
-  position: absolute;
-  filter: blur(5px);
-  background: inherit;
-  box-shadow: inset 0 0 3000px rgba(255,255,255,.8);
-  margin: -20px;
-  z-index: -1;
+  z-index: 2;
 }
 
 .formDiv{
@@ -86,5 +54,4 @@
 body{
   background: url('../images/wallpaper-1.jpg');
   background-size: cover;
-  font-family: butlerBold;
 }

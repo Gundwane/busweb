@@ -1,36 +1,11 @@
-@font-face {
-    font-family: butlerBold;
-    src: url('fonts/Butler_Bold.otf');
-}
-
 .main-glass{
-  position: relative;
-  overflow: hidden;
-  background: inherit;
-  z-index: 1;
-  box-shadow: 0 .5em 1em rgba(0,0,0,.8);
+  height: 100%;
+  padding-top: 25px;
+  margin-top: 0;
 }
 
-.main-glass::before{
-  content: "";
-  top: 0; right: 0; bottom: 0; left: 0;
-  position: absolute;
-  filter: blur(5px);
-  background: inherit;
-  box-shadow: inset 0 0 3000px rgba(255,255,255,.8);
-  margin: -20px;
-  z-index: -1;
-}
-
-.button-glass{
-  margin-top: 3px;
-  margin-bottom: 3px;
-  padding: 20px;
-  position: relative;
-  overflow: hidden;
-  background: #252d30;
-  z-index: 1;
-  box-shadow: 0 .5em 1em rgba(0,0,0,.8);
+.jumbotron{
+  margin-bottom: 0;
 }
 
 .tableTitle{
@@ -39,7 +14,9 @@
 }
 
 .butacas{
-  font-size:35px;
+  font-size:33px;
+  margin-top: -3px;
+  margin-bottom: -3px;
   padding: 0px;
   color: #333;
 }
@@ -77,6 +54,7 @@
 
 .toClick:hover i{
   color: #efc776;
+  transition: 150ms;
 }
 
 .pasillo{
@@ -98,7 +76,8 @@
 .divTabla::before{
   content: '';
   z-index: -1;
-  margin-left: -40px;
+  margin-top: -13px;
+  margin-left: -25px;
   width: 50%;
   height: 100%;
   position: absolute;
@@ -127,26 +106,8 @@
    float: left;
 }
 
-.jumbotron{
-  background-color: #252d30;
-  color: #F2F2F2;;
-  position: static;
-}
-
-.tableBorder{
-  border-color: black;
-  border-collapse: collapse;
-}
-
-.btn{
-  background-color: #252d30;
-  color: #F2F2F2;
-}
-
-.btn:hover{
-  background-color: #F2F2F2;
-  color: #252d30;
-  border-color: #252d30;
+.table-bordered{
+  border: none;
 }
 
 td{
@@ -156,6 +117,8 @@ td{
 body{
   background: url('../images/grey-white-wallpaper.jpg') no-repeat;
   background-size: cover;
-  font-family: butlerBold;
-  font-size: 170%;
+}
+
+html, body{
+  height: 100%;
 }

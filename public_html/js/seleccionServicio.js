@@ -15,6 +15,7 @@ $(function(){
     var selectedIdVuelta = null;
     var horaIda, horaVuelta, diaIda, diaVuelta, nomEmpresa1, nomEmpresa2;
     var fechaIda2, fechaVuelta2; //fechaVuelta2 es almacenada en el localStorage y recuperada en datos de pasajero
+
     $('#btnDropdownOrigen2').html(ciudadOrigen);
     $('#btnDropdownDestino2').html(ciudadDestino);
     $('#datepickerOrigen2').val(fechaIda);
@@ -173,13 +174,11 @@ $(function(){
         if (radioIdaVuelta == 2) {
           fechaChecker(fecha1, fecha2);
           tramosVuelta(destino, origen);
-          $('#divTramoVuelta').toggle();
-          $('#divTablaVuelta').toggle();
+          $('#mainVuelta').toggle();
           $("#lblTramoVuelta").empty();
           $("#lblTramoVuelta").append("Desde: "+destino+" a "+origen);
         }else {
-          $('#divTramoVuelta').hide();
-          $('#divTablaVuelta').hide();
+          $('#mainVuelta').hide();
         }
     }
 

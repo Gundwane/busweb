@@ -7,8 +7,6 @@ $(function () {
     var usuario = localStorage.getItem('usuario');
     var ciudadOrigen, ciudadDestino;
     var arraySession = [];
-    var fecha = new Date();
-    var mes = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
 
     dropdownCaptura = function (dropdown, boton) {
         var ciudad;
@@ -33,8 +31,6 @@ $(function () {
 
     $('#spanUser').append(usuario+'!');
 
-    $('#spanFecha').append(fecha.getDate()+' de '+mes[fecha.getMonth()]+' de '+fecha.getFullYear());
-
     $('#btnImprimir').click(function(){
       window.location.replace('ticket.html');
     })
@@ -58,7 +54,7 @@ $(function () {
     });
 
     $('#backButton').click(function(){
-      window.location.replace('index.html');
+      window.location.replace('login.html');
     })
 
     $("#btnBuscar").click(function () {                                         //Boton Submit

@@ -1,5 +1,5 @@
 <?php
-
+set_time_limit(0);
 /*Toda esta gilada la usé para crear un usuario. Podría haberlo puesto directamente en la base de datos, si...
 ...pero quería meterle un buen pass.*/
 
@@ -9,7 +9,7 @@ $conexion = $db->getConexion();
 
 $password = $_POST["password"];
 $name = $_POST["name"];
-$pass = password_hash($password, PASSWORD_BCRYPT, array('cost' => 15));         //Funcioncita que te genera un password re pro loco
+$pass = password_hash($password, PASSWORD_BCRYPT, array('cost' => 15));         //Funcion que te genera un password re pro loco
 
 try {
     $query = "INSERT INTO usuarios (nick, password) VALUES (?, ?)";
@@ -18,8 +18,8 @@ try {
     $statement->bindParam(2, $pass);
     $statement->execute();
 
-    echo "Password creado...";
-    header("Location: index.html");
+    echo "Usuario creado : )";
+    //header("Location: login.html");
 } catch (Exception $exc) {
     echo $exc->getTraceAsString();
 }

@@ -3,17 +3,23 @@
 }
 
 .button-glass{
-  margin-top: 3px;
-  margin-bottom: 3px;
-  padding: 20px;
-  position: relative;
-  overflow: hidden;
-  background: #252d30;
-  z-index: 1;
+  box-shadow: 0 .1em .5em rgba(0,0,0,.9);
+}
+
+#btnBuscar{
+  font-size: large;
+}
+
+#mainDiv{
+  margin-bottom: 30px;
 }
 
 h2{
   text-align: center;
+}
+
+table{
+  box-shadow: 0 .1em .5em rgba(0,0,0,.9);
 }
 
 body{

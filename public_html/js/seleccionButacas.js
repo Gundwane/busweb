@@ -4,6 +4,7 @@ $(function(){
   var flagVCheck = false;
   var servicioIda = localStorage.getItem('servicioIda');
   var objectButacas = {};
+
   getButacasByTramo(servicioIda, flagIda);
   if (localStorage.getItem('servicioVuelta') != 'null'){
     flagVCheck = true;

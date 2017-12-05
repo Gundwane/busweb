@@ -1,8 +1,3 @@
-@font-face {
-    font-family: butlerBold;
-    src: url('fonts/Butler_Bold.otf');
-}
-
 .jumbotron{
   background-color: #252d30;
   color: #F2F2F2;;
@@ -37,6 +32,4 @@ body{
   background: url('../images/white-wallpaper-2.jpg');
   background-repeat: no-repeat;
   background-size: cover;
-  font-family: butlerBold;
-  font-size: 160%;
 }

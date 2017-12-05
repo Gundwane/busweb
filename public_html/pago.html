@@ -14,20 +14,20 @@
   </head>
   <body>
     <div class="jumbotron">
-        <div id="fechaDiv"><span>Fecha</span></div>
+        <span id="spanFecha" class="label"></span>
         <div id="idiomaDropdown" class="dropdown pull-right">
-            <button class="btn jumbotron-button dropdown-toggle" type="button" data-toggle="dropdown">Idioma
+            <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Idioma
                 <span class="caret"></span></button>
             <ul class="dropdown-menu">
                 <li><a href="#">Español</a></li>
                 <li><a href="#">Inglés</a></li>
             </ul>
         </div>
-        <div class="container">
-            <h3>Paso 6 - Pago</h3>
+        <div class="container jumbotronTitle">
+            <h2>Paso 6 - Pago</h2>
         </div>
         <div>
-          <button type="button" id="backButton" class="btn jumbotron-button fa fa-chevron-left"> Volver</button>
+          <button type="button" id="backButton" class="btn btn-default fa fa-chevron-left"> Volver</button>
         </div>
     </div>
     <div class="col-lg-2"></div>
@@ -127,7 +127,7 @@
               <input id="datepicker" type="text" id="datepicker" class="datepicker">
             </div>
           </form>
-          <button id="boton" type="button" name="button" class="btn glass-button">TEST</button>
+          <button id="boton" type="button" name="button" class="btn btn-lg btn-block glass-button">Realizar pago</button>
         </div>
       </div>
       <div class="danger alert-info well" role="alert" id="divDanger" style="display: none">
@@ -142,6 +142,7 @@
   <!-- SCRIPTS -->
   <script src="js/jquery-1.11.2.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
+  <script src="js/fechaGetter.js"></script>
   <script src="js/pago.js"></script>
   <script src="js/jquery-ui.min.js"></script>
   <script src="js/mensaje.js"></script>

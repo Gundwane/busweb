@@ -1,8 +1,3 @@
-@font-face {
-    font-family: butlerBold;
-    src: url('fonts/Butler_Bold.otf');
-}
-
 @media only screen and (max-width: 500px) {
     .main-glass{
       float: left;
@@ -37,22 +32,12 @@
 .main-glass{
   height: 200px;
   margin-top: 40px;
+  padding: 20px;
   position: relative;
-  overflow: hidden;
-  background: inherit;
+  background-color: rgba(235,235,235,0.7);
+  overflow: visible;
   z-index: 1;
   box-shadow: 0 .5em 1em rgba(0,0,0,.3);
-}
-
-.main-glass::before{
-  content: "";
-  top: 0; right: 0; bottom: 0; left: 0;
-  position: absolute;
-  filter: blur(5px);
-  background: inherit;
-  box-shadow: inset 0 0 3000px rgba(255,255,255,.8);
-  margin: -20px;
-  z-index: -1;
 }
 
 .btn{
@@ -147,10 +132,6 @@ ul{
   margin-top: -15px !important;
 }
 
-form{
-  margin-top: 15px;
-}
-
 main{
   background: url('../images/background.jpg');
   background-attachment: fixed;
@@ -160,8 +141,4 @@ main{
 
 html, body, main {
   height: 100%;
-}
-
-body{
-  font-family: butlerBold;
 }

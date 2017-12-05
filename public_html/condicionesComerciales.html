@@ -7,6 +7,8 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/jquery-ui.min.css" rel="stylesheet">
     <link href="css/bootstrap-select.min.css" rel="stylesheet">
+    <link href="css/font.css" rel="stylesheet">
+    <link href="css/commonStyle.css" rel="stylesheet">
     <link href="css/condicionesComerciales.css" rel="stylesheet">
     <link href="css/font-awesome.min.css" rel="stylesheet">
 
@@ -14,7 +16,7 @@
   </head>
   <body>
     <div class="jumbotron">
-        <div id="fechaDiv"><span>Fecha</span></div>
+        <span id="spanFecha" class="label"></span>
         <div id="idiomaDropdown" class="dropdown pull-right">
             <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Idioma
                 <span class="caret"></span></button>
@@ -23,8 +25,8 @@
                 <li><a href="#">Inglés</a></li>
             </ul>
         </div>
-        <div class="container">
-            <h3>Paso 3 - Condiciones Comerciales</h3>
+        <div class="container jumbotronTitle">
+            <h2>Paso 3 - Condiciones Comerciales</h2>
         </div>
         <div>
           <button type="button" id="backButton" class="btn btn-default fa fa-chevron-left"> Volver</button>
@@ -33,7 +35,7 @@
 
     <div class="col-lg-1"></div>
     <div class="col-lg-9">
-      <div id="empresaIda" class="container">
+      <div id="empresaIda" class="">
         <h3><span class="spanNombre"></span></h3>
         <div class="well well-sm"><span class="spanData"></span></div>
         <br>
@@ -46,14 +48,17 @@
         <br>
         <label><input type="checkbox" id="empresa2Checker"> Acepto las condiciones</label>
       </div>
-      <button type="button" id="btnContinuar" class="btn btn-lg button-glass" disabled>
-        <span class="glyphicon glyphicon-ok-sign"></span> Continuar
-      </button>
+      <div class="btn-block">
+        <button type="button" id="btnContinuar" class="btn btn-lg btn-block button-glass" disabled>
+          <span class="glyphicon glyphicon-ok-sign"></span> Continuar
+        </button>
+      </div>
     </div>
     <div class="col-lg-1"></div>
 
     <script src="js/jquery-1.11.2.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/fechaGetter.js"></script>
     <script src="js/condicionesComerciales.js"></script>
   </body>
 </html>

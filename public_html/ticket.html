@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/font.css" rel="stylesheet">
     <link href="css/commonStyle.css" rel="stylesheet">
     <link href="css/ticket.css" rel="stylesheet">
     <title>Imprima su ticket</title>
@@ -28,7 +29,7 @@
         </div>
     </div>
       <div class="col-lg-3"></div>
-      <div class="col-lg-6 main-glass">
+      <div id="mainDiv" class="col-lg-6 main-glass">
         <div class="dropdown input-group">
           <label class="input-group-addon">Tipo de documento</label>
           <button id="btnDni" class="btn dropdown-toggle form-control" type="button" data-toggle="dropdown">DNI<span class="caret"></span></button>
@@ -51,7 +52,7 @@
           <button type="button" class="btn btn-block button-glass" id="btnBuscar">BUSCAR</button>
         </div>
       </div>
-      <div class="">
+      <div>
         <table class="table table-responsive table-striped">
           <thead>
             <tr>
@@ -74,6 +75,7 @@
       <div class="col-lg-3"></div>
   <script src="js/jquery-1.11.2.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
+  <script src="js/fechaGetter.js"></script>
   <script src="js/ticket.js"></script>
   </body>
 </html>

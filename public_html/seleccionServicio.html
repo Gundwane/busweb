@@ -10,6 +10,8 @@
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/jquery-ui.min.css" rel="stylesheet">
         <link href="css/bootstrap-select.min.css" rel="stylesheet">
+        <link href="css/font.css" rel="stylesheet">
+        <link href="css/commonStyle.css" rel="stylesheet">
         <link href="css/seleccionServicios.css" rel="stylesheet">
         <link href="css/font-awesome.min.css" rel="stylesheet">
 
@@ -23,7 +25,7 @@
     </head>
     <body id="seleccionServicio" class="backgroundColor">
         <div class="jumbotron">
-            <div id="fechaDiv"><span>Fecha</span></div>
+            <span id="spanFecha" class="label"></span>
             <div id="idiomaDropdown" class="dropdown pull-right">
                 <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Idioma
                     <span class="caret"></span></button>
@@ -32,15 +34,15 @@
                     <li><a href="#">Inglés</a></li>
                 </ul>
             </div>
-            <div class="container">
-                <h3>Paso 2 - Selección de servicios</h3>
+            <div class="container jumbotronTitle">
+                <h2>Paso 2 - Selección de servicios</h2>
             </div>
-            <div style="left: 8%; top: 110px; position: absolute;">
+            <div>
               <button type="button" id="backButton" class="btn btn-default fa fa-chevron-left"> Volver</button>
             </div>
         </div>
 
-        <div id="mainDiv" class="main-glass" >
+        <div id="mainDiv" class="main-glass">
             <div id="divOrigen">
                 <div class="dropdown dropdownMargin dropdownCity" id="divDropdownOrigen2">
                     <label>Ciudad de Origen</label>
@@ -82,11 +84,12 @@
             </div>
           </div>
 
-          <div id="divTramoIda" class="main-glass" style="width: 100%;">
+          <div class="main-glass">
+          <div id="divTramoIda" class="" style="width: 100%;">
               <h1>Tramo Ida</h1>
               <h2><span id="lblTramoIda"></span></h2>
           </div>
-          <div id="divIda" class="main-glass">
+          <div id="divIda">
             <div id="divTablaIda">
                 <table id="tablaIda" class="table table-hover">
                     <thead>
@@ -110,13 +113,14 @@
                 </table>
             </div>
           </div>
+          </div>
 
-
-          <div id="divTramoVuelta" class="main-glass noDisplay">
+          <div id="mainVuelta" class="main-glass noDisplay">
+          <div id="divTramoVuelta" class="">
                 <h1>Tramo Vuelta</h1>
                 <h2><span id="lblTramoVuelta"></span></h2>
           </div>
-          <div id="divTablaVuelta" class="main-glass noDisplay">
+          <div id="divTablaVuelta">
                 <table id="tablaVuelta" class="table table-hover">
                     <thead>
                         <tr>
@@ -137,7 +141,8 @@
 
                     </tbody>
                 </table>
-            </div>
+          </div>
+          </div>
           <div class="btn-block">
             <button type="button" id="btnContinuar" class="btn btn-lg btn-block button-glass">
               <span class="glyphicon glyphicon-ok-sign"></span> Continuar
@@ -187,6 +192,7 @@
         <script src="js/jquery-1.11.2.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="js/jquery-ui.min.js"></script>
+        <script src="js/fechaGetter.js"></script>
         <script src="js/mensaje.js"></script>
         <script src="js/datosIniciales.js"></script>
         <script src="js/seleccionServicio.js"></script>

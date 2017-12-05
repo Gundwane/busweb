@@ -19,6 +19,14 @@
   margin-bottom: 5px;
 }
 
+.jumbotron{
+  margin-bottom: 0;
+}
+
+#boton{
+  padding: 20px;
+}
+
 #ida, #vuelta{
   margin-bottom: 5px;
 }
