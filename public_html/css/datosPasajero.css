@@ -27,7 +27,7 @@
 }
 
 .main-glass{
-  z-index: 2;
+
 }
 
 .formDiv{
@@ -49,6 +49,14 @@
 
 #divVuelta{
   display: none;
+}
+
+#divButaca{
+  padding: 5px;
+  border-top: groove #2E2E2E;
+}
+
+ul > a{
 }
 
 body{

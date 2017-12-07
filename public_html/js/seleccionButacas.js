@@ -5,6 +5,7 @@ $(function(){
   var servicioIda = localStorage.getItem('servicioIda');
   var objectButacas = {};
 
+
   getButacasByTramo(servicioIda, flagIda);
   if (localStorage.getItem('servicioVuelta') != 'null'){
     flagVCheck = true;
@@ -26,21 +27,21 @@ $(function(){
         if ($(this).closest('tbody').hasClass('tIda')) {
           objectButacas[key] = ['Comun', 'Ida'];
         }else if($(this).closest('tbody').hasClass('tVuelta')){
-          objectButacas[key] = ['Comun', 'Vuelta'];
+          objectButacas[key+' '] = ['Comun', 'Vuelta'];
         }
       }else if ($(this).siblings('i').hasClass('butacaSemicama')) {
         var key = $(this).text();
         if ($(this).closest('tbody').hasClass('tIda')) {
           objectButacas[key] = ['Semicama', 'Ida'];
         }else {
-          objectButacas[key] = ['Semicama', 'Vuelta'];
+          objectButacas[key+' '] = ['Semicama', 'Vuelta'];
         }
       }else if ($(this).siblings('i').hasClass('butacaCama')) {
         var key = $(this).text();
         if ($(this).closest('tbody').hasClass('tIda')) {
           objectButacas[key] = ['Cama', 'Ida'];
         }else {
-          objectButacas[key] = ['Cama', 'Vuelta'];
+          objectButacas[key+' '] = ['Cama', 'Vuelta'];
         }
       }
     }else{

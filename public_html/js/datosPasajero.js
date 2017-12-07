@@ -63,11 +63,12 @@ $(function(){
   })
 
 
-  $('#formDivIda').on('click', '.dropdown-menu a', function(){
+  $('.formDiv').on('click', '.dropdown-menu a', function(){
     $(this).closest('.dropdown').find('.btn').html($(this).text());
   });
 
   $.each(array, function(index, value) {
+  console.log('index: '+index+' value: '+value);
     var form = '<form id="formIda" data-tramo="ida" class="form-inline form" method="post">' +
                   '<div id="divButaca" style="padding: 5px; border-top: groove #2E2E2E;">' +
                     '<span id="spanButaca" data-id='+ index +'>Número de butaca: '+ index +'</span>' +
@@ -96,7 +97,7 @@ $(function(){
                    '<div class="input-group col-sm-2">' +
                      '<label>E-mail</label><input id="txtEmailI" type="email" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,63}$" required>' +
                    '</div>' +
-                   '<div class="dropdown input-group col-sm-2">' +
+                   '<div class="dropdown input-group col-sm-2>' +
                     '<li id="popover1" data-trigger="focus" data-toggle="popover" data-placement="bottom" data-container="body" data-content="Supp">' +
                     '<label>Nacionalidad</label>' +
                     '<button id="btnDrpNac1" data-trigger="focus" data-content="Elige una nacionalidad" class="btn dropdown-toggle form-control" type="button" data-toggle="dropdown">Seleccione <span></span></button>' +

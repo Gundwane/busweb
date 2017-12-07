@@ -40,17 +40,6 @@
   box-shadow: 0 .5em 1em rgba(0,0,0,.3);
 }
 
-.btn{
-  background-color: #252d30;
-  color: #F2F2F2;
-}
-
-.btn:hover{
-  background-color: #F2F2F2;
-  color: #252d30;
-  border-color: #252d30;
-}
-
 .btn:focus{
   background-color: #BDBDBD;
   color: #252d30;
@@ -60,17 +49,6 @@
 .redBorder{
   border: 1px solid red;
   box-shadow: 0px 0px 5px red;
-}
-
-#backButton{
-  background-color: #F2F2F2;
-  color: #252d30;
-}
-
-#backButton:hover{
-  background-color: #BDBDBD;
-  color: #252d30;
-  border-color: #F2F2F2;
 }
 
 #spanUser{

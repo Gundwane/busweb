@@ -164,14 +164,12 @@ class Querys {
       $statement->bindParam(':dni', $id);
       $statement->execute();
       $code = (int)$statement->fetchColumn();
-      
+
       return $code;
     }
 
     public function insertPasajero()
     {
-      global $idPasajero;
-
       $nombre = $_POST['nombre'];
       $apellido = $_POST['apellido'];
       $tipoDni = $_POST['tipoDni'];
@@ -179,24 +177,31 @@ class Querys {
       $email = $_POST['email'];
       $nacionalidad = $_POST['nacionalidad'];
 
-      $query = "INSERT INTO pasajero (dni, nombre, apellido, tipoDni, email, nacionalidad)
-                VALUES (:dni, :nombre, :apellido, :tipoDni, :email, :nacionalidad)";
-      $statement = $this->_conexion->prepare($query);
+      $queryBuscar = "SELECT dni FROM pasajero WHERE dni=:dni AND apellido=:apellido";
+      $statement = $this->_conexion->prepare($queryBuscar);
       $statement->bindParam(':dni', $dni);
-      $statement->bindParam(':nombre', $nombre);
       $statement->bindParam(':apellido', $apellido);
-      $statement->bindParam(':tipoDni', $tipoDni);
-      $statement->bindParam(':email', $email);
-      $statement->bindParam(':nacionalidad', $nacionalidad);
       $statement->execute();
+      if ($statement->rowCount() > 0) {
+        return $dni;
+      }else {
+        $query = "INSERT INTO pasajero (dni, nombre, apellido, tipoDni, email, nacionalidad)
+                  VALUES (:dni, :nombre, :apellido, :tipoDni, :email, :nacionalidad)";
+        $statement = $this->_conexion->prepare($query);
+        $statement->bindParam(':dni', $dni);
+        $statement->bindParam(':nombre', $nombre);
+        $statement->bindParam(':apellido', $apellido);
+        $statement->bindParam(':tipoDni', $tipoDni);
+        $statement->bindParam(':email', $email);
+        $statement->bindParam(':nacionalidad', $nacionalidad);
+        $statement->execute();
 
-      return $dni;
+        return $dni;
+      }
     }
 
     public function insertTitular()
     {
-      global $idTitular;
-
       $tipoDni = $_POST['tipoDni'];
       $dni = $_POST['dni'];
       $apellido = $_POST['apellido'];

@@ -5,9 +5,10 @@ $(function(){
   var datos = JSON.parse(localStorage.getItem('datosPasajero'));
   var fechaIda = JSON.parse(localStorage.getItem('fechaIdaNF'));
   var idPasajero = null, idTitular = null;
+  console.log(datos);
   getPrecios();
 
-  $('.dropdown-menu a').click(function(){
+  $('.dropdown-menu a').on('click', function(){
     $(this).closest('.dropdown').find('.btn').html($(this).text());
   });
 
@@ -42,10 +43,10 @@ $(function(){
       }
     })
 
-    $.each(datos, function(index, value){
+    /*$.each(datos, function(index, value){
       updateButaca(idTramo, butaca);
       insertPasajero(value);
-    })
+    })*/
   });
 
   function insertPasajero(datosPasajero){
@@ -62,7 +63,8 @@ $(function(){
       method: 'POST',
       data: {nombre: nombre, apellido: apellido, tipoDni: tipoDni, dni: dni, email: email, nacionalidad: nacionalidad},
       success: function(data){
-        insertTitular(data, butaca);
+        //insertTitular(data, butaca);
+        insertTicket(data, butaca);
       },
       error: function(){
         console.log('Error');
@@ -113,18 +115,20 @@ $(function(){
     })
   }
 
-  function insertTicket(idPasajero, idTitular, butaca){
+  function insertTicket(idPasajero, butaca){
     var url = 'acciones.php?accion=insertTicket';
+    var dniTitular = $('#txtNumero').val();
+    console.log(idPasajero);
 
     $.ajax({
       url: url,
       method: 'POST',
-      data: {dniPasajero: idPasajero, idTitular: idTitular, idTramo: idTramo, fechaSalida: fechaIda, butaca: butaca},
+      data: {dniPasajero: idPasajero, idTitular: dniTitular, idTramo: idTramo, fechaSalida: fechaIda, butaca: butaca},
       success: function(data){
         setTimeout(function(){
           mensajeAlerta('Pasajes reservados : )');
         }, 2000);
-        window.location.replace('ticket.html');
+        //window.location.replace('ticket.html');
       },
       error: function(){
         console.log('Error');
@@ -226,7 +230,7 @@ $(function(){
   function dataSend(data){
     $.each(data, function(index, value){
       $.each(value, function(subindex, subvalue){
-        
+
       })
     })
   }
