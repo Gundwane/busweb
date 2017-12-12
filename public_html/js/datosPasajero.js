@@ -11,6 +11,7 @@ $(function(){
   var html;
   var arrayDatos = [];
   var counter = 0;
+  console.log(array);
 
   if (fechaVuelta !== null) {
     $('#divVuelta').css('display', 'block');
@@ -71,7 +72,7 @@ $(function(){
   });
 
   $.each(array, function(index, value) {
-    var form = '<form id="formIda" data-tramo="ida" class="form-inline form" method="post">' +
+    var form = '<form data-tramo='+ value[1] +' class="form-inline form" method="post">' +
                   '<div id="divButaca" style="padding: 5px; border-top: groove #2E2E2E;">' +
                     '<span id="spanButaca" data-id='+ index +'>Número de butaca: '+ index +'</span>' +
                     '<span> Calidad: '+ value[0] +'</span>' +

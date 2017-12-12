@@ -1,6 +1,7 @@
 $(function(){
   var montoTotal;
-  var idTramo = localStorage.getItem('servicioIda');
+  var idTramoIda = localStorage.getItem('servicioIda');
+  var idTramoVuelta = localStorage.getItem('servicioVuelta');
   var arrayButacas = JSON.parse(localStorage.getItem('array'));
   var datos = JSON.parse(localStorage.getItem('datosPasajero'));
   var fechaIda = JSON.parse(localStorage.getItem('fechaIdaNF'));
@@ -30,25 +31,23 @@ $(function(){
       data: {id: dniTitular},
       success: function(codigo){
         if (codigo > 99) {
-          alert('Estas habilitado');
           $.each(datos, function(index, value){
-            console.log(index+' '+value);
-            updateButaca(idTramo, butaca);
-            insertPasajero(value);
+            if (value['tramo'] === 'Ida') {
+              updateButaca(idTramoIda, butaca);
+              insertPasajero(idTramoIda, value);
+            }else {
+              updateButaca(idTramoVuelta, butaca);
+              insertPasajero(idTramoVuelta, value);
+            }
           })
         }else {
-          alert('No podés hacer la compra porque tu tarjeta no te deja');
+          mensajeAlerta('Error!', 'No estás habilitado para hacer el pago');
         }
       }
     })
-
-    /*$.each(datos, function(index, value){
-      updateButaca(idTramo, butaca);
-      insertPasajero(value);
-    })*/
   });
 
-  function insertPasajero(datosPasajero){
+  function insertPasajero(idTramo, datosPasajero){
     var url = 'acciones.php?accion=insertPasajero';
     var nombre = datosPasajero['nombre'];
     var apellido = datosPasajero['apellido'];
@@ -62,7 +61,7 @@ $(function(){
       method: 'POST',
       data: {nombre: nombre, apellido: apellido, tipoDni: tipoDni, dni: dni, email: email, nacionalidad: nacionalidad},
       success: function(data){
-        insertTicket(data, butaca);
+        insertTicket(idTramo, data, butaca);
       },
       error: function(){
         console.log('Error');
@@ -103,7 +102,7 @@ $(function(){
     $.ajax({
       url: url,
       method: 'POST',
-      data: {idTramo: idTramo, butaca: butaca},
+      data: {idTramo: tramo, butaca: butaca},
       success: function(){
 
       },
@@ -113,7 +112,7 @@ $(function(){
     })
   }
 
-  function insertTicket(idPasajero, butaca){
+  function insertTicket(idTramo, idPasajero, butaca){
     var url = 'acciones.php?accion=insertTicket';
     var dniTitular = $('#txtNumero').val();
 
@@ -140,7 +139,7 @@ $(function(){
       url: url,
       dataType: 'JSON',
       method: 'POST',
-      data: {tramo: idTramo},
+      data: {tramo: idTramoIda},
       success: function(data){
         calcularMonto(data, arrayButacas);
       },

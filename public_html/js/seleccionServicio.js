@@ -102,7 +102,6 @@ $(function(){
         localStorage.setItem('horarioSalidaIda', horarioSalidaIda);
         localStorage.setItem('empresaIda', nomEmpresa1);
         sessionStorage.setItem('1', nomEmpresa1);
-        //window.location.replace('condicionesComerciales.html');
         if (radioIdaVuelta == '2') {
           console.log('Id vuelta: '+selectedIdVuelta);
           if (selectedIdVuelta != null || selectedIdVuelta != undefined) {
@@ -369,7 +368,6 @@ $(function(){
         fechaIda2 = $(this).closest('tr').find('.horarioSalida').html().split('<br>')[0];
         horarioSalidaIda = $(this).closest('tr').find('.horarioSalida .horaSpan').text();
         $(this).addClass('selected');
-        console.log(horarioSalidaIda);
       }else if (($(this).hasClass('selected')) && ($(this).closest('table').attr('id') === 'tablaIda')) {
         $(this).removeClass('selected');
         selectedIdIda = null;
@@ -388,7 +386,6 @@ $(function(){
         selectedIdVuelta = $(this).closest('tr').attr('id');
         nomEmpresa2 = $(this).closest('tr').find('#spanEmpresa').text();
         horarioSalidaVuelta = $(this).closest('tr').find('.horarioSalida .horaSpan').text();
-        console.log(horarioSalidaVuelta);
         $(this).addClass('selected2');
       }else if (($(this).hasClass('selected2')) && ($(this).closest('table').attr('id') === 'tablaVuelta')){
         $(this).removeClass('selected2');

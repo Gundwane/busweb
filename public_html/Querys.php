@@ -302,7 +302,7 @@ class Querys {
       $dni = $_POST['numeroDni'];
       $email = $_POST['email'];
 
-      $query = "SELECT pasajero.nombre AS pnombre, pasajero.apellido, pasajero.dni, corigen.nombre AS conombre, cdestino.nombre AS cdnombre, tramos.precio, tramos.horarioSalida, ticket.numeroButaca
+      $query = "SELECT pasajero.nombre AS pnombre, pasajero.apellido, pasajero.dni, corigen.nombre AS conombre, cdestino.nombre AS cdnombre, tramos.precio, tramos.horarioSalida, ticket.numeroButaca, ticket.fechaSalida
       FROM tramos
       INNER JOIN ticket ON ticket.fk_tramo = tramos.idTramo
       INNER JOIN pasajero ON ticket.fk_pasajero = pasajero.dni
