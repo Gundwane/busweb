@@ -223,14 +223,5 @@ $(function(){
     $('#montoTotal').append(' '+precioTotal);
   }
 
-  function dataSend(data){
-    $.each(data, function(index, value){
-      $.each(value, function(subindex, subvalue){
-
-      })
-    })
-  }
-
-
   $('.datepicker').datepicker();
 })

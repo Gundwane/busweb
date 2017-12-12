@@ -4,6 +4,7 @@ $(function(){
   var flagVCheck = false;
   var servicioIda = localStorage.getItem('servicioIda');
   var objectButacas = {};
+  var idaCounter = 0, vueltaCounter = 0;
 
   getButacasByTramo(servicioIda, flagIda);
   if (localStorage.getItem('servicioVuelta') != 'null'){
@@ -59,6 +60,9 @@ $(function(){
   });
 
   $('#btnContinuar').click(function(){
+    idaCounter = 0;
+    vueltaCounter = 0;
+
     var flagOne = false;
     if (flagVCheck) {
       var flagTwo = false;
@@ -68,11 +72,21 @@ $(function(){
 
     $.each(objectButacas, function(key, value){
       if (value[1] == 'Ida') {
+        idaCounter++;
         flagOne = true;
       }
 
       if (value[1] == 'Vuelta') {
+        vueltaCounter++;
         flagTwo = true;
+      }
+
+      if (idaCounter > 4) {
+        mensajeAlerta('No puedes seleccionar mas de 4 butacas para la ida');
+      }
+
+      if (vueltaCounter > 4) {
+        mensajeAlerta('No puedes seleccionar mas de 4 butacas para la vuelta');
       }
     })
 
@@ -80,10 +94,8 @@ $(function(){
       localStorage.setItem('array', JSON.stringify(objectButacas));
       window.location.replace('datosPasajero.html');
     }else if(!flagOne){
-      console.log('No ida');
       mensajeAlerta('Hey!', 'No seleccionaste ninguna butaca para el viaje de ida');
     }else{
-      console.log('No vuelta');
       mensajeAlerta('Hey!', 'No seleccionaste ninguna butaca para el viaje de vuelta');
     }
   })

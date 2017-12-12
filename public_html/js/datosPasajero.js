@@ -11,7 +11,6 @@ $(function(){
   var html;
   var arrayDatos = [];
   var counter = 0;
-  console.log(array);
 
   if (fechaVuelta !== null) {
     $('#divVuelta').css('display', 'block');
@@ -65,7 +64,6 @@ $(function(){
   $('#backButton').click(function(){
     window.location.replace('seleccionButacas.html');
   })
-
 
   $('.formDiv').on('click', '.dropdown-menu a', function(){
     $(this).closest('.dropdown').find('.btn').html($(this).text());

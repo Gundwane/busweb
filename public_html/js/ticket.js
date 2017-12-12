@@ -1,4 +1,8 @@
 $(function(){
+  $('#backButton').click(function(){
+    window.location.replace('pago.html');
+  })
+
   $('#btnBuscar').click(function(){
     var url = 'acciones.php?accion=getTicket';
     var dni = $('#btnDni').text();
@@ -41,12 +45,21 @@ $(function(){
               "<td>"+ value.conombre +"</td>" +
               "<td>"+ value.cdnombre +"</td>" +
               "<td>"+ value.precio +"</td>" +
-              "<td>"+ value.fechaSalida +"</td>" +
+              "<td>"+ fechaFormater(value.fechaSalida) +"</td>" +
               "<td>"+ value.horarioSalida +"</td>" +
               "<td>"+ value.numeroButaca +"</td>" +
               "</tr>";
     });
     //$('#ticketsDiv').append(html);
     $('#tbody').append(html);
+  }
+
+  fechaFormater = function(fecha){
+    var newFecha;
+    var mes = ["empty", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+    var array = fecha.split('-');
+    newFecha = array[2]+' de '+mes[array[1]]+' del '+array[0];
+
+    return newFecha;
   }
 })

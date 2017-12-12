@@ -14,7 +14,7 @@ $(function(){
     var selected = null;
     var selectedIdIda = null;
     var selectedIdVuelta = null;
-    var horaIda, horaVuelta, diaIda, diaVuelta, nomEmpresa1, nomEmpresa2;
+    var horaIda = null, horaVuelta = null, diaIda = null, diaVuelta = null, nomEmpresa1, nomEmpresa2;
     var fechaIda2, fechaVuelta2; //fechaVuelta2 es almacenada en el localStorage y recuperada en datos de pasajero
 
     $('#btnDropdownOrigen2').html(ciudadOrigen);
@@ -63,14 +63,17 @@ $(function(){
     /*Bindeo de la funcion que busca los servicios a los botones Buscar, y al click en una nueva Ciudad*/
     $('#btnBuscarServicio').on('click', function(){       //Al presionar el boton Buscar
         buscarServicio();
+        nuller();
     });
 
     $('.dropdownCity').on('click', 'li a', function(){    //Al cambiar la ciudad en Dropdown
        buscarServicio();
+       nuller();
     });
 
     $('.datepicker').on('change', function(){             //Al cambiar la fecha
       buscarServicio();
+      nuller();
     });
     /* ------------------------------------------------------------------------------------------------ */
 
@@ -420,13 +423,13 @@ $(function(){
       hora2split = hora2.split(':');
 
       if (fecha1 > fecha2) {
-        mensajeAlerta('El horario de regreso no puede ser anterior al de llegada');
+        mensajeAlerta('El horario o fecha de regreso no puede ser anterior al de ida');
         return;
         }else if (hora1split[0] > hora2split[0]) {
-          mensajeAlerta('El horario de regreso no puede ser anterior al de llegada');
+          mensajeAlerta('El horario o fecha de regreso no puede ser anterior al de ida');
           return;
           }else if ((hora1split[0] == hora2split[0]) && (hora1split[1] > hora2split[1])) {
-            mensajeAlerta('El horario de regreso no puede ser anterior al de llegada');
+            mensajeAlerta('El horario o fecha de regreso no puede ser anterior al de ida');
             return;
       }else {
         localStorage.setItem('servicioVuelta', selectedIdVuelta);
@@ -445,6 +448,18 @@ $(function(){
         mensajeAlerta('Nope', 'La fecha de regreso no puede ser anterior a la de ida');
       }
     };
+
+    function nuller(){
+      console.log('Ep ep');
+      selectedIdIda = null;
+      selectedIdVuelta = null;
+      horaIda = null;
+      horaVuelta = null;
+      diaIda = null;
+      diaVuelta = null;
+      fechaIda2 = null;
+      fechaVuelta2 = null;
+    }
 
     dropdownCaptura(dropdownOrigen, botonDropdownOrigen);
     dropdownCaptura(dropdownDestino, botonDropdownDestino);
