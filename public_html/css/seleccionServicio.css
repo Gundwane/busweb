@@ -6,6 +6,14 @@
    background-color: #ededed;
 }
 
+.selected{
+  color: #E4A11B;
+}
+
+.selected2{
+  color: #E4A11B;
+}
+
 /*.jumbotron{
   background-color: #252d30;
   color: #F2F2F2;;

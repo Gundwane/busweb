@@ -5,7 +5,6 @@ $(function(){
   var servicioIda = localStorage.getItem('servicioIda');
   var objectButacas = {};
 
-
   getButacasByTramo(servicioIda, flagIda);
   if (localStorage.getItem('servicioVuelta') != 'null'){
     flagVCheck = true;
@@ -23,7 +22,7 @@ $(function(){
 
       if ($(this).siblings('i').hasClass('butacaComun')) {  //Checkea que esté seleccionada y si es de la tabla de ida o vuelta
         var key = $(this).text();
-        //ESTE CODIGO ES HORRIBLE. REVISAR Y MEJORAR APENAS PUEDA
+        //ESTO ES HORRIBLE. REVISAR Y MEJORAR APENAS PUEDA
         if ($(this).closest('tbody').hasClass('tIda')) {
           objectButacas[key] = ['Comun', 'Ida'];
         }else if($(this).closest('tbody').hasClass('tVuelta')){
@@ -82,8 +81,10 @@ $(function(){
       window.location.replace('datosPasajero.html');
     }else if(!flagOne){
       console.log('No ida');
+      mensajeAlerta('Hey!', 'No seleccionaste ninguna butaca para el viaje de ida');
     }else{
       console.log('No vuelta');
+      mensajeAlerta('Hey!', 'No seleccionaste ninguna butaca para el viaje de vuelta');
     }
   })
 

@@ -5,13 +5,14 @@ $(function(){
     var fechaIda = data[2];
     var fechaVuelta = data[3];
     var radioIdaVuelta = data[4];
-    var dropdownOrigen = $("#dropdownCiudadesOrigen2");
-    var dropdownDestino = $("#dropdownCiudadesDestino2");
-    var botonDropdownOrigen = $("#btnDropdownOrigen2");
-    var botonDropdownDestino = $("#btnDropdownDestino2");
-    var tablaIda = $("#bodyTablaIda");
-    var tablaVuelta = $("#bodyTablaVuelta");
+    var dropdownOrigen = $('#dropdownCiudadesOrigen2');
+    var dropdownDestino = $('#dropdownCiudadesDestino2');
+    var botonDropdownOrigen = $('#btnDropdownOrigen2');
+    var botonDropdownDestino = $('#btnDropdownDestino2');
+    var tablaIda = $('#bodyTablaIda');
+    var tablaVuelta = $('#bodyTablaVuelta');
     var selected = null;
+    var selectedIdIda = null;
     var selectedIdVuelta = null;
     var horaIda, horaVuelta, diaIda, diaVuelta, nomEmpresa1, nomEmpresa2;
     var fechaIda2, fechaVuelta2; //fechaVuelta2 es almacenada en el localStorage y recuperada en datos de pasajero
@@ -68,7 +69,7 @@ $(function(){
        buscarServicio();
     });
 
-    $('.datepicker').on('change', function(){
+    $('.datepicker').on('change', function(){             //Al cambiar la fecha
       buscarServicio();
     });
     /* ------------------------------------------------------------------------------------------------ */
@@ -80,15 +81,16 @@ $(function(){
         $('#datepickerDestino2').removeAttr('disabled');
       }else{
         $('#datepickerDestino2').prop('disabled', true);
+        selectedIdVuelta = null;
       }
     });
 
-    $("#backButton").click(function(){
+    $('#backButton').click(function(){
       window.location.replace('datosIniciales.html');
     });
 
     $('#btnContinuar').on('click', function(){               //Envia los servicios seleccionados a la siguiente pag
-      if (selectedIdIda !== null){
+      if (selectedIdIda !== null || selectedIdIda != undefined){
         var ciudadOrigen = botonDropdownOrigen.text();
         var ciudadDestino = botonDropdownDestino.text();
         localStorage.setItem('servicioIda', selectedIdIda);  //REEMPLAZAR ESTE NOMBRE POR ALGO MAS DESCRIPTIVO.
@@ -97,17 +99,24 @@ $(function(){
         localStorage.setItem('fechaIda', fechaIda2);
         localStorage.setItem('fechaIdaNF', JSON.stringify(($('#datepickerOrigen2').datepicker({ dateFormat: 'yyyy,MM,dd' }).val())));
         localStorage.setItem('horaIda', horaIda);
+        localStorage.setItem('horarioSalidaIda', horarioSalidaIda);
         localStorage.setItem('empresaIda', nomEmpresa1);
         sessionStorage.setItem('1', nomEmpresa1);
-        window.location.replace('condicionesComerciales.html');
-        if (selectedIdVuelta != null) {
-          tiempoDiferencia(horaIda, horaVuelta, diaIda, diaVuelta);
+        //window.location.replace('condicionesComerciales.html');
+        if (radioIdaVuelta == '2') {
+          console.log('Id vuelta: '+selectedIdVuelta);
+          if (selectedIdVuelta != null || selectedIdVuelta != undefined) {
+            tiempoDiferencia(horaIda, horaVuelta, diaIda, diaVuelta);
+          }else {
+            mensajeAlerta('Error', 'Debes seleccionar un tramo de regreso');
+          }
         }else {
           localStorage.setItem('servicioVuelta', null);
           sessionStorage.setItem('2', null);
+          window.location.replace('condicionesComerciales.html');
         }
-      }else{
-
+      }else {
+        mensajeAlerta('Error', 'Debes seleccionar un tramo de ida');
       }
     });
 
@@ -150,8 +159,8 @@ $(function(){
     /* ------------------------------------------------------------ */
 
     function tituloTramo(origen, destino){
-        $("#lblTramoIda").empty();
-        $("#lblTramoIda").append("Desde: "+origen+" a "+destino);
+        $('#lblTramoIda').empty();
+        $('#lblTramoIda').append('Desde: '+origen+' a '+destino);
     };
 
     function checkRadio(){
@@ -175,8 +184,8 @@ $(function(){
           fechaChecker(fecha1, fecha2);
           tramosVuelta(destino, origen);
           $('#mainVuelta').toggle();
-          $("#lblTramoVuelta").empty();
-          $("#lblTramoVuelta").append("Desde: "+destino+" a "+origen);
+          $('#lblTramoVuelta').empty();
+          $('#lblTramoVuelta').append('Desde: '+destino+' a '+origen);
         }else {
           $('#mainVuelta').hide();
         }
@@ -256,7 +265,7 @@ $(function(){
 
     sumarFecha = function(tiempoSuma, stringTime, duracion){
       var minutosTotalesDuracion = 0;
-      var timeSplited = stringTime.split(":");
+      var timeSplited = stringTime.split(':');
       tiempoSuma.setHours(timeSplited[0]);
       tiempoSuma.setMinutes(timeSplited[1]);
 
@@ -270,7 +279,7 @@ $(function(){
     }
 
     function llenarTabla(data, tabla, flag) {
-        var html = "", tfoot = $('.tableFoot');
+        var html = '', tfoot = $('.tableFoot');
         var butacas, fechaTotal;
         var precios, precioComun, precioSemicama, precioCama;
         var countResultados = 0;
@@ -341,22 +350,49 @@ $(function(){
     };
 
     $('.table').on('click', '.glyphicon-shopping-cart', function(){
+      var selectedCart1, selectedCart2, id1, id2;
+
+      //Si el cart no tiene la clase 'selected' se le aplica, y caso contrario se le quita.
+
       if ((!$(this).hasClass('selected')) && ($(this).closest('table').attr('id') === 'tablaIda')) {
+        //Identificada ya la tabla, se controla que no hayan dos tramos seleccionados
+        id1 = $(this).closest('tr').attr('id');
+        if (id1 != selectedCart1) {
+          $('.selected').removeClass('selected');
+        }
+        selectedCart1 = $(this).closest('tr').attr('id');
+
         horaIda = $(this).closest('tr').find('.horarioLlegada .horaSpan').text();
         diaIda = $(this).closest('tr').find('.horarioLlegada .diaSpan').text();
         selectedIdIda = $(this).closest('tr').attr('id');
         nomEmpresa1 = $(this).closest('tr').find('#spanEmpresa').text();
         fechaIda2 = $(this).closest('tr').find('.horarioSalida').html().split('<br>')[0];
-        $(this).css('color', '#E4A11B').addClass('selected');
-        }else if ((!$(this).hasClass('selected')) && ($(this).closest('table').attr('id') === 'tablaVuelta')){
-          horaVuelta = $(this).closest('tr').find('.horarioLlegada .horaSpan').text();
-          diaVuelta = $(this).closest('tr').find('.horarioLlegada .diaSpan').text(); //revisar utilidad de esta variable (no me acuerdo para que pija se usa)
-          fechaVuelta2 = $(this).closest('tr').find('.horarioSalida').html().split('<br>')[0];//divide horarioLlegada en 2 usando <br> para "splitear", y almacena el primer elemento de las dos partes
-          selectedIdVuelta = $(this).closest('tr').attr('id');
-          nomEmpresa2 = $(this).closest('tr').find('#spanEmpresa').text();
-          $(this).css('color', '#E4A11B').addClass('selected');
-      }else{
-        $(this).css('color', '#333').removeClass('selected');
+        horarioSalidaIda = $(this).closest('tr').find('.horarioSalida .horaSpan').text();
+        $(this).addClass('selected');
+        console.log(horarioSalidaIda);
+      }else if (($(this).hasClass('selected')) && ($(this).closest('table').attr('id') === 'tablaIda')) {
+        $(this).removeClass('selected');
+        selectedIdIda = null;
+      }
+
+      if ((!$(this).hasClass('selected2')) && ($(this).closest('table').attr('id') === 'tablaVuelta')){
+        id2 = $(this).closest('tr').attr('id');
+        if (id2 != selectedCart2) {
+          $('.selected2').removeClass('selected2');
+        }
+        selectedCart2 = $(this).closest('tr').attr('id');
+
+        horaVuelta = $(this).closest('tr').find('.horarioLlegada .horaSpan').text();
+        diaVuelta = $(this).closest('tr').find('.horarioLlegada .diaSpan').text(); //revisar utilidad de esta variable (no me acuerdo para que se usa)
+        fechaVuelta2 = $(this).closest('tr').find('.horarioSalida').html().split('<br>')[0];//divide horarioLlegada en 2 usando <br> para "splitear", y almacena el primer elemento de las dos partes
+        selectedIdVuelta = $(this).closest('tr').attr('id');
+        nomEmpresa2 = $(this).closest('tr').find('#spanEmpresa').text();
+        horarioSalidaVuelta = $(this).closest('tr').find('.horarioSalida .horaSpan').text();
+        console.log(horarioSalidaVuelta);
+        $(this).addClass('selected2');
+      }else if (($(this).hasClass('selected2')) && ($(this).closest('table').attr('id') === 'tablaVuelta')){
+        $(this).removeClass('selected2');
+        selectedIdVuelta = null;
       }
     });
 
@@ -379,7 +415,6 @@ $(function(){
                                + timeSplited[0] + ":"
                                + timeSplited[1] + "</span> hs";
       }
-
       return tiempoFormateado;
     }
 
@@ -401,6 +436,7 @@ $(function(){
         sessionStorage.setItem('2', nomEmpresa2);
         localStorage.setItem('fechaVuelta', fechaVuelta2);
         localStorage.setItem('horaVuelta', horaVuelta);
+        localStorage.setItem('horarioSalidaVuelta', horarioSalidaVuelta);
         localStorage.setItem('fechaVueltaNF', $('#datepickerDestino2').datepicker('getDate'));
         localStorage.setItem('empresaVuelta', nomEmpresa2);
         window.location.replace('condicionesComerciales.html');

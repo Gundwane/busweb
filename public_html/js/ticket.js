@@ -11,10 +11,15 @@ $(function(){
       dataType: 'JSON',
       data: {numeroDni: numeroDni, email: email},
       success: function(data){
-        mostrarTicket(data);
+        console.log(data);
+        if (data.length === 0) {
+          mensajeAlerta(null, 'No podemos encontrar un ticket con esos datos. Revisalos!');
+        }else {
+          mostrarTicket(data);
+        }
       },
       error: function(){
-        console.log('Error gettin da tickets');
+
       }
     })
   });
@@ -24,7 +29,12 @@ $(function(){
     var id = 0, html = '';
     $.each(data, function(index, value){
       id++;
-      html += "<tr>" +
+      html += "<div class='ticketDiv'>" +
+        "<span id='nombresp'>Nombre:"+ value.pnombre +"</span><span id='apellidosp'>Apellido:"+ value.apellido +"</span><span id='dnisp'>Dni:"+ value.dni +"</span>" +
+        "<span id='origensp'>De:"+ value.conombre +"</span><span id='destinosp'>A:"+ value.cdnombre +"</span><span id='horariosp'>A las:"+ value.horarioSalida +"</span>" +
+        "<span id='costosp'>Costo:"+ value.precio +"</span><span id='butacasp'>Nº de butaca:"+ value.numeroButaca +"</span>" +
+      "</div>";
+      /*html += "<tr>" +
               "<td>"+ id +"</td>" +
               "<td>"+ value.pnombre +"</td>" +
               "<td>"+ value.apellido +"</td>" +
@@ -34,9 +44,9 @@ $(function(){
               "<td>"+ value.precio +"</td>" +
               "<td>"+ value.horarioSalida +"</td>" +
               "<td>"+ value.numeroButaca +"</td>" +
-              "</tr>";
+              "</tr>";*/
     });
-
-    $('#tbody').append(html);
+    $('#ticketsDiv').append(html);
+    //$('#tbody').append(html);
   }
 })

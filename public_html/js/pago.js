@@ -5,7 +5,6 @@ $(function(){
   var datos = JSON.parse(localStorage.getItem('datosPasajero'));
   var fechaIda = JSON.parse(localStorage.getItem('fechaIdaNF'));
   var idPasajero = null, idTitular = null;
-  console.log(datos);
   getPrecios();
 
   $('.dropdown-menu a').on('click', function(){
@@ -38,7 +37,7 @@ $(function(){
             insertPasajero(value);
           })
         }else {
-          alert('SSSHHHHUPET! No podés hacer la compra porque tu tarjeta no te deja');
+          alert('No podés hacer la compra porque tu tarjeta no te deja');
         }
       }
     })
@@ -63,7 +62,6 @@ $(function(){
       method: 'POST',
       data: {nombre: nombre, apellido: apellido, tipoDni: tipoDni, dni: dni, email: email, nacionalidad: nacionalidad},
       success: function(data){
-        //insertTitular(data, butaca);
         insertTicket(data, butaca);
       },
       error: function(){
@@ -118,17 +116,16 @@ $(function(){
   function insertTicket(idPasajero, butaca){
     var url = 'acciones.php?accion=insertTicket';
     var dniTitular = $('#txtNumero').val();
-    console.log(idPasajero);
 
     $.ajax({
       url: url,
       method: 'POST',
       data: {dniPasajero: idPasajero, idTitular: dniTitular, idTramo: idTramo, fechaSalida: fechaIda, butaca: butaca},
       success: function(data){
+        mensajeAlerta('Pasajes reservados : )');
         setTimeout(function(){
-          mensajeAlerta('Pasajes reservados : )');
-        }, 2000);
-        //window.location.replace('ticket.html');
+          window.location.replace('ticket.html');
+        }, 3000);
       },
       error: function(){
         console.log('Error');

@@ -27,7 +27,7 @@
 }
 
 .main-glass{
-
+  z-index: auto;
 }
 
 .formDiv{
@@ -47,16 +47,22 @@
   transition: background-color 100ms;
 }
 
+.dropdown-margin{
+  margin-top: -18px;
+}
+
+.redBorder{
+  background-color: #f94949 !important;
+  border: 1px solid red;
+  box-shadow: 0px 0px 5px red;
+}
+
+#btnDrpDni1{
+  margin-top: -2px;
+}
+
 #divVuelta{
   display: none;
-}
-
-#divButaca{
-  padding: 5px;
-  border-top: groove #2E2E2E;
-}
-
-ul > a{
 }
 
 body{

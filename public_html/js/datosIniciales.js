@@ -13,9 +13,9 @@ $(function () {
         dropdown.on('click', 'li', function () {
             ciudad = $(this).text();
 
-            if (boton.hasClass("btn-danger")) {
-                boton.switchClass("btn-danger", "btn-primary", 0);
-                $("#divDanger").fadeOut();
+            if (boton.hasClass('redBorder')) {
+                boton.removeClass('redBorder');
+                $('#divDanger').fadeOut();
             }
             boton.html(ciudad);
             if (dropdown === dropdownOrigen) {
@@ -100,7 +100,7 @@ $(function () {
 
     validarCiudadOrigen = function () {
         if (ciudadOrigen == null) {
-            $("#btnDropdownOrigen").switchClass("btn-primary", "btn-danger", 200);
+            $("#btnDropdownOrigen").addClass('redBorder');
             var titulo = "Che!", mensaje = "Dejaste la ciudad de origen vacía";
             mensajeAlerta(titulo, mensaje);
             return false;
@@ -111,7 +111,7 @@ $(function () {
 
     validarCiudadDestino = function () {
         if (ciudadDestino == null) {
-            $("#btnDropdownDestino").switchClass("btn-primary", "btn-danger", 200);
+            $("#btnDropdownDestino").addClass('redBorder');
             var titulo = "Che!", mensaje = "La ciudad destino esta vacía :/";
             mensajeAlerta(titulo, mensaje);
             return false;

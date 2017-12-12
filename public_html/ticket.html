@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/font.css" rel="stylesheet">
+    <link href="css/mensaje.css" rel="stylesheet">
     <link href="css/commonStyle.css" rel="stylesheet">
     <link href="css/ticket.css" rel="stylesheet">
     <title>Imprima su ticket</title>
@@ -52,6 +53,14 @@
           <button type="button" class="btn btn-block button-glass" id="btnBuscar">BUSCAR</button>
         </div>
       </div>
+      <div id="ticketsDiv">
+
+      </div>
+      <!--<div class="ticketDiv">
+        <span id="nombresp">Nombre: </span><span id="apellidosp">Apellido: </span><span id="dnisp">Dni: </span>
+        <span id="origensp">De: </span><span id="destinosp">A: </span><span id="horariosp">A las: </span>
+        <span id="costosp">Costo: </span><span id="butacasp">Nº de butaca: </span>
+      </div>-->
       <div>
         <table class="table table-responsive table-striped">
           <thead>
@@ -72,10 +81,17 @@
           </tbody>
         </table>
       </div>
+      <div class="danger alert-danger main-glass" role="alert" id="divDanger">
+          <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+          <strong id="strongDanger"></strong>
+          <br>
+          <span id="spanDanger"></span>
+      </div>
       <div class="col-lg-3"></div>
   <script src="js/jquery-1.11.2.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
   <script src="js/fechaGetter.js"></script>
+  <script src="js/mensaje.js"></script>
   <script src="js/ticket.js"></script>
   </body>
 </html>
