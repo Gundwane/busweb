@@ -1,0 +1,57 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Admin Tramos</title>
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link href="css/commonStyle.css" rel="stylesheet">
+        <link href="css/adminTramo.css" rel="stylesheet">
+    </head>
+    <body>
+      <div class="jumbotron">
+          <span id="spanFecha" class="label"></span>
+          <div id="idiomaDropdown" class="dropdown pull-right">
+              <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Idioma
+                  <span class="caret"></span></button>
+              <ul class="dropdown-menu">
+                  <li><a href="#">Español</a></li>
+                  <li><a href="#">Inglés</a></li>
+              </ul>
+          </div>
+          <div class="container jumbotronTitle">
+              <h2>Admin Tramos</h2>
+          </div>
+          <div>
+            <button type="button" id="backButton" class="btn btn-default fa fa-chevron-left"> Volver</button>
+          </div>
+      </div>
+        <div class="image container">
+        </div>
+        <div class="col-lg-1"></div>
+        <div class="col-lg-10 main-glass">
+          <h3>Tramos</h3><table class="table table-stripped">
+            <thead>
+              <th>Id</th>
+              <th>Empresa</th>
+              <th>Ciudad Origen</th>
+              <th>Ciudad Destino</th>
+              <th>Bus</th>
+              <th>Precio</th>
+              <th>Horario de Salida</th>
+              <th>Duracion del recorrido</th>
+            </thead>
+            <tbody id="tabla-body">
+
+            </tbody>
+          </table>
+        </div>
+        <div class="col-lg-1">
+
+        </div>
+        <!-- SCRIPTS -->
+        <script src="js/jquery-3.2.1.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/adminTramo.js"></script>
+    </body>
+</html>

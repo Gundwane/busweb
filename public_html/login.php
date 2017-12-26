@@ -19,11 +19,16 @@ function loginCheck($nick, $pass, $conexion) {
     $statement->bindParam(1, $nick);
     $statement->execute();
     $array = $statement->fetch(PDO::FETCH_ASSOC);
-    $hash = implode($array);
+    if ($array) {
+      $hash = implode($array);
 
-    if (password_verify($pass, $hash)) {
-        header ('Location: datosIniciales.html');
-    } else {
-        echo "Password inválido";
+      if (password_verify($pass, $hash)) {
+          header ('Location: datosIniciales.html');
+      } else {
+          echo "Nick o password inválido";
+      }
+    }else {
+      echo "Nick o password inválido";
     }
+
 }

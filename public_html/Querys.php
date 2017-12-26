@@ -1,6 +1,6 @@
 <?php
 header('Content-Type: text/html; charset=UTF-8');
-require './Conexion.php';
+require_once './Conexion.php';
 
 class Querys {
 
@@ -316,6 +316,22 @@ class Querys {
       $statement->bindParam(':email', $email);
       $statement->execute();
       $array = $statement->fetchAll(PDO::FETCH_ASSOC);
+      return $array;
+    }
+
+    public function getAllTramos()
+    {
+      $query = "SELECT tramos.idTramo, empresa.nombreEmpresa, corigen.nombre AS city1, cdestino.nombre AS city2, buses.patente, tramos.precio, tramos.horarioSalida, tramos.duracion FROM tramos
+                INNER JOIN empresa ON tramos.fk_empresa = empresa.idEmpresa
+                INNER JOIN buses ON tramos.fk_bus = buses.idBus
+                INNER JOIN ciudades AS corigen ON tramos.fk_ciudadOrigen = corigen.idCiudad
+                INNER JOIN ciudades AS cdestino ON tramos.fk_ciudadDestino = cdestino.idCiudad";
+                //WHERE corigen.nombre = ciudades.idCiudad AND cdestino.nombre = ciudades.idCiudad";
+
+      $statement = $this->_conexion->prepare($query);
+      $statement->execute();
+      $array = $statement->fetchAll(PDO::FETCH_ASSOC);
+
       return $array;
     }
 }

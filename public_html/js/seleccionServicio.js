@@ -106,7 +106,6 @@ $(function(){
         localStorage.setItem('empresaIda', nomEmpresa1);
         sessionStorage.setItem('1', nomEmpresa1);
         if (radioIdaVuelta == '2') {
-          console.log('Id vuelta: '+selectedIdVuelta);
           if (selectedIdVuelta != null || selectedIdVuelta != undefined) {
             tiempoDiferencia(horaIda, horaVuelta, diaIda, diaVuelta);
           }else {
@@ -130,7 +129,7 @@ $(function(){
 
     $('#infoModal').on('shown.bs.modal', function () {
       $(this).find("#divContentModal").empty().append(imgComun, imgSemicama, imgCama);
-    })
+    });
 
     $('#divRadioModal').on('click', 'input:radio', function(){
       var visa = '<img src="images/formasPago/visa.png">';
@@ -163,7 +162,7 @@ $(function(){
     function tituloTramo(origen, destino){
         $('#lblTramoIda').empty();
         $('#lblTramoIda').append('Desde: '+origen+' a '+destino);
-    };
+    }
 
     function checkRadio(){
       if (radioIdaVuelta == 1) {
@@ -185,7 +184,7 @@ $(function(){
         if (radioIdaVuelta == 2) {
           fechaChecker(fecha1, fecha2);
           tramosVuelta(destino, origen);
-          $('#mainVuelta').toggle();
+          $('#mainVuelta').show();
           $('#lblTramoVuelta').empty();
           $('#lblTramoVuelta').append('Desde: '+destino+' a '+origen);
         }else {
@@ -207,7 +206,7 @@ $(function(){
                 console.log('Error enviando ciudades');
             }
         });
-    };
+    }
 
     function tramosVuelta(origen, destino){
         var url = 'acciones.php?accion=getTramo';
@@ -224,10 +223,10 @@ $(function(){
                 console.log('Error enviando ciudades');
             }
         });
-    };
+    }
 
     cantidadButacas = function (data) {
-      var arrayCountButacas = new Object();
+      var arrayCountButacas = {};
       var countComun = 0;
       var countSemicama = 0;
       var countCama = 0;
@@ -261,9 +260,9 @@ $(function(){
         error: function(){
           console.log("Error gettin the calidades");
         }
-      })
+      });
       return deferred.promise();
-    }
+    };
 
     sumarFecha = function(tiempoSuma, stringTime, duracion){
       var minutosTotalesDuracion = 0;
@@ -278,7 +277,7 @@ $(function(){
       tiempoSuma = formatearTiempo(tiempoSuma);
 
       return tiempoSuma;
-    }
+    };
 
     function llenarTabla(data, tabla, flag) {
         var html = '', tfoot = $('.tableFoot');
@@ -295,11 +294,12 @@ $(function(){
         tfoot.empty();
 
         $.each(data, function (index, value) {
+          var fechaDatepicker = '';
             countResultados ++;
             if (flag == true) {
-              var fechaDatepicker = $('#datepickerDestino2').datepicker('getDate');
+              fechaDatepicker = $('#datepickerDestino2').datepicker('getDate');
             }else {
-              var fechaDatepicker = $('#datepickerOrigen2').datepicker('getDate');
+              fechaDatepicker = $('#datepickerOrigen2').datepicker('getDate');
             }
 
             fecha = formatearTiempo(fechaDatepicker, value.horarioSalida);
@@ -349,7 +349,7 @@ $(function(){
 
         tabla.append(html);
         tfoot.append(countResultados + ' servicio(s) encontrado(s), mostrando ' + countResultados + ' servicio(s), desde 1 hasta ' + countResultados + '. página 1 / n.');
-    };
+    }
 
     $('.table').on('click', '.glyphicon-shopping-cart', function(){
       var selectedCart1, selectedCart2, id1, id2;
@@ -397,35 +397,43 @@ $(function(){
     });
 
     function formatearTiempo(tiempoFormat, stringTime){
+      var tiempoFormateado = '';
       var dias = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"];
       var mes = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
       if (stringTime === undefined) {
-        var tiempoFormateado = dias[tiempoFormat.getDay()] + " "
-                               + "<span class='diaSpan'>" + tiempoFormat.getDate() + "</span> de "
-                               + mes[tiempoFormat.getMonth()] + "<br><span class='horaSpan'>"
-                               + (tiempoFormat.getHours() < 10 ? "0" + tiempoFormat.getHours() : tiempoFormat.getHours()) + ":"
-                               + (tiempoFormat.getMinutes() < 10 ? "0" + tiempoFormat.getMinutes() : tiempoFormat.getMinutes()) + "</span> hs";
+        tiempoFormateado = dias[tiempoFormat.getDay()] + " " +
+                               "<span class='diaSpan'>" + tiempoFormat.getDate() + "</span> de " +
+                                mes[tiempoFormat.getMonth()] + "<br><span class='horaSpan'>" +
+                                (tiempoFormat.getHours() < 10 ? "0" + tiempoFormat.getHours() : tiempoFormat.getHours()) + ":" +
+                                (tiempoFormat.getMinutes() < 10 ? "0" + tiempoFormat.getMinutes() : tiempoFormat.getMinutes()) + "</span> hs";
       }else {
         var timeSplited = stringTime.split(":");
         tiempoFormat.setHours(timeSplited[0]);
         tiempoFormat.setMinutes(timeSplited[1]);
-        var tiempoFormateado = dias[tiempoFormat.getDay()]+ " "
-                               + "<span class='diaSpan'>" + tiempoFormat.getDate() + "</span> de "
-                               + mes[tiempoFormat.getMonth()] + "<br><span class='horaSpan'>"
-                               + timeSplited[0] + ":"
-                               + timeSplited[1] + "</span> hs";
+        tiempoFormateado = dias[tiempoFormat.getDay()]+ " " +
+                               "<span class='diaSpan'>" + tiempoFormat.getDate() + "</span> de " +
+                               mes[tiempoFormat.getMonth()] + "<br><span class='horaSpan'>" +
+                               timeSplited[0] + ":" +
+                               timeSplited[1] + "</span> hs";
       }
       return tiempoFormateado;
     }
 
     function tiempoDiferencia(hora1, hora2, fecha1, fecha2){        //Calcula que no se ingrese un horario de vuelta anterior al de llegada a destino
+      //console.log(hora1+' '+hora2);
+      console.log(fechaVuelta2);
       hora1split = hora1.split(':');
       hora2split = hora2.split(':');
+
+      if (true) {
+
+      }
 
       if (fecha1 > fecha2) {
         mensajeAlerta('El horario o fecha de regreso no puede ser anterior al de ida');
         return;
         }else if (hora1split[0] > hora2split[0]) {
+          console.log('1: '+hora1+' '+fecha1+' - 2: '+hora2+' '+fechaVuelta2);
           mensajeAlerta('El horario o fecha de regreso no puede ser anterior al de ida');
           return;
           }else if ((hora1split[0] == hora2split[0]) && (hora1split[1] > hora2split[1])) {
@@ -439,18 +447,17 @@ $(function(){
         localStorage.setItem('horarioSalidaVuelta', horarioSalidaVuelta);
         localStorage.setItem('fechaVueltaNF', $('#datepickerDestino2').datepicker('getDate'));
         localStorage.setItem('empresaVuelta', nomEmpresa2);
-        window.location.replace('condicionesComerciales.html');
+        //window.location.replace('condicionesComerciales.html');
       }
-    };
+    }
 
     function fechaChecker(diaI, diaV){                               //Calcula que la fecha de vuelta no sea anterior a la de ida
       if (diaV.getDate() < diaI.getDate()) {
         mensajeAlerta('Nope', 'La fecha de regreso no puede ser anterior a la de ida');
       }
-    };
+    }
 
     function nuller(){
-      console.log('Ep ep');
       selectedIdIda = null;
       selectedIdVuelta = null;
       horaIda = null;

@@ -1,6 +1,8 @@
 <?php
-require './Querys.php';
+include_once './Querys.php';
+include_once './querysAdmin.php';
 $querys = new Querys();
+$adminQuerys = new querysAdmin();
 $accion = $_GET['accion'];
 $resultado = '';
 
@@ -40,7 +42,7 @@ switch ($accion){
     case 'checkTarjetaDB':
         $resultado = $querys->checkTarjetaDB();
         break;
-             
+
     case 'insertPasajero':
         $resultado = $querys->insertPasajero();
         break;
@@ -63,6 +65,14 @@ switch ($accion){
 
     case 'getTicket':
         $resultado = $querys->getTicket();
+        break;
+
+    case 'getAllTramos':
+        $resultado = $querys->getAllTramos();
+        break;
+
+    case 'ciudadesById':
+        $resultado = $adminQuerys->ciudadesById();
         break;
 
     default:

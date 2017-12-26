@@ -121,13 +121,14 @@ $(function () {
     };
 
     validarFechaIda = function (fechaIda, fecha30dias) {
+      var titulo = '';
         if (fechaIda === null) {
             $("#datepickerOrigen").addClass("redBorder");
-            var titulo = "Che!", mensaje = "Elegir fecha de salida";
+            titulo = "Che!", mensaje = "Elegir fecha de salida";
             mensajeAlerta(titulo, mensaje);
             return false;
         } else if (+fechaIda > +fecha30dias) {
-            var titulo = "Nope", mensaje = "No pueden pasar mas de 30 dias de la fecha de salida";
+            titulo = "Nope", mensaje = "No pueden pasar mas de 30 dias de la fecha de salida";
             mensajeAlerta(titulo, mensaje);
             return false;
         } else {
@@ -190,7 +191,7 @@ $(function () {
     };
 
     function cleanLocalStorage() {
-      for(key in localStorage) {
+      for(var key in localStorage) {
         if (key != 'usuario') {
           delete localStorage[key];
         }
