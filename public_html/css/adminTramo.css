@@ -1,0 +1,12 @@
+tr:hover{
+  color: #F2F2F2;
+  background-color: rgba(110, 110, 110, 0.7);
+}
+
+body{
+  background-image: url('../images/fondo-blanco-y-negro.jpg');
+}
+
+input{
+  width: 70%;
+}

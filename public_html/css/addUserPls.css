@@ -1,0 +1,20 @@
+.well{
+  text-align: center;
+  background-color: #eceaea;
+}
+
+.btn{
+  padding: 13px;
+}
+
+h1, h2, input{
+  text-align: center;
+}
+
+label, input{
+  font-size: larger;
+}
+
+form{
+  display: inline-block;
+}

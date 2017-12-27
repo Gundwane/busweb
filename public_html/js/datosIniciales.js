@@ -1,0 +1,210 @@
+$(function () {
+    cleanLocalStorage();
+    var dropdownOrigen = $('#dropdownCiudadesOrigen');
+    var btnDropdownOrigen = $("#btnDropdownOrigen");
+    var dropdownDestino = $('#dropdownCiudadesDestino');
+    var btnDropdownDestino = $("#btnDropdownDestino");
+    var usuario = localStorage.getItem('usuario');
+    var ciudadOrigen, ciudadDestino;
+    var arraySession = [];
+
+    dropdownCaptura = function (dropdown, boton) {
+        var ciudad;
+        dropdown.on('click', 'li', function () {
+            ciudad = $(this).text();
+
+            if (boton.hasClass('redBorder')) {
+                boton.removeClass('redBorder');
+                $('#divDanger').fadeOut();
+            }
+            boton.html(ciudad);
+            if (dropdown === dropdownOrigen) {
+               arraySession.splice(0,1,ciudad);
+               ciudadOrigen = ciudad;
+            }else {
+               arraySession.splice(1,1,ciudad);
+               ciudadDestino = ciudad;
+            }
+            return ciudad;
+        });
+    };
+
+    $('#spanUser').append(usuario+'!');
+
+    $('#btnImprimir').click(function(){
+      window.location.replace('ticket.html');
+    })
+
+    $("#datepickerOrigen").on("click", function () {                            //Remover clases de inputs
+        $(this).removeClass("redBorder");                                       //El Dropdown se pone en rojo cuando hay un error
+        $("#divDanger").fadeOut();                                              //Estas dos funciones las vuelven a azul cuando clickeas
+    });
+
+    $('#divRadio').on('change', 'input:radio', function(){                      //Busca nuevos servicios al seleccionar nuevamente Ida o Vuelta
+      if ($(this).val() == 2) {
+        $('#datepickerDestino').removeAttr('disabled');
+      }else {
+        $('#datepickerDestino').prop('disabled', true);
+      }
+    });
+
+    $("#datepickerDestino").on("click", function () {
+        $(this).removeClass("redBorder");
+        $("#divDanger").fadeOut();
+    });
+
+    $('#backButton').click(function(){
+      window.location.replace('login.html');
+    })
+
+    $("#btnBuscar").click(function () {                                         //Boton Submit
+        var inputFechaIda = new Date();
+        var inputFechaVuelta = new Date();
+        var fechaIda = $('#datepickerOrigen').val();
+        var fechaVuelta = $('#datepickerDestino').val();
+        var radioIdaVuelta = $("#divRadio input:radio:checked").val();
+        inputFechaIda = $("#datepickerOrigen").datepicker("getDate");
+        inputFechaVuelta = $("#datepickerDestino").datepicker("getDate");
+        arraySession.splice(2, 1, fechaIda);
+        arraySession.splice(3, 1, fechaVuelta);
+        arraySession.splice(4, 1, radioIdaVuelta);
+
+        var date30dias = new Date(new Date().setDate(new Date().getDate() + 30));
+        date30dias.setHours(0, 0, 0, 0);
+
+        if (validarCiudadOrigen() && validarCiudadDestino() && validarFechaIda(inputFechaIda, date30dias) && validarFechaVuelta(inputFechaVuelta, radioIdaVuelta)) {
+            sessionStorage.setItem('data', JSON.stringify(arraySession));
+            window.location.replace('seleccionServicio.html');
+        } else {
+            console.log("Error validar");
+        }
+    });
+
+    $('.datepicker').datepicker({
+        dateFormat: "dd-mm-yy",
+        dateonly: true,
+        minDate: 0,
+        firstDay: 1,
+        yearRange: '+0:+1',
+        changeMonth: true,
+        changeYear: true,
+        dayNamesMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"],
+        dayNamesShort: ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"],
+        monthNames:
+                ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio",
+                    "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+        monthNamesShort:
+                ["Ene", "Feb", "Mar", "Abr", "May", "Jun",
+                    "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"]
+    });
+
+    validarCiudadOrigen = function () {
+        if (ciudadOrigen == null) {
+            $("#btnDropdownOrigen").addClass('redBorder');
+            var titulo = "Che!", mensaje = "Dejaste la ciudad de origen vacía";
+            mensajeAlerta(titulo, mensaje);
+            return false;
+        } else {
+            return true;
+        }
+    };
+
+    validarCiudadDestino = function () {
+        if (ciudadDestino == null) {
+            $("#btnDropdownDestino").addClass('redBorder');
+            var titulo = "Che!", mensaje = "La ciudad destino esta vacía :/";
+            mensajeAlerta(titulo, mensaje);
+            return false;
+        } else {
+            return true;
+        }
+    };
+
+    validarFechaIda = function (fechaIda, fecha30dias) {
+      var titulo = '';
+        if (fechaIda === null) {
+            $("#datepickerOrigen").addClass("redBorder");
+            titulo = "Che!", mensaje = "Elegir fecha de salida";
+            mensajeAlerta(titulo, mensaje);
+            return false;
+        } else if (+fechaIda > +fecha30dias) {
+            titulo = "Nope", mensaje = "No pueden pasar mas de 30 dias de la fecha de salida";
+            mensajeAlerta(titulo, mensaje);
+            return false;
+        } else {
+            return true;
+        }
+    };
+
+    validarFechaVuelta = function (fechaVuelta, opcionRadio) {
+        if (opcionRadio == 2) {
+            if (fechaVuelta === null) {
+                $("#datepickerDestino").addClass("redBorder");
+                var titulo = "Che!", mensaje = "Poné fecha de vuelta";
+                mensajeAlerta(titulo, mensaje);
+                return false;
+            } else {
+                return true;
+            }
+        } else {
+            return true;
+        }
+    };
+
+    mostrarCiudades = function (dropdownOrigen, dropdownDestino) {
+        var url = 'acciones.php?accion=ciudades';
+
+        $.ajax({
+            url: url,
+            method: 'GET',
+            success: function (data) {
+                data = $.parseJSON(data);
+                var html = "";
+
+                $.each(data, function (index, data) {
+                    html += '<li>' +
+                            '<a>' + data.nombre + '</a>' +
+                            '</li>';
+                });
+
+                dropdownOrigen.append(html);
+                dropdownDestino.append(html);
+            },
+            error: function (data) {
+                console.log("Error data");
+                console.log(data);
+            }
+        });
+    };
+
+    rellenarDropdownCiudades = function (data, dropdownOrigen, dropdownDestino) {
+        var html = "";
+
+        $.each(data, function (index, data) {
+            html += '<li>' +
+                    '<a>' + data.nombre + '</a>' +
+                    '</li>';
+        });
+
+        dropdownOrigen.append(html);
+        dropdownDestino.append(html);
+    };
+
+    function cleanLocalStorage() {
+      for(var key in localStorage) {
+        if (key != 'usuario') {
+          delete localStorage[key];
+        }
+      }
+    }
+
+    mensajeAlerta = function (titulo, mensaje) {
+        $("#divDanger").fadeIn();
+        $("#strongDanger").html(titulo);
+        $("#spanDanger").html(mensaje);
+    };
+
+    mostrarCiudades(dropdownOrigen, dropdownDestino);
+    dropdownCaptura(dropdownOrigen, btnDropdownOrigen);
+    dropdownCaptura(dropdownDestino, btnDropdownDestino);
+});

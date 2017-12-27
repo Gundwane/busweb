@@ -1,0 +1,28 @@
+.input-group{
+  padding: 3px;
+}
+
+.button-glass{
+  box-shadow: 0 .1em .5em rgba(0,0,0,.9);
+}
+
+#btnBuscar{
+  font-size: large;
+}
+
+#mainDiv{
+  margin-bottom: 30px;
+}
+
+h2{
+  text-align: center;
+}
+
+table{
+  box-shadow: 0 .1em .5em rgba(0,0,0,.9);
+}
+
+body{
+  background: url('../images/wallpaper-3.jpg') no-repeat;
+  background-size: cover;
+}

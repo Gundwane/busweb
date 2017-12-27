@@ -10,7 +10,12 @@
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/jquery-ui.min.css" rel="stylesheet">
         <link href="css/bootstrap-select.min.css" rel="stylesheet">
-        <link href="css/seleccionServicios.css" rel="stylesheet">
+        <link href="css/font.css" rel="stylesheet">
+        <link href="css/mensaje.css" rel="stylesheet">
+        <link href="css/commonStyle.css" rel="stylesheet">
+        <link href="css/seleccionServicio.css" rel="stylesheet">
+        <link href="css/font-awesome.min.css" rel="stylesheet">
+
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -19,80 +24,178 @@
           <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
     </head>
-    <body>
-        <div class="page-header">
-            <div class="container">
-                <div class="pull-left"><span>Fecha</span></div>
-                <div class="dropdown pull-right">
-                    <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
-                        <span class="caret"></span></button>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Español</a></li>
-                        <li><a href="#">Inglés</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+    <body id="seleccionServicio" class="backgroundColor">
         <div class="jumbotron">
-            <div class="container">
-                <h3>Paso 2 - Selección de servicios</h3>
+            <span id="spanFecha" class="label"></span>
+            <div id="idiomaDropdown" class="dropdown pull-right">
+                <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Idioma
+                    <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Español</a></li>
+                    <li><a href="#">Inglés</a></li>
+                </ul>
+            </div>
+            <div class="container jumbotronTitle">
+                <h2>Paso 2 - Selección de servicios</h2>
+            </div>
+            <div>
+              <button type="button" id="backButton" class="btn btn-default fa fa-chevron-left"> Volver</button>
             </div>
         </div>
-        <div class="col-lg-2"></div>
 
-        <div class="col-lg-8">
+        <div id="mainDiv" class="main-glass">
             <div id="divOrigen">
-                <div class="dropdown" id="divDropdownOrigen">
+                <div class="dropdown dropdownMargin dropdownCity" id="divDropdownOrigen2">
                     <label>Ciudad de Origen</label>
-                    <button class="btn btn-primary dropdown-toggle" type="button" id="btnDropdownOrigen" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    <button class="btn dropdown-toggle" type="button" id="btnDropdownOrigen2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                         Seleccione
-                        <span class="caret"></span>
+                        <span></span>
                     </button>
-                    <ul class="dropdown-menu" id="dropdownCiudadesOrigen">
+                    <ul class="dropdown-menu" id="dropdownCiudadesOrigen2">
                     </ul>
                 </div>
                 <label>Fecha de ida</label>
-                <input type="text" name="datepickerOrigen" id="datepickerOrigen" class="datepicker">
+                <input type="text" name="datepickerOrigen" id="datepickerOrigen2" class="datepicker">
+                <div id="divRadio2">
+                    <label class="radio-inline"><input type="radio" name="ivradio" value="1">Ida</label>
+                    <label class="radio-inline"><input type="radio" name="ivradio" value="2">Ida y vuelta</label>
+                </div>
+                <div id="divBtnBuscar">
+                  <button type="button" id="btnBuscarServicio" class="btn btn-per">
+                      <span class="glyphicon glyphicon-search"></span> Buscar
+                  </button>
+                </div>
             </div>
-            <div id="divDestino">
-                <div class="dropdown" id="divDropdownDestino">
+            <div id="divDestino" style="float: left;">
+                <div class="dropdown dropdownMargin dropdownCity" id="divDropdownDestino2">
                     <label>Ciudad de Destino</label>
-                    <button class="btn btn-primary dropdown-toggle" type="button" id="btnDropdownDestino" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                        Seleccione
-                        <span class="caret"></span>
+                    <button class="btn dropdown-toggle btn-per" type="button" id="btnDropdownDestino2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        <span>Seleccione</span>
                     </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownCiudadesDestino" id="dropdownCiudadesDestino">
+                    <ul class="dropdown-menu" aria-labelledby="dropdownCiudadesDestino" id="dropdownCiudadesDestino2">
                     </ul>
                 </div>
                 <label>Fecha de regreso</label>
-                <input type="text" name="datepickerDestino" id="datepickerDestino" class="datepicker">
-            </div>
-            <div id="divRadio">
-                <label class="radio-inline"><input type="radio" name="optradio" value="1" checked="checked">Ida</label>
-                <label class="radio-inline"><input type="radio" name="optradio" value="2">Ida y vuelta</label>
-            </div>
-            <div id="divBotones">
-                <button type="button" id="btnBuscar" class="btn btn-primary pull-left">
-                    <span class="glyphicon glyphicon-search"></span>Buscar
-                </button>
-                <button type="button" id="btnImprimir" class="btn btn-primary pull-right">
-                    <span class="glyphicon glyphicon-file"></span>Imprimir pasaje
-                </button>
-            </div>
-            <div class="container">
-                <div id="divTramo">
-                    <span>TRAMO</span>
-                </div>
-                <div id="divEmpresa">
-                    <span>EMPRESA</span>
+                <input type="text" name="datepickerDestino" id="datepickerDestino2" class="datepicker" disabled>
+                <div>
+                  <button type="button" id="btnImprimir" class="btn btn-per">
+                      <span class="glyphicon glyphicon-file"></span>Imprimir pasaje
+                  </button>
                 </div>
             </div>
+          </div>
+
+          <div class="main-glass">
+          <div id="divTramoIda" class="" style="width: 100%;">
+              <h1>Tramo Ida</h1>
+              <h2><span id="lblTramoIda"></span></h2>
+          </div>
+          <div id="divIda">
+            <div id="divTablaIda">
+                <table id="tablaIda" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Empresas</th>
+                            <th>Información del servicio</th>
+                            <th>Calidades - Butacas libres</th>
+                            <th>Salida</th>
+                            <th>Llegada</th>
+                            <th>Precio Ida</th>
+                            <th>Precio Ida/Vuelta</th>
+                            <th>Comprar</th>
+                        </tr>
+                    </thead>
+                    <tfoot id="tableFoot" class="tableFoot">
+
+                    </tfoot>
+                    <tbody id="bodyTablaIda">
+
+                    </tbody>
+                </table>
+            </div>
+          </div>
+          </div>
+
+          <div id="mainVuelta" class="main-glass noDisplay">
+          <div id="divTramoVuelta" class="">
+                <h1>Tramo Vuelta</h1>
+                <h2><span id="lblTramoVuelta"></span></h2>
+          </div>
+          <div id="divTablaVuelta">
+                <table id="tablaVuelta" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Empresas</th>
+                            <th>Información del servicio</th>
+                            <th>Calidades - Butacas libres</th>
+                            <th>Salida</th>
+                            <th>Llegada</th>
+                            <th>Precio Ida</th>
+                            <th>Precio Ida/Vuelta</th>
+                            <th>Comprar</th>
+                        </tr>
+                    </thead>
+                    <tfoot id="tableFoot" class="tableFoot">
+
+                    </tfoot>
+                    <tbody id="bodyTablaVuelta">
+
+                    </tbody>
+                </table>
+          </div>
+          </div>
+          <div class="btn-block">
+            <button type="button" id="btnContinuar" class="btn btn-lg btn-block button-glass">
+              <span class="glyphicon glyphicon-ok-sign"></span> Continuar
+            </button>
+          </div>
+          <div class="danger alert-danger main-glass" role="alert" id="divDanger">
+              <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+              <strong id="strongDanger"></strong>
+              <br>
+              <span id="spanDanger"></span>
+          </div>
+
+        <!-- MODAL -->
+        <div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="infoModalLabel">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Información del servicio</h4>
+              </div>
+              <div class="modal-body container">
+                <div id="divRadioModal">
+                  <div class="radio">
+                    <label><input type="radio" name="optradio" value="calidades" checked="checked">Calidades</label>
+                  </div>
+                  <div class="radio">
+                    <label><input type="radio" name="optradio" value="formaPago">Forma de pago</label>
+                  </div>
+                  <div class="radio">
+                    <label><input type="radio" name="optradio" value="recorrido">Recorrido</label>
+                  </div>
+                </div>
+                <div id="divContentModal">
+                </div>
+              </div>
+              <div class="modal-footer">
+                <div>
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div class="col-lg-2"></div>
+
         <!-- SCRIPTS -->
         <script src="js/jquery-1.11.2.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="js/jquery-ui.min.js"></script>
+        <script src="js/fechaGetter.js"></script>
+        <script src="js/mensaje.js"></script>
+        <script src="js/datosIniciales.js"></script>
+        <script src="js/seleccionServicio.js"></script>
     </body>
 </html>

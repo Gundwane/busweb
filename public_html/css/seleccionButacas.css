@@ -1,0 +1,124 @@
+.main-glass{
+  height: 100%;
+  padding-top: 25px;
+  margin-top: 0;
+}
+
+.jumbotron{
+  margin-bottom: 0;
+}
+
+.tableTitle{
+  text-align: center;
+  font-weight: bold;
+}
+
+.butacas{
+  font-size:33px;
+  margin-top: -3px;
+  margin-bottom: -3px;
+  padding: 0px;
+  color: #333;
+}
+
+.butacaComun{
+  color: green;
+}
+
+.butacaSemicama{
+  color: #003300;
+}
+
+.butacaCama{
+  color: #006666;
+}
+
+.butacaClicked{
+  color: #E4A11B !important;
+}
+
+.butacaNumber{
+  color: white;
+  position: absolute;
+  text-align: center;
+  width: 4%;
+  padding-top: 1%;
+}
+
+.caption{
+  text-align: center;
+  color: black;
+  font-weight: bold;
+  font-size: 17px;
+}
+
+.toClick:hover i{
+  color: #efc776;
+  transition: 150ms;
+}
+
+.pasillo{
+  text-align: center;
+  font-size: 130%;
+  background-color: #d9d9d9;
+  width: 5px;
+}
+
+.tvPasillo{
+  font-size: 5px;
+}
+
+.divTabla{
+  float: left;
+  padding: 0px 40px 0px 60px;
+}
+
+.divTabla::before{
+  content: '';
+  z-index: -1;
+  margin-top: -13px;
+  margin-left: -25px;
+  width: 50%;
+  height: 100%;
+  position: absolute;
+  display: block;
+  background: url('../images/bus-from-top-wide.png') -37px -22px no-repeat;
+  background-size: cover;
+}
+
+.divNumero{
+  position: absolute;
+  top: 10px;
+  left:10px;
+  font-size:70%;
+  z-index: 2;
+  color: white;
+}
+
+.divButaca{
+  position: absolute;
+  top: 10px;
+  left:10px;
+  z-index: 1;
+}
+
+.divBtn{
+   float: left;
+}
+
+.table-bordered{
+  border: none;
+}
+
+td{
+  border: none !important;
+}
+
+body{
+  background: url('../images/grey-white-wallpaper.jpg') no-repeat;
+  background-size: cover;
+}
+
+html, body{
+  height: 100%;
+}

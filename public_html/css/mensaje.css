@@ -1,0 +1,11 @@
+#divDanger{
+  font-size: 15px;
+  display: none;
+  text-align: center;
+  height: 13%;
+  width: 40%;
+  top: 80% !important;
+  left: 30% !important;
+  z-index: 6 !important;
+  position: fixed;
+}

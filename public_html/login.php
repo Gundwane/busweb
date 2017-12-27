@@ -1,6 +1,6 @@
 <?php
 
-/*Con esto se checkea que el usuario y el pass están bien puestos. Se hace uso de "password_verify", que 
+/*Con esto se checkea que el usuario y el pass están bien puestos. Se hace uso de "password_verify", que
 compara el password que pusiste contra el hash del password almacenado en la base de datos */
 
 require './Conexion.php';
@@ -19,15 +19,16 @@ function loginCheck($nick, $pass, $conexion) {
     $statement->bindParam(1, $nick);
     $statement->execute();
     $array = $statement->fetch(PDO::FETCH_ASSOC);
-    $hash = implode($array);
+    if ($array) {
+      $hash = implode($array);
 
-    if (password_verify($pass, $hash)) {
-        $seconds = 4; 
-        echo "Good job you fucking idiot";
-        sleep ($seconds);
-        header ('Location: web.html');
-    } else {
-        echo "That ain't right nigga";
+      if (password_verify($pass, $hash)) {
+          header ('Location: datosIniciales.html');
+      } else {
+          echo "Nick o password inválido";
+      }
+    }else {
+      echo "Nick o password inválido";
     }
-}
 
+}

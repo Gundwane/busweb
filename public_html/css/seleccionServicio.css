@@ -1,0 +1,155 @@
+.dropdownMargin{
+    margin-bottom: 5px;
+}
+
+.backgroundColor{
+   background-color: #ededed;
+}
+
+.selected{
+  color: #E4A11B;
+}
+
+.selected2{
+  color: #E4A11B;
+}
+
+/*.jumbotron{
+  background-color: #252d30;
+  color: #F2F2F2;;
+  position: static;
+}
+
+.btn{
+  background-color: #252d30;
+  color: #F2F2F2;
+}
+
+.btn:hover{
+  background-color: #F2F2F2;
+  color: #252d30;
+  border-color: #252d30;
+}
+
+.btn:focus{
+  background-color: #BDBDBD;
+  color: #252d30;
+  border-color: #252d30;
+}*/
+
+.main-glass{
+  margin-top: 40px;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+  background-color: rgba(235,235,235,0.8);
+  z-index: 1;
+  box-shadow: 7px 7px 15px -5px rgba(0,0,0,.9);
+}
+
+/*.main-glass::before{
+  content: "";
+  top: 0; right: 0; bottom: 0; left: 0;
+  position: absolute;
+  filter: blur(5px);
+  background: inherit;
+  box-shadow: 0 0 3000px rgba(255,255,255,.8);
+  margin: -20px;
+  z-index: -1;
+}
+
+.button-glass{
+  margin-top: 3px;
+  margin-bottom: 3px;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+  background: #252d30;
+  z-index: 1;
+  box-shadow: 0 .5em 1em rgba(0,0,0,.9);
+}*/
+
+.noDisplay{
+  display: none;
+}
+
+#btnContinuar{
+  float: left;
+}
+
+#backButton{
+  background-color: #F2F2F2;
+  color: #252d30;
+  top: 110px;
+  position: absolute;
+}
+
+#backButton:hover{
+  background-color: #252d30;
+  color: #F2F2F2;
+  border-color: #F2F2F2;
+}
+
+#mainDiv{
+  z-index: 2;
+  height: 180px;
+  overflow: visible;
+}
+
+#divOrigen, #divDestino{
+  float: left;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+#divTramoIda, #divTramoVuelta, #divEmpresa > span{
+    font-weight: bold;
+    text-align: center;
+    border-bottom: 1px solid #252d30;
+}
+
+#divRadioModal{
+    float:left;
+    border-right: 3px solid;
+    width: 15%;
+}
+
+#divContentModal{
+    float:left;
+    padding-left: 20px;
+}
+
+#divDanger{
+    display: none;
+    background-color: #ffcccc;
+    text-align: center;
+    padding: 5px;
+    position: fixed;
+    left: 15%; /*A la derecha deje un espacio de 0px*/
+    right: 15%; /*A la izquierda deje un espacio de 0px*/
+    bottom: 0px; /*Abajo deje un espacio de 0px*/
+    height: 50px; /*alto del div*/
+    z-index: 0;
+}
+
+#divBtnBuscar{
+  padding: 5px;
+}
+
+#btnImprimir{
+  margin-top: 30px;
+}
+
+body{
+  min-height: 100%;
+  background: url('../images/bus-road-smaller.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: #252d30;
+}
+
+html{
+  /*height: 100%; --- Si se habilita, la imagen de fondo no ocupa toda la pag*/
+}

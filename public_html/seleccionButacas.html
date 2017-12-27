@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Seleccion de Servicio</title>
+
+        <!-- Bootstrap -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/jquery-ui.min.css" rel="stylesheet">
+        <link href="css/font.css" rel="stylesheet">
+        <link href="css/mensaje.css" rel="stylesheet">
+        <link href="css/commonStyle.css" rel="stylesheet">
+        <link href="css/font-awesome.min.css" rel="stylesheet">
+        <link href="css/seleccionButacas.css" rel="stylesheet">
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <body>
+        <div class="jumbotron">
+            <span id="spanFecha" class="label"></span>
+            <div id="idiomaDropdown" class="dropdown pull-right">
+                <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Idioma
+                    <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Español</a></li>
+                    <li><a href="#">Inglés</a></li>
+                </ul>
+            </div>
+            <div class="container jumbotronTitle">
+                <h2>Paso 4 - Selección de butacas</h2>
+            </div>
+            <div>
+              <button type="button" id="backButton" class="btn btn-default fa fa-chevron-left"> Volver</button>
+            </div>
+        </div>
+      <div class="main-glass">
+      <div class="col-lg-3">
+            <p> El plano muestra las butacas disponibles al momento de su
+          consulta. Seleccione hasta 8 butacas en cada compra. (4 idas + 4
+          vueltas). Su elección quedará
+          confirmada una vez finalizado el proceso de autorización de su
+          tarjeta de crédito.</p>
+
+         <i class="fa fa-square butacaClicked"></i><span> Butacas Naranjas Ocupadas.</span>
+         <br>
+         <i class="fa fa-square butacaComun"></i><span> Servicio Comun</span>
+         <br>
+         <i class="fa fa-square butacaSemicama"></i><span> Servicio Semi Cama</span>
+         <br>
+         <i class="fa fa-square butacaCama"></i><span> Servicio Cama</span>
+      </div>
+      <div id="butacasDiv" class="col-lg-6">
+        <!-- CARROUSELL -->
+        <div id="carousel-example-generic" class="carousel slide" data-interval="false">
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner" role="listbox">
+          <div class="item active">
+            <div class='tableTitle'>IDA</div>
+            <div id="container" class="container">
+              <div class="divTabla">
+                <table id="tablaButacasIda" class="table tableBorder table-condensed table-bordered">
+                  <caption class="caption">Piso Superior</caption>
+                  <thead>
+                  </thead>
+                  <tbody id="bTablaButacasIda" class="tButacas tIda">
+                    <tr>
+                      <td id='0'><span class='toClick'><span class="butacaNumber">1</span><i class="fa fa-square butacas"></i></span></td>
+                      <td id='1'><span class='toClick'><span class="butacaNumber">2</span><i class="fa fa-square butacas "></i></span></td>
+                      <td class="pasillo"></td>
+                      <td id='2'><span class='toClick'><span class="butacaNumber">3</span><i class="fa fa-square butacas"></i></span></td>
+                      <td id='3'><span class='toClick'><span class="butacaNumber">4</span><i class="fa fa-square butacas"></i></span></td>
+                    </tr>
+                    <tr>
+                      <td id='4'><span class='toClick'><span class="butacaNumber">5</span><i class="fa fa-square butacas"></i></span></td>
+                      <td id='5'><span class='toClick'><span class="butacaNumber">6</span><i class="fa fa-square butacas "></i></span></td>
+                      <td class="pasillo"></td>
+                      <td><i class="fa fa-square butacas"></i></td>
+                      <td><i class="fa fa-square butacas"></i></td>
+                    </tr>
+                    <tr>
+                      <td id='6'><span class='toClick'><span class="butacaNumber">7</span><i class="fa fa-square butacas"></i></span></td>
+                      <td id='7'><span class='toClick'><span class="butacaNumber">8</span><i class="fa fa-square butacas "></i></span></td>
+                      <td class="pasillo"><i class="fa butacas"></i></td>
+                      <td><i class="fa fa-square butacas"></i></td>
+                      <td><i class="fa fa-square butacas"></i></td>
+                    </tr>
+                    <tr>
+                      <td id='8'><span class='toClick'><span class="butacaNumber">9</span><i class="fa fa-square butacas"></i></span></td>
+                      <td id='9'><span class='toClick'><span class="butacaNumber">10</span><i class="fa fa-square butacas "></i></span></td>
+                      <td class="pasillo"></td>
+                      <td id='10'><span class='toClick'><span class="butacaNumber">11</span><i class="fa fa-square butacas"></i></span></td>
+                      <td id='11'><span class='toClick'><span class="butacaNumber">12</span><i class="fa fa-square butacas"></i></span></td>
+                    </tr>
+                    <tr>
+                      <td id='12'><span class='toClick'><span class="butacaNumber">13</span><i class="fa fa-square butacas"></i></span></td>
+                      <td id='13'><span class='toClick'><span class="butacaNumber">14</span><i class="fa fa-square butacas "></i></span></td>
+                      <td class="pasillo"></td>
+                      <td id='14'><span class='toClick'><span class="butacaNumber">15</span><i class="fa fa-square butacas"></i></span></td>
+                      <td id='15'><span class='toClick'><span class="butacaNumber">16</span><i class="fa fa-square butacas"></i></span></td>
+                    </tr>
+                    <tr>
+                      <td id='16'><span class='toClick'><span class="butacaNumber">17</span><i class="fa fa-square butacas"></i></span></td>
+                      <td id='17'><span class='toClick'><span class="butacaNumber">18</span><i class="fa fa-square butacas "></i></span></td>
+                      <td class="pasillo"></td>
+                      <td id='18'><span class='toClick'><span class="butacaNumber">19</span><i class="fa fa-square butacas"></i></span></td>
+                      <td id='19'><span class='toClick'><span class="butacaNumber">20</span><i class="fa fa-square butacas"></i></span></td>
+                    </tr>
+                    <tr>
+                      <td id='20'><span class='toClick'><span class="butacaNumber">21</span><i class="fa fa-square butacas"></i></span></td>
+                      <td id='21'><span class='toClick'><span class="butacaNumber">22</span><i class="fa fa-square butacas "></i></span></td>
+                      <td class="pasillo">TV</td>
+                      <td id='22'><span class='toClick'><span class="butacaNumber">23</span><i class="fa fa-square butacas"></i></span></td>
+                      <td id='23'><span class='toClick'><span class="butacaNumber">24</span><i class="fa fa-square butacas"></i></span></td>
+                    </tr>
+                    <tr>
+                      <td id='24'><span class='toClick'><span class="butacaNumber">25</span><i class="fa fa-square butacas"></i></span></td>
+                      <td id='25'><span class='toClick'><span class="butacaNumber">26</span><i class="fa fa-square butacas "></i></span></td>
+                      <td class="pasillo"></td>
+                      <td id='26'><span class='toClick'><span class="butacaNumber">27</span><i class="fa fa-square butacas"></i></span></td>
+                      <td id='27'><span class='toClick'><span class="butacaNumber">28</span><i class="fa fa-square butacas"></i></span></td>
+                    </tr>
+                    <tr>
+                      <td id='28'><span class='toClick'><span class="butacaNumber">29</span><i class="fa fa-square butacas"></i></span></td>
+                      <td id='29'><span class='toClick'><span class="butacaNumber">30</span><i class="fa fa-square butacas "></i></span></td>
+                      <td class="pasillo"></td>
+                      <td id='30'><span class='toClick'><span class="butacaNumber">31</span><i class="fa fa-square butacas"></i></span></td>
+                      <td id='31'><span class='toClick'><span class="butacaNumber">32</span><i class="fa fa-square butacas"></i></span></td>
+                    </tr>
+                    <tr>
+                      <td id='32'><span class='toClick'><span class="butacaNumber">33</span><i class="fa fa-square butacas"></i></span></td>
+                      <td id='33'><span class='toClick'><span class="butacaNumber">34</span><i class="fa fa-square butacas "></i></span></td>
+                      <td class="pasillo">TV</td>
+                      <td id='34'><span class='toClick'><span class="butacaNumber">35</span><i class="fa fa-square butacas"></i></span></td>
+                      <td id='35'><span class='toClick'><span class="butacaNumber">36</span><i class="fa fa-square butacas"></i></span></td>
+                    </tr>
+                    <tr>
+                      <td id='36'><span class='toClick'><span class="butacaNumber">37</span><i class="fa fa-square butacas"></i></span></td>
+                      <td id='37'><span class='toClick'><span class="butacaNumber">38</span><i class="fa fa-square butacas "></i></span></td>
+                      <td class="pasillo"></td>
+                      <td id='38'><span class='toClick'><span class="butacaNumber">39</span><i class="fa fa-square butacas"></i></span></td>
+                      <td id='39'><span class='toClick'><span class="butacaNumber">40</span><i class="fa fa-square butacas"></i></span></td>
+                    </tr>
+                    <tr>
+                      <td id='40'><span class='toClick'><span class="butacaNumber">41</span><i class="fa fa-square butacas"></i></span></td>
+                      <td id='41'><span class='toClick'><span class="butacaNumber">42</span><i class="fa fa-square butacas "></i></span></td>
+                      <td class="pasillo"></td>
+                      <td id='42'><span class='toClick'><span class="butacaNumber">43</span><i class="fa fa-square butacas"></i></span></td>
+                      <td id='43'><span class='toClick'><span class="butacaNumber">44</span><i class="fa fa-square butacas"></i></span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="divTabla">
+                <table id="tablaButacasIda2" class="table tableBorder table-condensed table-bordered">
+                  <caption class="caption">Piso Inferior</caption>
+                  <thead>
+                  </thead>
+                  <tbody id="bTablaButacasIda2" class="tButacas tIda">
+                    <tr>
+                      <td><i class="fa fa-square butacas"></i></td>
+                      <td><i class="fa fa-square butacas "></i></td>
+                      <td class="pasillo"></td>
+                      <td><i class="fa fa-square butacas"></i></td>
+                      <td><i class="fa fa-square butacas"></i></td>
+                    </tr>
+                    <tr>
+                      <td><i class="fa fa-square butacas"></i></td>
+                      <td><i class="fa fa-square butacas "></i></td>
+                      <td class="pasillo"></td>
+                      <td><i class="fa fa-square butacas"></i></td>
+                      <td><i class="fa fa-square butacas"></i></td>
+                    </tr>
+                    <tr>
+                      <td><i class="fa fa-square butacas"></i></td>
+                      <td><i class="fa fa-square butacas "></i></td>
+                      <td class="pasillo"></td>
+                      <td><i class="fa fa-square butacas"></i></td>
+                      <td><i class="fa fa-square butacas"></i></td>
+                    </tr>
+                    <tr>
+                      <td id='44'><span class='toClick'><span class="butacaNumber">45</span><i class="fa fa-square butacas"></i></span></td>
+                      <td id='45'><span class='toClick'><span class="butacaNumber">46</span><i class="fa fa-square butacas "></i></span></td>
+                      <td class="pasillo">TV</td>
+                      <td><i class="fa fa-square butacas"></i></td>
+                      <td><i class="fa fa-square butacas"></i></td>
+                    </tr>
+                    <tr>
+                      <td id='46'><span class='toClick'><span class="butacaNumber">47</span><i class="fa fa-square butacas"></i></span></td>
+                      <td id='47'><span class='toClick'><span class="butacaNumber">48</span><i class="fa fa-square butacas "></i></span></td>
+                      <td class="pasillo"></td>
+                      <td><i class="fa fa-square butacas"></i></td>
+                      <td><i class="fa fa-square butacas"></i></td>
+                    </tr>
+                    <tr>
+                      <td id='48'><span class='toClick'><span class="butacaNumber">49</span><i class="fa fa-square butacas"></i></span></td>
+                      <td id='49'><span class='toClick'><span class="butacaNumber">50</span><i class="fa fa-square butacas "></i></span></td>
+                      <td class="pasillo"></td>
+                      <td><i class="fa fa-square butacas"></i></td>
+                      <td><i class="fa fa-square butacas"></i></td>
+                    </tr>
+                    <tr>
+                      <td id='50'><span><span></span><i class="fa fa-square butacas"></i></span></td>
+                      <td id='51'><span><span></span><i class="fa fa-square butacas "></i></span></td>
+                      <td class="pasillo"></td>
+                      <td><i class="fa fa-square butacas"></i></td>
+                      <td><i class="fa fa-square butacas"></i></td>
+                    </tr>
+                    <tr>
+                      <td style="background-color: grey; height: 100px;"></td>
+                      <td style="background-color: grey; height: 100px;"></td>
+                      <td class="pasillo"></td>
+                      <td style="background-color: grey; height: 100px;"></td>
+                      <td style="background-color: grey; height: 100px;"></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="carousel-caption">
+            </div>
+          </div>
+          <div class="item">
+            <div class='tableTitle'>VUELTA</div>
+            <div class="container">
+              <div class="divTabla">
+                <table id="tablaButacasVuelta" class="table tableBorder table-condensed table-bordered">
+                  <caption class="caption">Piso Superior</caption>
+                  <thead>
+                  </thead>
+                  <tbody id="bTablaButacasVuelta" class="tButacas tVuelta">
+                    <tr>
+                      <td id='0'><span class='toClick'><span class="butacaNumber">1</span><i class="fa fa-square butacas"></i></span></td>
+                      <td id='1'><span class='toClick'><span class="butacaNumber">2</span><i class="fa fa-square butacas "></i></span></td>
+                      <td class="pasillo"></td>
+                      <td id='2'><span class='toClick'><span class="butacaNumber">3</span><i class="fa fa-square butacas"></i></span></td>
+                      <td id='3'><span class='toClick'><span class="butacaNumber">4</span><i class="fa fa-square butacas"></i></span></td>
+                    </tr>
+                    <tr>
+                      <td id='4'><span class='toClick'><span class="butacaNumber">5</span><i class="fa fa-square butacas"></i></span></td>
+                      <td id='5'><span class='toClick'><span class="butacaNumber">6</span><i class="fa fa-square butacas "></i></span></td>
+                      <td class="pasillo"></td>
+                      <td><i class="fa fa-square butacas"></i></td>
+                      <td><i class="fa fa-square butacas"></i></td>
+                    </tr>
+                    <tr>
+                      <td id='6'><span class='toClick'><span class="butacaNumber">7</span><i class="fa fa-square butacas"></i></span></td>
+                      <td id='7'><span class='toClick'><span class="butacaNumber">8</span><i class="fa fa-square butacas "></i></span></td>
+                      <td class="pasillo"><i class="fa butacas"></i></td>
+                      <td><i class="fa fa-square butacas"></i></td>
+                      <td><i class="fa fa-square butacas"></i></td>
+                    </tr>
+                    <tr>
+                      <td id='8'><span class='toClick'><span class="butacaNumber">9</span><i class="fa fa-square butacas"></i></span></td>
+                      <td id='9'><span class='toClick'><span class="butacaNumber">10</span><i class="fa fa-square butacas "></i></span></td>
+                      <td class="pasillo"></td>
+                      <td id='10'><span class='toClick'><span class="butacaNumber">11</span><i class="fa fa-square butacas"></i></span></td>
+                      <td id='11'><span class='toClick'><span class="butacaNumber">12</span><i class="fa fa-square butacas"></i></span></td>
+                    </tr>
+                    <tr>
+                      <td id='12'><span class='toClick'><span class="butacaNumber">13</span><i class="fa fa-square butacas"></i></span></td>
+                      <td id='13'><span class='toClick'><span class="butacaNumber">14</span><i class="fa fa-square butacas "></i></span></td>
+                      <td class="pasillo"></td>
+                      <td id='14'><span class='toClick'><span class="butacaNumber">15</span><i class="fa fa-square butacas"></i></span></td>
+                      <td id='15'><span class='toClick'><span class="butacaNumber">16</span><i class="fa fa-square butacas"></i></span></td>
+                    </tr>
+                    <tr>
+                      <td id='16'><span class='toClick'><span class="butacaNumber">17</span><i class="fa fa-square butacas"></i></span></td>
+                      <td id='17'><span class='toClick'><span class="butacaNumber">18</span><i class="fa fa-square butacas "></i></span></td>
+                      <td class="pasillo"></td>
+                      <td id='18'><span class='toClick'><span class="butacaNumber">19</span><i class="fa fa-square butacas"></i></span></td>
+                      <td id='19'><span class='toClick'><span class="butacaNumber">20</span><i class="fa fa-square butacas"></i></span></td>
+                    </tr>
+                    <tr>
+                      <td id='20'><span class='toClick'><span class="butacaNumber">21</span><i class="fa fa-square butacas"></i></span></td>
+                      <td id='21'><span class='toClick'><span class="butacaNumber">22</span><i class="fa fa-square butacas "></i></span></td>
+                      <td class="pasillo">TV</td>
+                      <td id='22'><span class='toClick'><span class="butacaNumber">23</span><i class="fa fa-square butacas"></i></span></td>
+                      <td id='23'><span class='toClick'><span class="butacaNumber">24</span><i class="fa fa-square butacas"></i></span></td>
+                    </tr>
+                    <tr>
+                      <td id='24'><span class='toClick'><span class="butacaNumber">25</span><i class="fa fa-square butacas"></i></span></td>
+                      <td id='25'><span class='toClick'><span class="butacaNumber">26</span><i class="fa fa-square butacas "></i></span></td>
+                      <td class="pasillo"></td>
+                      <td id='26'><span class='toClick'><span class="butacaNumber">27</span><i class="fa fa-square butacas"></i></span></td>
+                      <td id='27'><span class='toClick'><span class="butacaNumber">28</span><i class="fa fa-square butacas"></i></span></td>
+                    </tr>
+                    <tr>
+                      <td id='28'><span class='toClick'><span class="butacaNumber">29</span><i class="fa fa-square butacas"></i></span></td>
+                      <td id='29'><span class='toClick'><span class="butacaNumber">30</span><i class="fa fa-square butacas "></i></span></td>
+                      <td class="pasillo"></td>
+                      <td id='30'><span class='toClick'><span class="butacaNumber">31</span><i class="fa fa-square butacas"></i></span></td>
+                      <td id='31'><span class='toClick'><span class="butacaNumber">32</span><i class="fa fa-square butacas"></i></span></td>
+                    </tr>
+                    <tr>
+                      <td id='32'><span class='toClick'><span class="butacaNumber">33</span><i class="fa fa-square butacas"></i></span></td>
+                      <td id='33'><span class='toClick'><span class="butacaNumber">34</span><i class="fa fa-square butacas "></i></span></td>
+                      <td class="pasillo">TV</td>
+                      <td id='34'><span class='toClick'><span class="butacaNumber">35</span><i class="fa fa-square butacas"></i></span></td>
+                      <td id='35'><span class='toClick'><span class="butacaNumber">36</span><i class="fa fa-square butacas"></i></span></td>
+                    </tr>
+                    <tr>
+                      <td id='36'><span class='toClick'><span class="butacaNumber">37</span><i class="fa fa-square butacas"></i></span></td>
+                      <td id='37'><span class='toClick'><span class="butacaNumber">38</span><i class="fa fa-square butacas "></i></span></td>
+                      <td class="pasillo"></td>
+                      <td id='38'><span class='toClick'><span class="butacaNumber">39</span><i class="fa fa-square butacas"></i></span></td>
+                      <td id='39'><span class='toClick'><span class="butacaNumber">40</span><i class="fa fa-square butacas"></i></span></td>
+                    </tr>
+                    <tr>
+                      <td id='40'><span class='toClick'><span class="butacaNumber">41</span><i class="fa fa-square butacas"></i></span></td>
+                      <td id='41'><span class='toClick'><span class="butacaNumber">42</span><i class="fa fa-square butacas "></i></span></td>
+                      <td class="pasillo"></td>
+                      <td id='42'><span class='toClick'><span class="butacaNumber">43</span><i class="fa fa-square butacas"></i></span></td>
+                      <td id='43'><span class='toClick'><span class="butacaNumber">44</span><i class="fa fa-square butacas"></i></span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="divTabla">
+                <table id="tablaButacasVuelta2" class="table tableBorder table-condensed table-bordered">
+                  <caption class="caption">Piso Inferior</caption>
+                  <thead>
+                  </thead>
+                  <tbody id="bTablaButacasVuelta2" class="tButacas tVuelta">
+                    <tr>
+                      <td><i class="fa fa-square butacas"></i></td>
+                      <td><i class="fa fa-square butacas "></i></td>
+                      <td class="pasillo"></td>
+                      <td><i class="fa fa-square butacas"></i></td>
+                      <td><i class="fa fa-square butacas"></i></td>
+                    </tr>
+                    <tr>
+                      <td><i class="fa fa-square butacas"></i></td>
+                      <td><i class="fa fa-square butacas "></i></td>
+                      <td class="pasillo"></td>
+                      <td><i class="fa fa-square butacas"></i></td>
+                      <td><i class="fa fa-square butacas"></i></td>
+                    </tr>
+                    <tr>
+                      <td><i class="fa fa-square butacas"></i></td>
+                      <td><i class="fa fa-square butacas "></i></td>
+                      <td class="pasillo"></td>
+                      <td><i class="fa fa-square butacas"></i></td>
+                      <td><i class="fa fa-square butacas"></i></td>
+                    </tr>
+                    <tr>
+                      <td id='44'><span class='toClick'><span class="butacaNumber">45</span><i class="fa fa-square butacas"></i></span></td>
+                      <td id='45'><span class='toClick'><span class="butacaNumber">46</span><i class="fa fa-square butacas "></i></span></td>
+                      <td class="pasillo">TV</td>
+                      <td><i class="fa fa-square butacas"></i></td>
+                      <td><i class="fa fa-square butacas"></i></td>
+                    </tr>
+                    <tr>
+                      <td id='46'><span class='toClick'><span class="butacaNumber">47</span><i class="fa fa-square butacas"></i></span></td>
+                      <td id='47'><span class='toClick'><span class="butacaNumber">48</span><i class="fa fa-square butacas "></i></span></td>
+                      <td class="pasillo"></td>
+                      <td><i class="fa fa-square butacas"></i></td>
+                      <td><i class="fa fa-square butacas"></i></td>
+                    </tr>
+                    <tr>
+                      <td id='48'><span class='toClick'><span class="butacaNumber">49</span><i class="fa fa-square butacas"></i></span></td>
+                      <td id='49'><span class='toClick'><span class="butacaNumber">50</span><i class="fa fa-square butacas "></i></span></td>
+                      <td class="pasillo"></td>
+                      <td><i class="fa fa-square butacas"></i></td>
+                      <td><i class="fa fa-square butacas"></i></td>
+                    </tr>
+                    <tr>
+                      <td id='50'><span><span></span><i class="fa fa-square butacas"></i></span></td>
+                      <td id='51'><span><span></span><i class="fa fa-square butacas "></i></span></td>
+                      <td class="pasillo"></td>
+                      <td><i class="fa fa-square butacas"></i></td>
+                      <td><i class="fa fa-square butacas"></i></td>
+                    </tr>
+                    <tr>
+                      <td style="background-color: grey; height: 100px;"></td>
+                      <td style="background-color: grey; height: 100px;"></td>
+                      <td class="pasillo"></td>
+                      <td style="background-color: grey; height: 100px;"></td>
+                      <td style="background-color: grey; height: 100px;"></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="carousel-caption">
+            </div>
+          </div>
+        </div>
+
+        <!-- Controls -->
+        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev" style="visibility: hidden;">
+          <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next" style="visibility: hidden;">
+          <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+       </div>
+       <div class="danger alert-danger main-glass" role="alert" id="divDanger">
+           <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+           <strong id="strongDanger"></strong>
+           <br>
+           <span id="spanDanger"></span>
+       </div>
+      </div>
+      <div class="col-lg-3">
+        <div id="divBtn">
+          <button type="button" id="btnContinuar" class="btn btn-lg button-glass"><span class="glyphicon glyphicon-ok-sign"></span> Continuar</button>
+        </div>
+      </div>
+      </div>
+
+      <!-- SCRIPTS -->
+      <script src="js/jquery-1.11.2.min.js"></script>
+      <script src="js/bootstrap.min.js"></script>
+      <script src="js/mensaje.js"></script>
+      <script src="js/fechaGetter.js"></script>
+      <script src="js/seleccionButacas.js"></script>
+      </body>
+</html>

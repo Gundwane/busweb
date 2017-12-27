@@ -1,0 +1,9 @@
+@font-face {
+    font-family: butlerBold;
+    src: url('fonts/lato/Lato-BlackItalic.ttf');
+}
+
+body{
+  font-family: butlerBold;
+  font-weight: bold;
+}

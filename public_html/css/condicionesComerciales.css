@@ -1,0 +1,35 @@
+.jumbotron{
+  background-color: #252d30;
+  color: #F2F2F2;;
+  position: static;
+}
+
+.button-glass{
+  padding: 20px;
+  margin-bottom: 3px;
+  position: relative;
+  background: #252d30;
+  z-index: 1;
+  box-shadow: 0 .5em 1em rgba(0,0,0,.9);
+}
+
+.btn{
+  background-color: #252d30;
+  color: #F2F2F2;
+}
+
+.btn:hover{
+  background-color: #F2F2F2;
+  color: #252d30;
+  border-color: #252d30;
+}
+
+#empresaVuelta{
+  display: none;
+}
+
+body{
+  background: url('../images/white-wallpaper-2.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
