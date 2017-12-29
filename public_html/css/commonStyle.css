@@ -66,6 +66,10 @@
   color: #F2F2F2;
 }
 
+#spanUser{
+  font-size: 15px;
+}
+
 #spanFecha{
   float: right;
   font-size: 15px;

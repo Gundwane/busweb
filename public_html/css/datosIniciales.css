@@ -52,15 +52,6 @@
   box-shadow: 0px 0px 5px red;
 }
 
-#spanUser{
-  font-size: 15px;
-}
-
-#spanFecha{
-  float: right;
-  font-size: 15px;
-}
-
 #divOrigen{
     margin: 4px;
     float: left;

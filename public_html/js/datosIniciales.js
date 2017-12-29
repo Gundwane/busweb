@@ -54,7 +54,7 @@ $(function () {
 
     $('#backButton').click(function(){
       window.location.replace('login.html');
-    })
+    });
 
     $("#btnBuscar").click(function () {                                         //Boton Submit
         var inputFechaIda = new Date();

@@ -1,5 +1,5 @@
 $(function(){
-  sessionCheck();
+    sessionCheck();
     var data = JSON.parse(sessionStorage.getItem('data'));
     var ciudadOrigen = data[0];
     var ciudadDestino = data[1];
@@ -225,6 +225,32 @@ $(function(){
             }
         });
     }
+
+    function mostrarCiudades (dropdownOrigen, dropdownDestino) {
+        var url = 'acciones.php?accion=ciudades';
+
+        $.ajax({
+            url: url,
+            method: 'GET',
+            success: function (data) {
+                data = $.parseJSON(data);
+                var html = "";
+
+                $.each(data, function (index, data) {
+                    html += '<li>' +
+                            '<a>' + data.nombre + '</a>' +
+                            '</li>';
+                });
+
+                dropdownOrigen.append(html);
+                dropdownDestino.append(html);
+            },
+            error: function (data) {
+                console.log("Error data");
+                console.log(data);
+            }
+        });
+    };
 
     cantidadButacas = function (data) {
       var arrayCountButacas = {};
@@ -457,6 +483,24 @@ $(function(){
         mensajeAlerta('Nope', 'La fecha de regreso no puede ser anterior a la de ida');
       }
     }
+
+    $('.datepicker').datepicker({
+        dateFormat: "dd-mm-yy",
+        dateonly: true,
+        minDate: 0,
+        firstDay: 1,
+        yearRange: '+0:+1',
+        changeMonth: true,
+        changeYear: true,
+        dayNamesMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"],
+        dayNamesShort: ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"],
+        monthNames:
+                ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio",
+                    "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+        monthNamesShort:
+                ["Ene", "Feb", "Mar", "Abr", "May", "Jun",
+                    "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"]
+    });
 
     function nuller(){
       selectedIdIda = null;

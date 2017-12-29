@@ -1,4 +1,5 @@
 $(function(){
+  sessionCheck();
   var empresa1 = sessionStorage.getItem('1');
   var empresa2 = sessionStorage.getItem('2');
   var div1 = $('#empresaIda');
