@@ -1,4 +1,5 @@
 $(function () {
+    sessionCheck();
     cleanLocalStorage();
     var dropdownOrigen = $('#dropdownCiudadesOrigen');
     var btnDropdownOrigen = $("#btnDropdownOrigen");
@@ -29,11 +30,9 @@ $(function () {
         });
     };
 
-    $('#spanUser').append(usuario+'!');
-
     $('#btnImprimir').click(function(){
       window.location.replace('ticket.html');
-    })
+    });
 
     $("#datepickerOrigen").on("click", function () {                            //Remover clases de inputs
         $(this).removeClass("redBorder");                                       //El Dropdown se pone en rojo cuando hay un error

@@ -1,4 +1,5 @@
 $(function(){
+  sessionCheck();
   var montoTotal;
   var idTramoIda = localStorage.getItem('servicioIda');
   var idTramoVuelta = localStorage.getItem('servicioVuelta');
@@ -18,7 +19,7 @@ $(function(){
 
   $('#backButton').click(function(){
     window.location.replace('datosPasajero.html');
-  })
+  });
 
   $('#boton').click(function(){
     var butaca;

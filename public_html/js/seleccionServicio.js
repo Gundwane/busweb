@@ -1,4 +1,5 @@
 $(function(){
+  sessionCheck();
     var data = JSON.parse(sessionStorage.getItem('data'));
     var ciudadOrigen = data[0];
     var ciudadDestino = data[1];

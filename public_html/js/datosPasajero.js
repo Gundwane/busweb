@@ -1,4 +1,5 @@
 $(function(){
+  sessionCheck();
   var origen = localStorage.getItem('ciudadOrigen');
   var destino = localStorage.getItem('ciudadDestino');
   var fechaIda = localStorage.getItem('fechaIda');

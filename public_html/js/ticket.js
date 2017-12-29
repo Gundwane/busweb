@@ -1,7 +1,8 @@
 $(function(){
+  sessionCheck();
   $('#backButton').click(function(){
     window.location.replace('pago.html');
-  })
+  });
 
   $('#btnBuscar').click(function(){
     var url = 'acciones.php?accion=getTicket';

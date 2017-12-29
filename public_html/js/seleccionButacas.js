@@ -1,4 +1,5 @@
 $(function(){
+  sessionCheck();
   var flagIda = '.tIda';
   var flagVuelta = '.tVuelta';
   var flagVCheck = false;
