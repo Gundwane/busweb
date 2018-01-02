@@ -18,6 +18,24 @@ $(function(){
     var horaIda = null, horaVuelta = null, diaIda = null, diaVuelta = null, nomEmpresa1, nomEmpresa2;
     var fechaIda2, fechaVuelta2; //fechaVuelta2 es almacenada en el localStorage y recuperada en datos de pasajero
 
+    $('.datepicker').datepicker({
+        dateFormat: "dd-mm-yy",
+        dateonly: true,
+        minDate: 0,
+        firstDay: 1,
+        yearRange: '+0:+1',
+        changeMonth: true,
+        changeYear: true,
+        dayNamesMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"],
+        dayNamesShort: ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"],
+        monthNames:
+                ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio",
+                    "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+        monthNamesShort:
+                ["Ene", "Feb", "Mar", "Abr", "May", "Jun",
+                    "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"]
+    });
+
     $('#btnDropdownOrigen2').html(ciudadOrigen);
     $('#btnDropdownDestino2').html(ciudadDestino);
     $('#datepickerOrigen2').val(fechaIda);
@@ -108,7 +126,9 @@ $(function(){
         sessionStorage.setItem('1', nomEmpresa1);
         if (radioIdaVuelta == '2') {
           if (selectedIdVuelta != null || selectedIdVuelta != undefined) {
-            tiempoDiferencia(horaIda, horaVuelta, diaIda, diaVuelta);
+            if (tiempoValidator(horaIda, horaVuelta, diaIda, diaVuelta)) {
+              vueltaItemSetter();
+            }
           }else {
             mensajeAlerta('Error', 'Debes seleccionar un tramo de regreso');
           }
@@ -250,7 +270,7 @@ $(function(){
                 console.log(data);
             }
         });
-    };
+    }
 
     cantidadButacas = function (data) {
       var arrayCountButacas = {};
@@ -274,7 +294,7 @@ $(function(){
         return arrayCountButacas;
     };
 
-    getPrecios = function(){
+    function getPrecios(){
       const deferred = $.Deferred();
       var url='acciones.php?accion=getPrecio';
       $.ajax({
@@ -289,7 +309,7 @@ $(function(){
         }
       });
       return deferred.promise();
-    };
+    }
 
     sumarFecha = function(tiempoSuma, stringTime, duracion){
       var minutosTotalesDuracion = 0;
@@ -410,8 +430,8 @@ $(function(){
         }
         selectedCart2 = $(this).closest('tr').attr('id');
 
-        horaVuelta = $(this).closest('tr').find('.horarioLlegada .horaSpan').text();
-        diaVuelta = $(this).closest('tr').find('.horarioLlegada .diaSpan').text(); //revisar utilidad de esta variable (no me acuerdo para que se usa)
+        horaVuelta = $(this).closest('tr').find('.horarioSalida .horaSpan').text();
+        diaVuelta = $(this).closest('tr').find('.horarioSalida .diaSpan').text(); //revisar utilidad de esta variable (no me acuerdo para que se usa)
         fechaVuelta2 = $(this).closest('tr').find('.horarioSalida').html().split('<br>')[0];//divide horarioLlegada en 2 usando <br> para "splitear", y almacena el primer elemento de las dos partes
         selectedIdVuelta = $(this).closest('tr').attr('id');
         nomEmpresa2 = $(this).closest('tr').find('#spanEmpresa').text();
@@ -446,36 +466,40 @@ $(function(){
       return tiempoFormateado;
     }
 
-    function tiempoDiferencia(hora1, hora2, fecha1, fecha2){        //Calcula que no se ingrese un horario de vuelta anterior al de llegada a destino
-      //console.log(hora1+' '+hora2);
-      console.log(fechaVuelta2);
+    function tiempoValidator(hora1, hora2, fecha1, fecha2){        //Calcula que no se ingrese un horario de vuelta anterior al de llegada a destino
       hora1split = hora1.split(':');
       hora2split = hora2.split(':');
 
-      if (true) {
+      var dia_mayor = fecha1 > fecha2;
+      var dia_igual = fecha1 === fecha2;
+      var hora_mayor = hora1split[0] > hora2split[0];
+      var minutos_mayor = (hora1split[0] === hora2split[0]) && (hora1split[1] > hora2split[1]);
+      var minutos_iguales = (hora1split[0] === hora2split[0]) && (hora1split[1] === hora2split[1]);
 
+      if (dia_mayor) {
+        mensajeAlerta('La fecha de salida de regreso es anterior al de la llegada de ida');
+        return false;
       }
 
-      if (fecha1 > fecha2) {
-        mensajeAlerta('El horario o fecha de regreso no puede ser anterior al de ida');
-        return;
-        }else if (hora1split[0] > hora2split[0]) {
-          console.log('1: '+hora1+' '+fecha1+' - 2: '+hora2+' '+fechaVuelta2);
-          mensajeAlerta('El horario o fecha de regreso no puede ser anterior al de ida');
-          return;
-          }else if ((hora1split[0] == hora2split[0]) && (hora1split[1] > hora2split[1])) {
-            mensajeAlerta('El horario o fecha de regreso no puede ser anterior al de ida');
-            return;
-      }else {
-        localStorage.setItem('servicioVuelta', selectedIdVuelta);
-        sessionStorage.setItem('2', nomEmpresa2);
-        localStorage.setItem('fechaVuelta', fechaVuelta2);
-        localStorage.setItem('horaVuelta', horaVuelta);
-        localStorage.setItem('horarioSalidaVuelta', horarioSalidaVuelta);
-        localStorage.setItem('fechaVueltaNF', $('#datepickerDestino2').datepicker('getDate'));
-        localStorage.setItem('empresaVuelta', nomEmpresa2);
-        //window.location.replace('condicionesComerciales.html');
+      if (dia_igual) {
+        if (hora_mayor || minutos_mayor || minutos_iguales) {
+          mensajeAlerta('El horario de salida de regreso es anterior al de la llegada de ida');
+          return false;
+        }
       }
+      
+      return true;
+    }
+
+    function vueltaItemSetter(){
+      localStorage.setItem('servicioVuelta', selectedIdVuelta);
+      sessionStorage.setItem('2', nomEmpresa2);
+      localStorage.setItem('fechaVuelta', fechaVuelta2);
+      localStorage.setItem('horaVuelta', horaVuelta);
+      localStorage.setItem('horarioSalidaVuelta', horarioSalidaVuelta);
+      localStorage.setItem('fechaVueltaNF', $('#datepickerDestino2').datepicker('getDate'));
+      localStorage.setItem('empresaVuelta', nomEmpresa2);
+      window.location.replace('condicionesComerciales.html');
     }
 
     function fechaChecker(diaI, diaV){                               //Calcula que la fecha de vuelta no sea anterior a la de ida
@@ -484,23 +508,26 @@ $(function(){
       }
     }
 
-    $('.datepicker').datepicker({
-        dateFormat: "dd-mm-yy",
-        dateonly: true,
-        minDate: 0,
-        firstDay: 1,
-        yearRange: '+0:+1',
-        changeMonth: true,
-        changeYear: true,
-        dayNamesMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"],
-        dayNamesShort: ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"],
-        monthNames:
-                ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio",
-                    "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
-        monthNamesShort:
-                ["Ene", "Feb", "Mar", "Abr", "May", "Jun",
-                    "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"]
-    });
+    function dropdownCaptura(dropdown, boton) {
+        var ciudad;
+        dropdown.on('click', 'li', function () {
+            ciudad = $(this).text();
+
+            if (boton.hasClass('redBorder')) {
+                boton.removeClass('redBorder');
+                $('#divDanger').fadeOut();
+            }
+            boton.html(ciudad);
+            if (dropdown === dropdownOrigen) {
+               arraySession.splice(0,1,ciudad);
+               ciudadOrigen = ciudad;
+            }else {
+               arraySession.splice(1,1,ciudad);
+               ciudadDestino = ciudad;
+            }
+            return ciudad;
+        });
+    }
 
     function nuller(){
       selectedIdIda = null;
