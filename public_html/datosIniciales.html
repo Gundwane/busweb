@@ -17,7 +17,6 @@
         <link href="css/datosIniciales.css" rel="stylesheet">
     </head>
     <body>
-      <main role="main">
         <div class="jumbotron">
             <span id="spanUser" class="label">Bienvenido, </span><span id="spanFecha" class="label"></span>
             | <a id="cerrarSession">Salir</a>
@@ -29,8 +28,7 @@
         <div class="col-lg-2"></div>
 
         <div class="main-glass col-lg-8">
-          <form id="formWeb" method="post" action="validacion.php">
-              <div id="divOrigen">
+              <div class="flex-width" id="divOrigen">
                   <div class="dropdown" id="divDropdownOrigen">
                       <label>Ciudad de Origen</label>
                       <button class="btn dropdown-toggle" type="button" id="btnDropdownOrigen" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -43,7 +41,7 @@
                   <label>Fecha de ida</label>
                   <input type="text" name="datepickerOrigen" id="datepickerOrigen" class="datepicker">
               </div>
-              <div id="divDestino">
+              <div class="flex-width" id="divDestino">
                   <div class="dropdown" id="divDropdownDestino">
                       <label>Ciudad de Destino</label>
                       <button class="btn dropdown-toggle" type="button" id="btnDropdownDestino" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -56,27 +54,29 @@
                   <label>Fecha de regreso</label>
                   <input type="text" name="datepickerDestino" id="datepickerDestino" class="datepicker" disabled>
               </div>
-              <div id="divRadio">
-                  <label class="radio-inline"><input type="radio" name="optradio" value="1" checked="checked">Ida</label>
-                  <label class="radio-inline"><input type="radio" name="optradio" value="2">Ida y vuelta</label>
-                    <button type="button" id="btnBuscar" class="btn pull-right">
-                        <span class="glyphicon glyphicon-search"></span>Buscar
-                    </button>
-                    <button type="button" id="btnImprimir" class="btn pull-right">
-                        <span class="glyphicon glyphicon-file"></span>Imprimir pasaje
-                    </button>
+              <div class="flex-width" id="divRadio">
+                  <label class="radio-inline"><input type="radio" name="optradio" value="1" checked="checked" style="">Ida</label>
+                  <label class="radio-inline"><input type="radio" name="optradio" value="2" style="">Ida y vuelta</label>
               </div>
-          </form>
-          <div class="danger alert-danger well" role="alert" id="divDanger">
-              <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-              <strong id="strongDanger"></strong>
-              <br>
-              <span id="spanDanger"></span>
+              <div class="flex-width" id="div-buscar-imprimir">
+                <button type="button" id="btnImprimir" class="btn">
+                    <span class="glyphicon glyphicon-file"></span>Imprimir pasaje
+                </button>
+              </div>
+          <div class="btn-block" style="position: absolute; top: 350%;">
+            <button type="button" id="btnContinuar" class="btn btn-lg btn-block button-glass">
+              <span class="glyphicon glyphicon-ok-sign"></span> Buscar
+            </button>
           </div>
+          <!--<div style="clear: both;"></div>-->
         </div>
-
         <div class="col-lg-2"></div>
-      </main>
+        <div class="danger alert-danger well" role="alert" id="divDanger">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <strong id="strongDanger"></strong>
+            <br>
+            <span id="spanDanger"></span>
+        </div>
         <!-- SCRIPTS -->
         <script src="js/jquery-1.11.2.min.js"></script>
         <script src="js/bootstrap.min.js"></script>

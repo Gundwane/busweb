@@ -1,15 +1,3 @@
-@media only screen and (max-width: 500px) {
-    .main-glass{
-      float: left;
-      overflow: auto;
-      height: 300px !important;
-    }
-
-    #bds{
-      float: left;
-    }
-}
-
 .jumbotron{
   background-color: #252d30;
   height: 180px;
@@ -30,10 +18,11 @@
 }
 
 .main-glass{
-  height: 200px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center space-around;
   margin-top: 40px;
-  padding: 20px;
-  position: relative;
   background-color: rgba(235,235,235,0.7);
   overflow: visible;
   z-index: 1;
@@ -52,63 +41,42 @@
   box-shadow: 0px 0px 5px red;
 }
 
-#divOrigen{
-    margin: 4px;
-    float: left;
+.flex-width{
+  width: 40%;
 }
 
-#divDropdownOrigen, #divDropdownDestino{
-    margin: 5px;
-    width: 400px;
-    height: 50px;
-}
-
-#divDestino{
-    margin: 5px;
-    float: right;
-}
-
-#divRadio{
-    margin: 5px;
-    clear: both;
-    position: relative;
-    top: 30px;
-}
-
-#divImprimir{
-    margin: 5px;
-    width: 400px;
-    height: 50px;
+.flex-width > *{
+  margin: 1%;
 }
 
 #btnBuscar{
-    position: absolute;
-    left: 53%;
+  left: 53%;
 }
 
 #divDanger{
-    display: none;
-    text-align: center;
-    padding: 5px;
-    position: fixed;
-    left: 15%; /*A la derecha deje un espacio de 0px*/
-    right: 15%; /*A la izquierda deje un espacio de 0px*/
-    bottom: 0px; /*Abajo deje un espacio de 0px*/
-    height: 50px; /*alto del div*/
-    z-index: 0;
+  display: none;
+  text-align: center;
+  padding: 5px;
+  position: fixed;
+  left: 15%; /*A la derecha deje un espacio de 0px*/
+  right: 15%; /*A la izquierda deje un espacio de 0px*/
+  bottom: 0px; /*Abajo deje un espacio de 0px*/
+  height: 50px; /*alto del div*/
+  z-index: 0;
 }
 
 ul{
-  margin-top: -15px !important;
-}
-
-main{
-  background: url('../images/background.jpg');
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  background-size: cover;
+    margin-top: -15px !important;
 }
 
 html, body, main {
-  height: 100%;
+    height: 100%;
+}
+
+body{
+    background-image: url('../images/background.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height:100%;
+    background-attachment: fixed;
 }

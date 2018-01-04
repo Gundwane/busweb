@@ -123,12 +123,12 @@ $(function () {
       var titulo = '';
         if (fechaIda === null) {
             $("#datepickerOrigen").addClass("redBorder");
-            titulo = "Che!", mensaje = "Elegir fecha de salida";
-            mensajeAlerta(titulo, mensaje);
+            mensaje = "Elegir fecha de salida";
+            mensajeAlerta(mensaje);
             return false;
         } else if (+fechaIda > +fecha30dias) {
-            titulo = "Nope", mensaje = "No pueden pasar mas de 30 dias de la fecha de salida";
-            mensajeAlerta(titulo, mensaje);
+            mensaje = "No pueden pasar mas de 30 dias de la fecha de salida";
+            mensajeAlerta(mensaje);
             return false;
         } else {
             return true;
