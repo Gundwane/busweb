@@ -4,10 +4,10 @@ Fué desarrollada a medida que iba aprendiendo, así que de seguro cuenta con er
 A medida que aprendo cosas nuevas voy mejorando, optimizando y haciendo mas legible el código.
 
 Usé para...
-1. Front-end:
-  +Bootstrap.
-  +JQuery.
-2. Back-end:
-  +PHP
-3. IDE:
-  +Atom
+1. Front-end
+  + Bootstrap
+  + JQuery
+2. Back-end
+  + PHP
+3. IDE
+  + Atom
