@@ -47,6 +47,11 @@
   color: #F2F2F2;
 }
 
+.intro{
+  z-index: 2;
+  color: white;
+}
+
 body{
   font-family: butlerBold;
   background-color: #848484;
