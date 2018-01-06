@@ -1,0 +1,11 @@
+div{
+  top: 40%;
+  left: 30%;
+  position: absolute;
+  font-size: 500%;
+  color: #F2F2F2;
+}
+
+body{
+  background-color: #252d30;
+}
