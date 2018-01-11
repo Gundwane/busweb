@@ -6,41 +6,43 @@
         <title>Transportes</title>
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/commonStyle.css" rel="stylesheet">
+        <link href="css/font.css" rel="stylesheet">
         <link href="css/login.css" rel="stylesheet">
     </head>
     <body>
         <div class="jumbotron">
           <h2>SOMETRANS</h2>
         </div>
-        <div class="image container">
+        <div class="col-lg-3 col-md-3 intro">
+            <p>Web desarrollada a medida que iba aprendiendo, así que de seguro cuenta con errores de principiante, malas prácticas y problemas de diseño.
+            A medida que aprendo cosas nuevas voy mejorando, optimizando y haciendo mas legible el código.</p>
+            <h3>En proceso:</h3>
+            <p>Responsividad</p>
         </div>
-        <div class="intro col-lg-4">
-          <p>Web desarrollada a medida que iba aprendiendo, así que de seguro cuenta con errores de principiante, malas prácticas y problemas de diseño.
-          A medida que aprendo cosas nuevas voy mejorando, optimizando y haciendo mas legible el código.</p>
-          <h3>En proceso:</h3>
-          <p>Responsividad</p>
+        <div class="col-lg-6 col-md-6 flex-container">
+          <div class="well main">
+                <form action="login.php" method="POST">
+                    <h1>LOGIN</h1>
+                    <div class="form-group">
+                        <label for="">Código Agencia</label>
+                        <input type="text" class="form-control" id="codigoAgencia" name="codigoAgencia" placeholder="" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Nombre</label>
+                        <input type="text" class="form-control" id="nombreLogin" name="nombreLogin" placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Password</label>
+                        <input type="password" class="form-control" id="passwordLogin" name="passwordLogin" placeholder="">
+                    </div>
+                    <button id="btnSubmit" type="submit" class="btn btn-default">Aceptar</button>
+                    <br>
+                    <button id="btnNuevo" type="button" class="btn btn-default">Nuevo Usuario</button>
+                </form>
+          </div>
         </div>
-        <div class="col-lg-4 well main">
-            <form action="login.php" method="POST">
-                <h1>LOGIN</h1>
-                <div class="form-group">
-                    <label for="">Código Agencia</label>
-                    <input type="text" class="form-control" id="codigoAgencia" name="codigoAgencia" placeholder="">
-                </div>
-                <div class="form-group">
-                    <label for="">Nombre</label>
-                    <input type="text" class="form-control" id="nombreLogin" name="nombreLogin" placeholder="">
-                </div>
-                <div class="form-group">
-                    <label for="">Password</label>
-                    <input type="password" class="form-control" id="passwordLogin" name="passwordLogin" placeholder="">
-                </div>
-                <button id="btnSubmit" type="submit" class="btn btn-default">Aceptar</button>
-                <br>
-                <button id="btnNuevo" type="button" class="btn btn-default">Nuevo Usuario</button>
-            </form>
-        </div>
-        <div class="col-lg-4">
+        <div class="col-lg-3 col-md-3">
+
         </div>
         <!-- SCRIPTS -->
         <script src="js/jquery-1.11.2.min.js"></script>

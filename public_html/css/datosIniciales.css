@@ -50,7 +50,9 @@
 }
 
 #btnBuscar{
-  left: 53%;
+  position: absolute;
+  top: 100%;
+  left: 0%;
 }
 
 #divDanger{
@@ -79,4 +81,10 @@ body{
     background-repeat: no-repeat;
     min-height:100%;
     background-attachment: fixed;
+}
+
+@media (max-width: 500px) {
+  .datepicker{
+    width: 100%;
+  }
 }

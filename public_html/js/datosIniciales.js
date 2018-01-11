@@ -53,7 +53,7 @@ $(function () {
     });
 
     $('#backButton').click(function(){
-      window.location.replace('login.html');
+      window.location.replace('index.html');
     });
 
     $("#btnBuscar").click(function () {                                         //Boton Submit

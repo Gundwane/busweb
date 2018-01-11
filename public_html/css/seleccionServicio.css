@@ -15,6 +15,7 @@
 }
 
 .main-glass{
+  height: auto;
   margin-top: 40px;
   padding: 20px;
   position: relative;
@@ -22,6 +23,10 @@
   background-color: rgba(235,235,235,0.8);
   z-index: 1;
   box-shadow: 7px 7px 15px -5px rgba(0,0,0,.9);
+}
+
+.responsive-glass{
+
 }
 
 .noDisplay{
@@ -107,4 +112,10 @@ body{
 
 html{
   /*height: 100%; --- Si se habilita, la imagen de fondo no ocupa toda la pag*/
+}
+
+@media (max-width: 500px) {
+  /*.responsive-glass{
+    background: rgba(255, 255, 255, 0.60);
+  }*/
 }
